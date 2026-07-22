@@ -1,0 +1,91 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { PersonaTransition } from "@/components/scene/PersonaTransition";
+import { SCENE_COMPONENTS } from "@/components/scene/registry";
+import { SCENES } from "@/lib/scenes";
+
+const CURTAIN_MS = 320;
+
+export function SceneController() {
+  const [index, setIndex] = useState(0);
+  const [displayIndex, setDisplayIndex] = useState(0);
+  const [transitionPhase, setTransitionPhase] = useState<"idle" | "in" | "out">("idle");
+  const pendingTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const goTo = useCallback(
+    (next: number) => {
+      if (next < 0 || next >= SCENES.length || transitionPhase !== "idle") return;
+      const personaChanged = SCENES[next].persona !== SCENES[index].persona;
+
+      if (!personaChanged) {
+        setIndex(next);
+        setDisplayIndex(next);
+        return;
+      }
+
+      setIndex(next);
+      setTransitionPhase("in");
+      pendingTimeout.current = setTimeout(() => {
+        setDisplayIndex(next);
+        setTransitionPhase("out");
+        pendingTimeout.current = setTimeout(() => setTransitionPhase("idle"), CURTAIN_MS);
+      }, CURTAIN_MS + 260);
+    },
+    [index, transitionPhase]
+  );
+
+  useEffect(() => () => {
+    if (pendingTimeout.current) clearTimeout(pendingTimeout.current);
+  }, []);
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      const target = e.target as HTMLElement | null;
+      if (target && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
+      if (e.key === "ArrowRight") goTo(index + 1);
+      if (e.key === "ArrowLeft") goTo(index - 1);
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [goTo, index]);
+
+  const CurrentScene = SCENE_COMPONENTS[SCENES[displayIndex].id];
+
+  // The scroll container is never remounted between scenes, so its scroll
+  // position must be reset by hand or the next scene opens mid-scroll.
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: 0 });
+  }, [displayIndex]);
+
+  return (
+    <div className="relative h-screen w-full overflow-hidden">
+      <div ref={scrollRef} className="h-full w-full overflow-y-auto">
+        <CurrentScene />
+      </div>
+
+      {transitionPhase !== "idle" && (
+        <PersonaTransition
+          persona={SCENES[index].persona}
+          phase={transitionPhase === "in" ? "in" : "out"}
+        />
+      )}
+
+      <div className="fixed bottom-6 right-6 z-40 flex items-center gap-3">
+        <span className="rounded-full bg-card/90 px-3 py-1 text-xs font-medium text-muted-foreground shadow-sm backdrop-blur">
+          {index + 1} / {SCENES.length} · {SCENES[index].title}
+        </span>
+        <Button
+          variant="default"
+          size="lg"
+          onClick={() => goTo(index + 1)}
+          disabled={index === SCENES.length - 1}
+        >
+          Next →
+        </Button>
+      </div>
+    </div>
+  );
+}

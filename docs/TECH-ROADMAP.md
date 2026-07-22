@@ -9,44 +9,25 @@ the Notion storyboard changes; it is not itself the source of truth for narrativ
 
 Status legend: ❌ not started · 🟡 in progress · ✅ done.
 
-> **Storyboard restructured (2026-07-22):** the Notion SSOT is now a tight **4-act play**
-> („Wie wir arbeitslos und reich wurden"), not the old 10-scene list. The per-scene sections below are
-> still useful as an **asset/task reference**, but map them onto the 4 acts (Akt 1 setup, Akt 2 shop+
-> checkout, Akt 3 fighter+generate, Akt 4 live+finale+reel).
-
-## ✅ Built — click-dummy v1 (deterministic deck)
-
-The click-through app that backs the play is live in the repo (`npm run dev`, builds clean):
-
-- ✅ **Deck shell** (`components/deck/Deck.tsx`): single `currentScene` state, persistent bottom
-  "Weiter →" control + "Zurück", keyboard (→/Space/←), progress dots, theatrical curtain wipe on every
-  transition. Deterministic, linear, never auto-advances.
-- ✅ **Motion kit** (`app/globals.css` + `components/deck/primitives.tsx`): `GagButton` (huge, funny line
-  on the button, hover-wobble; variants primary/teal/banner/pay/shy), one-shot `Confetti`, persistent
-  `MoneyRain`, `SlotCounter` (slot-machine count-up), `FakeProgress` (e.g. „KI liest deine Gedanken… %").
-- ✅ **9 scenes** (`components/deck/scenes.tsx`) covering all 4 acts: Titel, Autopilot-Schalter, Themen-
-  shop, Checkout (Niere/Erstgeborenes + Strand-Ticket-Confirm), Pick-your-fighter, „Take My Job Away"-
-  Generierung, Slot-Machine-Views, Finale (Renten-Banner + „vielleicht nur Urlaub" + Geldregen),
-  Highlight-Reel-Abspann.
-
-**Still open on the build side:** swap the two `[Video: …]` placeholder blocks (Akt 3 avatar video, Akt 4
-highlight reel) for real clips; likeness sign-off for the fighter avatars; optional sound effects; final
-copy polish. Asset needs per beat are listed below.
+**Live MVP deployed:** https://flixgames-hackathon.vercel.app — click through with the bottom-right
+"Next" control (or → / ← arrow keys). See `CHANGELOG.md` [0.5.0] for the full list of what's real vs.
+placeholder.
 
 ## Scene 2 — Shop → configure → checkout → book Referent
 
 **Build:**
-- ❌ Topic shop screen (reference `prebuilt-references/pharma-landing-page.html`) with a click-through to
-  the cost configurator step.
-- ❌ Checkout screen: fake Stripe/PayPal-styled payment form (no real branding/logos).
+- ✅ Topic shop screen (`components/scene/scenes/Shop.tsx`, replica of
+  `prebuilt-references/pharma-landing-page.html`) with a click-through to the cost configurator step.
+- 🟡 Checkout screen (`Checkout.tsx`, replica of `dx-agents/apps/cost-configurator`): fake payment form,
+  package cards, live-total summary — done. No real Stripe/PayPal branding used.
   - ❌ Joke-branded company credit card component showing a remaining budget/limit + 2–3 absurd fake
-    expense line items.
-  - ❌ Two joke payment-method buttons: **"Pay with your Kidneys"** / **"Pay with your Firstborn"**
+    expense line items — not built yet.
+  - ✅ Two joke payment-method buttons: **"Pay with your Kidneys"** / **"Pay with your Firstborn"**
     (decorative — clicking either just proceeds, no real branching).
-  - ❌ Doubled confirm button: `Projekt starten` + bonus sibling `Projekt starten und One-Way-Ticket an
-    den Strand buchen` (confetti/animation on click per the humor & motion rule).
-- ❌ Referent line-up beat: this is staged **live by actors**, not built in the app — no engineering task
-  here beyond a clean transition point in the scene sequence for the cast to step in.
+  - ✅ Doubled confirm button: `Projekt starten` + bonus sibling `Projekt starten und One-Way-Ticket an
+    den Strand buchen`. No confetti/animation on click yet (see cross-cutting confetti utility below).
+- ✅ Referent line-up beat: confirmed **not** built in-app, per this doc's own guidance — checkout just
+  shows a clean "Checkout abgeschlossen" completion state as the transition point for the cast.
 
 **Assets needed:**
 - Fake payment "logos"/icons for the two joke payment buttons (simple icon or emoji-based is fine —
@@ -58,13 +39,12 @@ copy polish. Asset needs per beat are listed below.
 ## Scene 3 — Pre-Kick-Off briefing → automatic requirements definition
 
 **Build:**
-- ❌ Briefing form: 2–3 real fields (focus area, preferred speaker) + rest greyed-out/symbolic, per demo
-  philosophy. Reference the real form in `dx-agents/apps/handover` (`survey.html`).
-- ❌ Doubled submit button: `Briefing absenden` + bonus sibling `Briefing absenden und Autoantwort
-  aktivieren bis Q4`.
-- ❌ Post-submit processing animation: a progress bar labeled **"KI liest Ihre Gedanken... 87 %"**
-  (fake progress, fixed duration, no real backend call) standing in for "automatic project
-  steps/requirements definition."
+- ✅ Briefing form (`Briefing.tsx`, replica of `dx-agents/apps/handover/survey.html`): 2 real fields
+  (focus chips + notes) + 3 greyed-out/symbolic sections, per demo philosophy.
+- ✅ Doubled submit button: `An Doctorflix übermitteln` + bonus sibling `Briefing absenden und
+  Autoantwort aktivieren bis Q4`.
+- ✅ Post-submit processing animation: a progress bar labeled **"KI liest Ihre Gedanken… 87 %"** (fake
+  progress, `setInterval`-driven, no real backend call).
 
 **Assets needed:**
 - None beyond existing shadcn components; progress bar can be a themed `Progress`/custom bar.
@@ -72,15 +52,14 @@ copy polish. Asset needs per beat are listed below.
 ## Scene 4 — Referent notified, uploads old deck
 
 **Build:**
-- ❌ Notification toast component (visible on-screen, not just narrated) triggering the Referent scene.
-- ❌ "Referent eating pizza" establishing visual — a still image/illustration or a short looping clip
-  behind/around the notification moment.
-- ❌ Simple slide builder shell (see [`PREBUILT-ASSETS.md`](PREBUILT-ASSETS.md#4-simple-slide-builder--referent-builds-the-presentation-to-build-ours)):
-  file upload control that echoes back a fixed filename **`Vortrag_FINAL_FINAL_v3_wirklich_final.ppt`**
-  regardless of what's actually selected (or pre-fill the picker with that name — no real file needs
-  parsing).
-- ❌ "AI cleans up the deck" transformation beat: before/after visual (grey blob deck → clean templated
-  slides), animated.
+- ✅ Notification banner component (visible on-screen, not just narrated) triggering the Referent scene
+  (`SlideBuilder.tsx`) — a static inline banner rather than a floating toast, close enough for the beat.
+- 🟡 "Referent eating pizza" establishing visual — currently just a 🍕 emoji in the notification text, no
+  real image/illustration yet.
+- ✅ Simple slide builder shell: upload control echoes back the fixed filename
+  **`Vortrag_FINAL_FINAL_v3_wirklich_final.ppt`** regardless of what's selected.
+- ✅ "AI cleans up the deck" transformation beat: before/after visual (upload placeholder → 3 clean
+  slide tiles + 3 greyed-out ones), click-triggered, no animation library.
 
 **Assets needed:**
 - A **pizza image/illustration** (Referent mid-bite) for the notification beat.
@@ -92,14 +71,14 @@ copy polish. Asset needs per beat are listed below.
 ## Scene 5 — Avatar select ("pick your fighter") → script → video generation
 
 **Build:**
-- ❌ **Street Fighter–style character-select screen**: portrait tiles in a versus-grid layout, hover/
-  select highlight + sound cue, "VS"-style framing. Three selectable fighters.
-- ❌ Script-generation step: auto-filled script preview + two stacked buttons —
-  `Take My Job Away` (primary) and `Take My Job Away (aber Gehalt behalten)` (secondary, smaller).
-- ❌ "Create Video" loading state + a preview player showing the avatar "speaking" (can be a static
-  image + captioned text bubble if a real avatar video isn't ready in time).
-- ❌ Video topic locked as **"Effect of Pizza on the Human Body"** — needs to show up as on-screen text
-  (topic label / script preview) somewhere in this scene.
+- 🟡 **Street Fighter–style character-select screen**: VS-framed grid with hover/select highlight is
+  built (`VideoGen.tsx`); tiles are initial-circle placeholders (Sehouli/Prelog/Paula Cramer by name),
+  not portrait art, and there's no select-confirm sound cue yet — both blocked on/pending real assets.
+- 🟡 Two stacked buttons `Take My Job Away` / `Take My Job Away (aber Gehalt behalten)` are built; no
+  separate auto-filled script preview text before them yet.
+- ✅ "Create Video" loading state + a preview via the reusable `VideoPlaceholder` (labeled placeholder,
+  not a real avatar video).
+- ✅ Video topic locked as **"Effect of Pizza on the Human Body"** — shown as on-screen text in the scene.
 
 **Assets needed — the big one for this scene:**
 - **Three character-select portraits**, Street-Fighter-poster style, for **Sehouli, Prelog, and Paula
@@ -112,11 +91,10 @@ copy polish. Asset needs per beat are listed below.
 ## Scenes 6–7 — Submit → publish → Pharma notified
 
 **Build:**
-- ❌ Submit transition (existing curtain/black-screen pattern) back to Pharma.
-- ❌ Published-video platform page.
-- ❌ **View-counter slot-machine animation**: rolling/ticking digits that decelerate and land on the
-  final count (e.g. a small custom hook/component — CSS transitions or a lightweight JS interval are
-  enough, no library needed).
+- ✅ Submit → publish flow (`Publish.tsx`), combined into one scene (both beats are quick hand-offs).
+- 🟡 Published-video "platform page" is a simple confirmation view, not a dashboard-style listing page —
+  covers the beat, could be built out further.
+- ✅ **View-counter slot-machine animation**: `setInterval`-driven ease-out digit tick-up, no library.
 
 **Assets needed:**
 - None beyond a numeric tick-up animation; optional short "cha-ching"/mechanical tick sound effect if
@@ -125,11 +103,10 @@ copy polish. Asset needs per beat are listed below.
 ## Scene 8 — One month later, the numbers payoff *(optional)*
 
 **Build:**
-- ❌ Dashboard numbers view showing an absurdly large view count (e.g. "10,000,000 views").
-- ❌ Blinking/penetrant banner-ad-style button: **"Shift Whole Business Unit to Doctorflix and Retire
-  Me"** (obvious ad-banner styling — bright color, blink/pulse animation, slightly obnoxious on purpose).
-- ❌ Smaller, shy secondary button right next to it: **"Vielleicht nur Urlaub"** (deliberately
-  understated/small in contrast).
+- ✅ Dashboard numbers view (`Payoff.tsx`) showing an absurdly large view count ("10.000.000").
+- ✅ Blinking/penetrant banner-ad-style button: **"Shift Whole Business Unit to Doctorflix and Retire
+  Me"** (bright yellow, `animate-pulse`, deliberately obnoxious ad-banner framing).
+- ✅ Smaller, shy secondary button right next to it: **"Vielleicht nur Urlaub"**.
 
 **Assets needed:**
 - None beyond CSS blink/pulse keyframes for the banner button; optionally a garish "ad banner" texture/
@@ -138,8 +115,10 @@ copy polish. Asset needs per beat are listed below.
 ## Scene 9 — DX-employee highlight reel
 
 **Build:**
-- ❌ This scene is a **pre-cut highlight-reel video**, not a live-built screen — production/editing task,
-  not app engineering. App just needs to play it full-screen at the right point in the scene sequence.
+- 🟡 This scene is a **pre-cut highlight-reel video**, not a live-built screen — production/editing task,
+  not app engineering. App-side (`DxReel.tsx`) has an animated Slack money-spam feed + a labeled
+  `VideoPlaceholder` standing in for the real edit; swap the placeholder for a real `<video>` once the
+  edit exists.
 
 **Assets needed:**
 - The edited highlight-reel video itself (Slack notification montage, beer, sales gong, "money money
@@ -147,14 +126,14 @@ copy polish. Asset needs per beat are listed below.
 
 ## Cross-cutting engineering tasks
 
-- ❌ Scene-sequence shell: ordered array of scene components + `currentScene` state + persistent
-  bottom-right "Next" control (+ keyboard shortcut) — the foundation everything above plugs into.
-- ❌ Reusable **transition component** (curtain-drop / black-screen / dimmed-lighting) used between every
-  actor↔screen handoff and persona switch.
-- ❌ Reusable **"bonus button" pattern** (primary action + over-the-top sibling) so each joke button
-  above doesn't get hand-rolled per screen.
-- ❌ Confetti/celebration micro-animation utility, reused across completion moments (checkout, briefing
-  submit, video published).
+- ✅ Scene-sequence shell (`SceneController.tsx`, `lib/scenes.ts`): ordered array of scene components +
+  `currentScene` state + persistent bottom-right "Next" control + arrow-key shortcut.
+- ✅ Reusable **transition component** (`PersonaTransition.tsx`): curtain-wipe, fires only on persona
+  switch. GTA-style swoop alternate not built — curtain covers the requirement for now.
+- ❌ Reusable **"bonus button" pattern** — still hand-rolled per screen (Checkout, Briefing, Video Gen
+  each duplicate the primary+sibling markup). Works for the MVP; worth extracting if more screens need it.
+- ❌ Confetti/celebration micro-animation utility — not built yet; completion moments currently use
+  simple state-swap reveals, no confetti.
 
 ## Open questions
 

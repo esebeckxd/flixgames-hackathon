@@ -1,5 +1,10 @@
-import { Deck } from "@/components/deck/Deck";
+import { SceneController } from "@/components/scene/SceneController";
+import { DemoStateProvider } from "@/lib/demo-state";
 
 export default function Home() {
-  return <Deck />;
+  return (
+    <DemoStateProvider>
+      <SceneController />
+    </DemoStateProvider>
+  );
 }
