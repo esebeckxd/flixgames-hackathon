@@ -15,7 +15,7 @@ import {
   Video,
   Wifi,
 } from "lucide-react";
-import { playNotification } from "@/lib/sound";
+import { playConfirm, playNotification } from "@/lib/sound";
 import styles from "./leosIphone.module.css";
 
 const CONTACT_NAME = "Hans (Best Co-Founder Ever) 🩷";
@@ -65,6 +65,12 @@ const HISTORY: Msg[] = [
 const REVEAL: Msg[] = [
   { kind: "text", from: "hans", text: "so uhh", time: "18:20" },
   { kind: "text", from: "hans", text: "do we need them anymore?", time: "18:20" },
+  {
+    kind: "text",
+    from: "hans",
+    text: "lets make them rich and buy them all out 🤑🤑",
+    time: "18:21",
+  },
 ];
 
 function Bubble({ msg }: { msg: Msg }) {
@@ -137,10 +143,15 @@ export function LeosIphone() {
       setRevealed(2);
       playNotification();
     }, 2900);
+    const t4 = setTimeout(() => {
+      setRevealed(3);
+      playConfirm();
+    }, 4100);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
+      clearTimeout(t4);
     };
   }, []);
 

@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 // Shared left-sidebar shell for both the Pharma-facing screens (Shop,
-// Checkout) and the Referent-facing upload screen — same visual system,
+// Checkout) and the Speaker-facing upload screen — same visual system,
 // different nav items per audience. v1, built without the real dashboard
 // reference — swap in exact nav items/styling once we have screenshots.
 const PHARMA_NAV = [
@@ -24,7 +24,7 @@ const PHARMA_NAV = [
   { id: "settings", label: "Settings", icon: Settings },
 ] as const;
 
-const REFERENT_NAV = [
+const SPEAKER_NAV = [
   { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
   { id: "assignments", label: "My Assignments", icon: FolderKanban },
   { id: "upload", label: "Upload", icon: Upload },
@@ -33,20 +33,20 @@ const REFERENT_NAV = [
 ] as const;
 
 type PharmaNavId = (typeof PHARMA_NAV)[number]["id"];
-type ReferentNavId = (typeof REFERENT_NAV)[number]["id"];
+type SpeakerNavId = (typeof SPEAKER_NAV)[number]["id"];
 
 export function DashboardShell({
   active,
   variant = "pharma",
   children,
 }: {
-  active: PharmaNavId | ReferentNavId;
-  variant?: "pharma" | "referent";
+  active: PharmaNavId | SpeakerNavId;
+  variant?: "pharma" | "speaker";
   children: ReactNode;
 }) {
-  const items = variant === "referent" ? REFERENT_NAV : PHARMA_NAV;
-  const accountLabel = variant === "referent" ? "Referent Account" : "Pharma Account";
-  const badgeLetter = variant === "referent" ? "R" : "P";
+  const items = variant === "speaker" ? SPEAKER_NAV : PHARMA_NAV;
+  const accountLabel = variant === "speaker" ? "Speaker Account" : "Pharma Account";
+  const badgeLetter = variant === "speaker" ? "S" : "P";
 
   return (
     <div className="flex min-h-full w-full bg-[#F3F6FB]">

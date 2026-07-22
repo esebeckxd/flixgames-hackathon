@@ -1,6 +1,7 @@
 import type { ComponentType } from "react";
 import { ColdOpen } from "@/components/scene/scenes/ColdOpen";
 import { Shop } from "@/components/scene/scenes/Shop";
+import { SpeakerSelect } from "@/components/scene/scenes/SpeakerSelect";
 import { Checkout } from "@/components/scene/scenes/Checkout";
 import { Briefing } from "@/components/scene/scenes/Briefing";
 import { ReferentUpload } from "@/components/scene/scenes/ReferentUpload";
@@ -14,6 +15,7 @@ import { Stinger } from "@/components/scene/scenes/Stinger";
 export const SCENE_COMPONENTS: Record<string, ComponentType> = {
   "cold-open": ColdOpen,
   shop: Shop,
+  "speaker-select": SpeakerSelect,
   checkout: Checkout,
   briefing: Briefing,
   "slide-builder": ReferentUpload,

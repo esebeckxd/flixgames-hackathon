@@ -39,7 +39,7 @@ export function Publish() {
       {!published ? (
         <Card className="w-full">
           <CardContent className="flex flex-col items-center gap-4 py-10">
-            <h2 className="font-heading text-xl font-bold">Referent submitted</h2>
+            <h2 className="font-heading text-xl font-bold">Speaker submitted</h2>
             <p className="max-w-sm text-sm text-muted-foreground">
               &ldquo;{topic.title}&rdquo; is finished and submitted.
             </p>

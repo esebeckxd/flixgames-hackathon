@@ -20,25 +20,14 @@ const PAY_METHODS = [
   { id: "firstborn", label: "👶 Pay with your Firstborn" },
 ] as const;
 
-// Pharma choosing who gets booked; picking a name is the live cue for that
-// person to walk on stage. Daniel has no photo yet — shows as a placeholder
-// until one exists.
-const REFERENTS = [
-  { name: "Sehouli", photo: "/referents/sehouli.jpg" },
-  { name: "Prelog", photo: "/referents/prelog.jpg" },
-  { name: "Paula Cramer", photo: "/referents/cramer.jpg" },
-  { name: "Daniel", photo: null },
-];
-
 export function Checkout() {
-  const { topic } = useDemoState();
+  const { topic, speaker } = useDemoState();
   const { next, beat } = useSceneNav();
   const [pkg, setPkg] = useState<(typeof PACKAGES)[number]>(PACKAGES[1]);
   const [addonOn, setAddonOn] = useState(true);
   const [qty, setQty] = useState(1);
   const [payMethod, setPayMethod] = useState<string>(PAY_METHODS[0].id);
   const [submitted, setSubmitted] = useState(false);
-  const [referent, setReferent] = useState<string | null>(null);
 
   const total = useMemo(
     () => pkg.year1 + FORMAT.price * qty + (addonOn ? ADDON.price : 0),
@@ -72,78 +61,6 @@ export function Checkout() {
             </div>
             <button className={styles.btnSubmit} style={{ maxWidth: 320 }} onClick={next}>
               Continue with {pkg.name} →
-            </button>
-          </div>
-        </div>
-      </DashboardShell>
-    );
-  }
-
-  if (beat === 2) {
-    // Zoomed beat: Pharma picks who presents — the click is the live cue for
-    // that candidate to walk on stage.
-    return (
-      <DashboardShell active="shop">
-        <div className={styles.page}>
-          <div className={styles.zoomWrap}>
-            <span className={styles.zoomKicker}>Pick your fighter</span>
-            <h1 className={styles.zoomTitle}>Which Referent presents this one?</h1>
-            <div className={styles.zoomPkgs}>
-              {REFERENTS.map(({ name, photo }) => (
-                <button
-                  key={name}
-                  onClick={() => setReferent(name)}
-                  className={`${styles.zoomPkg} ${referent === name ? styles.zoomPkgSelected : ""}`}
-                  style={{ textAlign: "center" }}
-                >
-                  {photo ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={photo}
-                      alt={name}
-                      style={{
-                        height: 72,
-                        width: 72,
-                        margin: "0 auto 12px",
-                        borderRadius: "50%",
-                        objectFit: "cover",
-                        display: "block",
-                      }}
-                    />
-                  ) : (
-                    <span
-                      style={{
-                        display: "flex",
-                        height: 72,
-                        width: 72,
-                        alignItems: "center",
-                        justifyContent: "center",
-                        margin: "0 auto 12px",
-                        borderRadius: "50%",
-                        border: "2px dashed #b5c0d7",
-                        color: "#6d7d9c",
-                        fontSize: 11,
-                        fontWeight: 700,
-                        textAlign: "center",
-                        lineHeight: 1.2,
-                      }}
-                    >
-                      photo
-                      <br />
-                      pending
-                    </span>
-                  )}
-                  <div className={styles.zoomPkgTier}>{name}</div>
-                </button>
-              ))}
-            </div>
-            <button
-              className={styles.btnSubmit}
-              style={{ maxWidth: 320 }}
-              disabled={!referent}
-              onClick={next}
-            >
-              {referent ? `Book ${referent} →` : "Pick a Referent"}
             </button>
           </div>
         </div>
@@ -302,7 +219,7 @@ export function Checkout() {
                     </>
                   ) : (
                     <p className="mt-4 rounded-xl bg-brand/10 p-3 text-center text-sm font-medium text-brand">
-                      ✓ Checkout complete — Referent is booked directly.
+                      ✓ Checkout complete — {speaker ?? "your speaker"} is booked directly.
                     </p>
                   )}
                 </div>

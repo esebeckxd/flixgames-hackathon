@@ -29,6 +29,7 @@ export function YouTubePage({
   videoLabel,
   likes = "48.1K",
   dislikeNote,
+  comment,
 }: {
   title: string;
   channel: string;
@@ -38,6 +39,7 @@ export function YouTubePage({
   videoLabel: string;
   likes?: string;
   dislikeNote?: string;
+  comment?: { author: string; text: string };
 }) {
   return (
     <div className="flex h-full min-h-full w-full flex-col overflow-y-auto bg-[#0f0f0f]">
@@ -119,8 +121,21 @@ export function YouTubePage({
 
         <div className="mt-1 flex items-center gap-2 text-xs text-white/40">
           <MessageCircleOff className="size-3.5" />
-          Comments are off. {dislikeNote}
+          {comment ? "Comments are off. (except this one, somehow)" : "Comments are off."}{" "}
+          {dislikeNote}
         </div>
+
+        {comment && (
+          <div className="flex items-start gap-3 rounded-xl bg-white/5 p-3">
+            <span className="flex size-8 flex-none items-center justify-center rounded-full bg-white/15 text-xs font-bold">
+              {comment.author[0]}
+            </span>
+            <div className="text-sm">
+              <span className="font-semibold">{comment.author}</span>{" "}
+              <span className="text-white/70">{comment.text}</span>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
