@@ -8,6 +8,9 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ### Notes
 
+- **Git identity fixed on this machine** per the root-cause note below: `git config --global user.email`
+  set to a real, GitHub-linked address. This commit is the verifying one — if the Vercel deploy for it
+  isn't `BLOCKED`, the fix confirmed working.
 - **Vercel deploy blocking, root cause found.** Every deployment built from Daniel's commits was
   `BLOCKED` (confirmed via the Vercel API: `readyStateReason: "The Deployment was blocked because
   GitHub could not associate the committer with a GitHub user"`, `seatBlock.blockCode:
