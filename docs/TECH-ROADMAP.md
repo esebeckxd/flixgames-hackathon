@@ -10,8 +10,18 @@ the Notion storyboard changes; it is not itself the source of truth for narrativ
 Status legend: ❌ not started · 🟡 in progress · ✅ done.
 
 **Live MVP deployed:** https://flixgames-hackathon.vercel.app — click through with the bottom-right
-"Next" control (or → / ← arrow keys). See `CHANGELOG.md` [0.5.0] for the full list of what's real vs.
+"Weiter" control (or → / Space / ← keys). See `CHANGELOG.md` [0.5.0] for the full list of what's real vs.
 placeholder.
+
+**4-act framing (blend):** the 10 scenes are grouped into the play's 4 acts (`lib/scenes.ts` `act` field
++ `ACT_TITLE`); a big plakativ „AKT n" curtain drops at each act boundary. Akt 1 (`ColdOpen`) is the
+plakativ billboard opener. A shared plakativ kit lives in `components/scene/plakativ.tsx` (`GagButton`,
+`Confetti`, `MoneyRain`, `SlotCounter`, `FakeProgress`) + `app/globals.css`.
+
+**Remaining plakativ pass (next):** the symbolic scenes still using the realistic/subtle styling —
+`VideoGen`, `Publish`, `Payoff`, `DxReel`, `Stinger` — can be amped with the plakativ kit (bigger buttons/
+type, confetti/money/slot animations) to match the Akt-1 opener. The three high-fidelity replicas
+(`Shop`/`Checkout`/`Briefing`) stay realistic on purpose — that's the "best of both" contrast.
 
 ## Scene 2 — Shop → configure → checkout → book Referent
 

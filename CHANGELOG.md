@@ -6,6 +6,22 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ## [Unreleased]
 
+### Added
+
+- **4-act play framing fused onto the 0.5.0 MVP ("verschmelzen").** The deployed 10-scene click-through
+  is now grouped into the play's four acts (`lib/scenes.ts` gains an `act` field + `ACT_TITLE`):
+  Akt 1 setup, Akt 2 shop+checkout+briefing, Akt 3 slide-builder+video-gen, Akt 4 publish+payoff+reel+
+  stinger. At every **act boundary** the curtain now drops a big plakativ **„AKT n — <Titel>"** card
+  (`PersonaTransition` extended; `SceneController` fires it on act change, not just persona change), so
+  the audience feels four beats and the overarching arc stays in the foreground. The bottom chip shows
+  „Akt n/4 · <Szene>"; the Next control is now „Weiter →" and also advances on Space.
+- **Plakativ Akt-1 opener.** `ColdOpen` rebuilt as the billboard title card — huge „Wie wir arbeitslos
+  und reich wurden", Bernd Bonus's line, and a giant „⚡ AUTOPILOT AN" button that powers up and advances
+  the play (via a new `components/scene/nav.ts` context so scenes can drive navigation).
+- **Plakativ motion kit** kept from the parallel build and merged into `app/globals.css`
+  (`components/scene/plakativ.tsx`): huge `GagButton`, `Confetti`, `MoneyRain`, `SlotCounter`,
+  `FakeProgress`, `Stage`, `Kicker` — available for amping the remaining symbolic scenes next.
+
 ### Changed
 
 - **Storyboard rebuilt as a tight 4-act play in Notion (SSOT).** Replaced the 10-scene structure with
