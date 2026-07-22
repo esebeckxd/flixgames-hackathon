@@ -6,6 +6,28 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ## [Unreleased]
 
+### Added
+
+- **Checkout gets a "Pick Your Fighter" referent-selection beat** (`Checkout.tsx`, new `beat === 2`;
+  `lib/scenes.ts` checkout `beats: 2 → 3`). Reverses the earlier "Referent line-up intentionally not
+  built in-app" call from the 0.5.0 roadmap — per the 2026-07-22 follow-up call (Franz/David/Emma/
+  Daniel), Pharma now gets an actual on-screen picker (same Sehouli/Prelog/Paula Cramer roster as
+  `VideoGen.tsx`) after the package-pick zoom beat; picking a name is the live cue for that person to
+  walk on stage, it doesn't replace the live staging. Logged in Notion's storyboard and
+  `docs/TECH-ROADMAP.md`.
+
+### Notes
+
+- **Notion SSOT has moved ahead of the app.** The Notion storyboard was independently rewritten into a
+  **5-act structure** with renamed cast (Pia Pharma, Prof. Dr. Ego von Whitecoat, Corporate Bernd,
+  Narrator split from Kalle Feierabend, KAI cut) and **no pizza joke topic** — the app still reflects
+  the old 4-act/pizza structure. Flagged in `docs/TECH-ROADMAP.md` under "Notion SSOT has moved ahead
+  of the app — reconcile before the run-through"; this is a full narrative reconciliation, not a small
+  diff, and deserves its own pass. Also logged a new "🆕 Additional story details" section directly on
+  the Notion page capturing the rest of this call's decisions (cold-open framing device, slide-builder
+  split editor, avatar outfit picker + real preview, publish polish, Leo's iPhone stretch goals) that
+  aren't built yet — see `docs/TECH-ROADMAP.md`'s "Open items from the 2026-07-22 follow-up call".
+
 ### Changed
 
 - **Cold-open punchline retitled: "How We Became Unemployed and Our Founders Rich"** — the joke now

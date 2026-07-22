@@ -36,8 +36,10 @@ type, confetti/money/slot animations) to match the Akt-1 opener. The three high-
     (decorative — clicking either just proceeds, no real branching).
   - ✅ Doubled confirm button: `Projekt starten` + bonus sibling `Projekt starten und One-Way-Ticket an
     den Strand buchen`. No confetti/animation on click yet (see cross-cutting confetti utility below).
-- ✅ Referent line-up beat: confirmed **not** built in-app, per this doc's own guidance — checkout just
-  shows a clean "Checkout abgeschlossen" completion state as the transition point for the cast.
+- ✅ **Reversed from the earlier "not built in-app" call** (2026-07-22 follow-up call, see Notion's new
+  "Additional story details" section): Checkout now has a third beat, a "Pick Your Fighter" referent
+  picker (`Checkout.tsx` `beat === 2`, same 3-name roster as `VideoGen.tsx`). Clicking a name is the
+  live cue for that person to walk on stage — this doesn't replace the live staging, it triggers it.
 
 **Assets needed:**
 - Fake payment "logos"/icons for the two joke payment buttons (simple icon or emoji-based is fine —
@@ -156,6 +158,35 @@ on its own during the checkout/briefing beats to sell "meanwhile, elsewhere, mor
   each duplicate the primary+sibling markup). Works for the MVP; worth extracting if more screens need it.
 - ❌ Confetti/celebration micro-animation utility — not built yet; completion moments currently use
   simple state-swap reveals, no confetti.
+
+## ⚠️ Notion SSOT has moved ahead of the app — reconcile before the run-through
+
+The Notion storyboard was rewritten (independently of this file) into a **5-act structure** with
+renamed characters (Narrator separated from Kalle Feierabend, Pia Pharma, Prof. Dr. Ego von Whitecoat,
+Corporate Bernd, KAI cut entirely), **no pizza joke topic**, and a new Act 4 ("Meanwhile, on a Beach").
+The app (`lib/scenes.ts`, `ColdOpen.tsx`, `lib/demo-state.tsx`'s `JOKE_TOPIC`, etc.) still reflects the
+**old 4-act structure**. This is flagged directly on the Notion page's own "Open items" list too — it's
+not a small diff, it's a full narrative reconciliation (scene count, character names, the joke topic,
+a brand-new beach interstitial scene) and deserves its own pass rather than being folded into an
+unrelated change. Tracking here so it isn't lost.
+
+## Open items from the 2026-07-22 follow-up call (not yet built)
+
+Logged in Notion's "Additional story details" section in full; engineering-relevant subset:
+
+- ❌ Slide-builder split editor: generated slides left / generated transcript right / one big
+  "Generate Your Video" button beneath, with an immediate cash-out gag ("$1,800 paid out") on click.
+  Currently `ReferentUpload.tsx` only has the upload → AI-cleanup beat; this is a further step past that.
+- ❌ Avatar step: an outfit/style picker framed as "which car do you want to drive today?" (joke option:
+  "Lederhosen"), plus a real ~5s preview clip after generation instead of the static `VideoPlaceholder`
+  done-state. Depends on what's feasible with HiggsField (or similar) by Wednesday.
+- ❌ Publish polish: a cash icon/number popping in top-right the moment the Referent submits; a nicer
+  button treatment for "Publish Video" than the current default `Button`.
+- ❌ Leo's iPhone stretch goals: a real background photo (Leo's own LinkedIn/Instagram) instead of the
+  gradient, a voice-cloned line instead of/alongside the text bubble, a mood-shifting music cue.
+- ❌ Cold-open framing device: homeless-person-on-the-ground hook before the title card, narrator
+  picking up with "It was July 22nd, the first FlixGames had just begun…" — pure staging/narration, no
+  code needed unless the team wants it echoed on-screen too.
 
 ## Open questions
 

@@ -20,6 +20,10 @@ const PAY_METHODS = [
   { id: "firstborn", label: "👶 Pay with your Firstborn" },
 ] as const;
 
+// Same roster as VideoGen's avatar picker — here it's Pharma choosing who
+// gets booked; picking a name is the live cue for that person to walk on stage.
+const REFERENTS = ["Sehouli", "Prelog", "Paula Cramer"];
+
 export function Checkout() {
   const { topic } = useDemoState();
   const { next, beat } = useSceneNav();
@@ -28,6 +32,7 @@ export function Checkout() {
   const [qty, setQty] = useState(1);
   const [payMethod, setPayMethod] = useState<string>(PAY_METHODS[0].id);
   const [submitted, setSubmitted] = useState(false);
+  const [referent, setReferent] = useState<string | null>(null);
 
   const total = useMemo(
     () => pkg.year1 + FORMAT.price * qty + (addonOn ? ADDON.price : 0),
@@ -61,6 +66,57 @@ export function Checkout() {
             </div>
             <button className={styles.btnSubmit} style={{ maxWidth: 320 }} onClick={next}>
               Continue with {pkg.name} →
+            </button>
+          </div>
+        </div>
+      </DashboardShell>
+    );
+  }
+
+  if (beat === 2) {
+    // Zoomed beat: Pharma picks who presents — the click is the live cue for
+    // that candidate to walk on stage.
+    return (
+      <DashboardShell active="shop">
+        <div className={styles.page}>
+          <div className={styles.zoomWrap}>
+            <span className={styles.zoomKicker}>Pick your fighter</span>
+            <h1 className={styles.zoomTitle}>Which Referent presents this one?</h1>
+            <div className={styles.zoomPkgs}>
+              {REFERENTS.map((name) => (
+                <button
+                  key={name}
+                  onClick={() => setReferent(name)}
+                  className={`${styles.zoomPkg} ${referent === name ? styles.zoomPkgSelected : ""}`}
+                  style={{ textAlign: "center" }}
+                >
+                  <span
+                    className={styles.zoomPkgTier}
+                    style={{
+                      display: "flex",
+                      height: 64,
+                      width: 64,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      margin: "0 auto 12px",
+                      borderRadius: "50%",
+                      background: "#1A2133",
+                      color: "#fff",
+                    }}
+                  >
+                    {name[0]}
+                  </span>
+                  <div className={styles.zoomPkgTier}>{name}</div>
+                </button>
+              ))}
+            </div>
+            <button
+              className={styles.btnSubmit}
+              style={{ maxWidth: 320 }}
+              disabled={!referent}
+              onClick={next}
+            >
+              {referent ? `Book ${referent} →` : "Pick a Referent"}
             </button>
           </div>
         </div>

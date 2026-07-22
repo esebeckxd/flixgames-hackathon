@@ -24,7 +24,8 @@ export const SCENES: SceneDef[] = [
   { id: "cold-open", persona: "narrator", title: "The Assignment", act: 1 },
   // beats: 0 overview, 1 manual-browsing zoom, 2 "Read My Mind" zoom (branch — see Shop.tsx)
   { id: "shop", persona: "pharma", title: "Topic Shop", act: 2, beats: 3 },
-  { id: "checkout", persona: "pharma", title: "Cost Configurator & Checkout", act: 2, beats: 2 },
+  // beats: 0 overview, 1 package-pick zoom, 2 "Pick Your Fighter" referent select
+  { id: "checkout", persona: "pharma", title: "Cost Configurator & Checkout", act: 2, beats: 3 },
   { id: "briefing", persona: "pharma", title: "Pre-Kick-Off Briefing", act: 2 },
   { id: "slide-builder", persona: "referent", title: "Slide Upload", act: 3, beats: 2 },
   { id: "video-gen", persona: "referent", title: "Video Generation", act: 3 },
