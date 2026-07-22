@@ -8,6 +8,14 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ### Added
 
+- **Speaker/Referent-flow reorder specified, documented, not built yet** — new "Planned reorder" section
+  in `docs/TECH-ROADMAP.md`: collapse `ReferentUpload.tsx`'s current two-beat overview+upload pattern
+  into one combined screen → a new slides+script layout (3 slide stills left, script right, big blinking
+  green "Generate video now" button) → a preview screen with a "Submit video" button → a new immediate
+  "Honorarium payout successful — €1,800" feedback beat. Flagged two open questions (whether/where
+  avatar-fighter selection still happens vs. today's `VideoGen.tsx`, and how the new payout beat relates
+  to the existing Pharma-side `Publish`/`Payoff` scenes) to resolve before implementation starts.
+
 - **Pharma-flow reorder specified, documented, not built yet** — new "Planned reorder" section at the
   top of `docs/TECH-ROADMAP.md`: topic shop with "Read My Mind" → a new suggested-topic confirmation
   beat (doesn't exist yet; today "Read My Mind" skips straight to Checkout) → "Pick Your Fighter"

@@ -55,6 +55,33 @@ not implemented yet** — build this once picked up:
    triggers the big curtain) — confirm this reads right once the above reorder is actually built, rather
    than assuming it needs new work.
 
+## ❌ Planned reorder — Speaker/Referent flow (Captain's call, 2026-07-22 — not yet built)
+
+Daniel specified a new required structure for the Referent-persona part of the flow. **Documented here
+only, not implemented yet:**
+
+1. **Combined overview + upload screen** — one single first view with the short project overview
+   (topic, honorarium, etc. — "as already present") *and* the actual (faked) old-presentation upload
+   inline together, cursed filename joke included (`Presentation_FINAL_FINAL_v3_actually_final.ppt`,
+   already built). **This replaces the current two-beat pattern**: today `ReferentUpload.tsx` has beat 0
+   (the "Referent Dashboard" overview, with only a *decorative*, non-functional upload dropzone teaser)
+   and beat 1 (a separate, zoomed screen with the *actual* interactive upload flow) — i.e. two
+   consecutive views that both depict a PowerPoint upload. Collapse these into one screen.
+2. **Slides + script screen** — left column: the **three processed slides shown as nice still-frame
+   thumbnails**; right column: the **script text for each**, next to a big **green, glowing/blinking
+   "Generate video now"** button. **Relationship to today's `VideoGen.tsx` needs deciding**: that scene
+   is currently built around a "Pick your fighter" *avatar* selector (same 3-name roster as Checkout's
+   referent picker) plus a "Take My Job Away" script-gen button — quite different from a slides+script
+   layout. ⚠️ Open question: does avatar/fighter selection still happen somewhere in the new flow (and
+   if so, where), or does this slides+script screen replace that step entirely? Don't guess at build time.
+3. **Preview screen** — a short preview video, with a big **"Submit video"** button.
+4. **Payout feedback animation** — immediate, direct: **"Honorarium payout successful — €1,800."** This
+   is a **new** beat, distinct from the existing Pharma-side `Publish.tsx` ("video is live," view-counter
+   reveal) and `Payoff.tsx` ("one month later" reporting stats) — those are a different persona's payoff
+   moment and presumably still happen afterward from Pharma's side. Confirm that relationship (does this
+   new Referent payout beat sit *before* `Publish`/`Payoff` in the sequence, and do those two remain
+   unchanged?) before building.
+
 ## Scene 2 — Shop → configure → checkout → book Referent
 
 **Build:**
