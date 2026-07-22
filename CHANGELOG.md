@@ -6,23 +6,64 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ## [Unreleased]
 
+_Work planned for / during the hackathon (Wednesday onward), per [`docs/STORYBOARD.md`](docs/STORYBOARD.md):_
+
+- Topic shop → configure offer → checkout, with **Referent booking folded into checkout** (fully faked,
+  joke-branded — never the real Stripe/PayPal marks).
+- Pre-Kick-Off briefing screen: 2–3 real fields + grey placeholders (oversimplified per demo philosophy).
+- Simple slide builder for the referent step (ours, minimal — not Moritz's kasuistik tool); optional
+  "ugly input → AI cleans it up" Murphy's Law beat.
+- Video generation step, credited to Moritz's avatar pipeline; "video published" platform page.
+- One-month-later reporting beat for Pharma.
+- DX-employee gag montage (gong, Slack money-spam, beer cutscenes), driven by the configurator's +
+  handover's real Slack triggers where possible.
+- "Absurd extra win" bonus buttons + playful completion animations, per screen, per the humor & motion
+  direction rule.
+- Optional stretch: voice input on the briefing screen; six-months-later stinger ending.
+
+## [0.3.0] — 2026-07-22
+
+Detailed pitch storyboard, demo philosophy, and proposed team-role split, from the onboarding/storyboard
+call — fills in the pipeline steps 3+ left as placeholders in 0.2.0.
+
 ### Added
 
-- **Changelog discipline policy** (`CLAUDE.md`, `AGENTS.md`, `README.md`): explicit instructions for all
-  human and AI contributors to read `[Unreleased]` before starting work and log every change here
-  (what changed, current functional status, what's faked/stubbed) before stopping — so the repo stays
-  legible across multiple people and multiple AI tools working in parallel without a live handoff.
+- [`docs/STORYBOARD.md`](docs/STORYBOARD.md) — the scene-by-scene demo script (topic shop → checkout with
+  Referent booking → Pre-Kick-Off briefing → Referent notified & builds → video generation (credited to
+  Moritz's pipeline) → publish → one-month-later payoff → DX-employee gag montage → optional stinger),
+  plus the **demo philosophy**: oversimplify every screen to 2–3 real fields with the rest greyed out,
+  voice input as a stretch goal, and a Q&A defense ("autonomy ladder") for the pitch.
+- `docs/meeting-notes/2026-07-22-onboarding-storyboard.md` — team GitHub/Claude Code onboarding notes +
+  the reasoning behind the storyboard.
+- **Team & roles** section in `CLAUDE.md`/`README.md`: proposed build track (Franz, Daniel) vs.
+  pitch/story track (Emma, David, Carolina), to confirm Wednesday morning.
 
 ### Changed
 
-- **Project concept refined in `CLAUDE.md`/`README.md`**: reframed as a full-circle, mostly
-  human-*supervised* (not human-*driven*) project process — human input required at only a few steps.
-  Pipeline steps 1–2 locked (sponsor picks topic + books via a faked/joke-branded Stripe/PayPal-style
-  checkout → project steps/requirements defined automatically); steps 3+ intentionally left as
-  placeholders pending more meeting-transcript context.
-  New **"Humor & motion direction"** section in `CLAUDE.md` codifies the "absurd extra win" button
-  pattern (e.g. `Projekt starten und One-Way-Ticket an den Strand buchen`) and requires proposing a
-  fitting joke + a small delightful animation at every step, not just where explicitly asked.
+- `CLAUDE.md`: pipeline steps 3+ (previously placeholders) now spelled out from the fuller storyboard;
+  "Humor & motion direction" (0.2.0) and "Demo philosophy" now sit side by side as complementary rules,
+  not competing ones.
+- `CLAUDE.md`/`README.md` now link `docs/STORYBOARD.md` as the build target.
+
+## [0.2.0] — 2026-07-22
+
+Project reframed as a full-circle, mostly human-*supervised* (not human-*driven*) process; changelog
+discipline made mandatory; humor/motion codified as a design tool, not garnish.
+
+### Added
+
+- **Changelog discipline policy** (`CLAUDE.md`, `AGENTS.md`, `README.md`): read `[Unreleased]` before
+  starting work, log every change there before stopping — so the repo stays legible across multiple
+  people and multiple AI tools working in parallel without a live handoff.
+- **"Humor & motion direction"** section in `CLAUDE.md`: codifies the "absurd extra win" button pattern
+  (e.g. `Projekt starten und One-Way-Ticket an den Strand buchen`) and requires proposing a fitting joke
+  + a small delightful animation at every step, not just where explicitly asked.
+
+### Changed
+
+- **Project concept reframed** in `CLAUDE.md`/`README.md`: full-circle project process, human-supervised
+  rather than human-driven — real input needed at only a handful of steps. (Pipeline steps 3+ were left
+  as placeholders here pending more transcript context — filled in by 0.3.0.)
 - **Hard constraint tightened**: fake checkout must never use the real Stripe/PayPal logos/trademarks —
   invent joke-branded fake payment options instead.
 - **`CLAUDE.md` hard constraints**: added an explicit "nothing needs to be deeply functional" rule —
@@ -32,18 +73,8 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ### Notes
 
-- No UI/code changes yet for this pass — docs-only update to realign the shared context ahead of
+- No UI/code changes in this pass — docs-only update to realign the shared context ahead of
   implementing the humor/animation pattern and the checkout step.
-
-_Work planned for / during the hackathon (Wednesday onward):_
-
-- Topic-click handoff from the pharma landing page into the cost configurator.
-- Faked PayPal checkout / pay-confirmation on top of the cost configurator.
-- Wire the Pre-Kick-Off Briefing form (`dx-agents/apps/handover`) into the flow after checkout.
-- Simple slide builder for the referent step (ours, minimal — not Moritz's kasuistik tool).
-- "Video published" platform page.
-- DX-employee Slack-style feed (driven by the configurator's + handover's real Slack triggers).
-- Pitch storyboard tying the three personas (Pharma, Referent, DX employee) together.
 
 ## [0.1.0] — 2026-07-22
 
@@ -82,5 +113,7 @@ Pre-hackathon foundation: project context + a themed Next.js/shadcn shell to bui
 
 - Initial commit (empty repository with placeholder README).
 
-[Unreleased]: https://github.com/esebeckxd/flixgames-hackathon/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/esebeckxd/flixgames-hackathon/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/esebeckxd/flixgames-hackathon/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/esebeckxd/flixgames-hackathon/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/esebeckxd/flixgames-hackathon/releases/tag/v0.1.0

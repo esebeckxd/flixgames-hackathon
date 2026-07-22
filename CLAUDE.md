@@ -15,15 +15,25 @@ human input is only required at a **handful of specific steps**; everything else
 between AI agents. The over-the-top humor exists specifically to sell *how little the stakeholder has to
 do anymore*.
 
-**Pipeline (locked so far — more steps land once meeting-transcript context comes in):**
-1. **Sponsor picks a topic** from a curated topic list, then books the project through a checkout —
-   **Stripe/PayPal-styled but fully faked**, using joke brand names instead of the real payment logos
-   (never the real Stripe/PayPal marks — see Hard constraints). Checkout completing kicks the project off.
-2. **Project steps and requirements are defined automatically** — no human drafts a scope doc; the
-   system derives the plan from the topic/offer.
-3. …
-4. … _(steps 3+ to be filled in from the team's meeting transcripts — treat this pipeline as a draft,
-   not final, until then)._
+**Pipeline (full scene-by-scene version: [`docs/STORYBOARD.md`](docs/STORYBOARD.md)):**
+1. **Sponsor/Pharma picks a topic** from the shop, configures the offer (video + add-ons), and
+   **books a Referent directly as part of checkout** — **Stripe/PayPal-styled but fully faked**, using
+   joke brand names instead of the real payment logos (never the real Stripe/PayPal marks — see Hard
+   constraints). Checkout completing kicks the project off.
+2. **Project requirements are captured, not drafted** — the Pre-Kick-Off briefing screen (oversimplified
+   to 2–3 real fields + grey placeholders, see Demo philosophy) stands in for a human writing a scope
+   doc. Sponsor/Pharma is now "done" — narratively they go on vacation.
+3. **Referent gets notified** of the booking (while watching a Doctorflix CME video for their own
+   credits — a reflexive gag) and builds the presentation in our own **simple slide builder** — not
+   Moritz's full kasuistik tool. Optional Murphy's-Law beat: feed in a deliberately ugly draft and have
+   the AI clean it up ("turning shit into gold").
+4. **Video generation** — credited transparently to Moritz's existing avatar pipeline (recording →
+   transcript → AI avatar → automated animation); we build the pipeline, not this piece.
+5. **Video publishes**; Sponsor/Pharma is notified (narratively, on the way to the airport).
+6. **One month later:** Sponsor/Pharma pulls up strong numbers and shows their boss — the payoff beat.
+
+Running throughout/at the end: **DX-employee gag interstitials** (beer, Slack notifications, a sales
+gong on every closed deal) — see Humor & motion direction below and [`docs/STORYBOARD.md`](docs/STORYBOARD.md).
 
 **Told from three personas** in the pitch:
 - **Sponsor / Pharma** — young SME marketing assistant, ~mid-20s, ~€10k budget, wants to self-serve fast
@@ -35,13 +45,26 @@ do anymore*.
 Full context: [`docs/meeting-notes/`](docs/meeting-notes/2026-07-14-kickoff.md) (planning meetings; more
 notes to follow as the process gets fleshed out).
 
+**Detailed scene-by-scene script:** [`docs/STORYBOARD.md`](docs/STORYBOARD.md) — build to this, not the
+other way around. Full context: [`docs/meeting-notes/`](docs/meeting-notes/) (all planning meetings).
+
+## Demo philosophy — the most important rule for building any screen
+
+**Oversimplify. Show the idea in one glance, not a working form.** Every screen is the user-facing view
+only. Pick 2–3 fields/actions per screen that are genuinely clickable; render everything else as grey,
+inert placeholders that just suggest more configuration exists. Do **not** build a real 20-field form —
+that's already too much for a pitch, even if it'd be "more realistic." Voice input (speak → form fills
+itself) is an explicit stretch goal, not a v1 requirement. Full reasoning + scene script:
+[`docs/STORYBOARD.md`](docs/STORYBOARD.md).
+
 ## Humor & motion direction
 
 The comedy is a **deliberate design tool**, not garnish — it exists to underline how absurdly easy each
-step has become for the stakeholder. Two rules for every screen:
+step has become for the stakeholder. Rules for every screen:
 
 - **Murphy's Law angle:** whatever the human fumbles, the AI fixes gracefully ("turning shit into
-  gold") — keep this thread running throughout.
+  gold") — keep this thread running throughout (see the Referent's messy-input beat in the pipeline
+  above).
 - **"Absurd extra win" buttons:** wherever a step becomes trivially easy for the stakeholder, offer the
   normal action **plus** an over-the-top bonus option that spells out the time/effort saved as a joke —
   e.g. instead of just `Projekt starten`, also show `Projekt starten und One-Way-Ticket an den Strand
@@ -55,6 +78,8 @@ step has become for the stakeholder. Two rules for every screen:
 
 When proposing copy or interactions for a new screen, always suggest at least one "absurd extra win"
 option and one small delightful animation alongside the straightforward version — don't wait to be asked.
+This pairs with the DX-employee gag interstitials (gong, Slack money-spam) from
+[`docs/STORYBOARD.md`](docs/STORYBOARD.md) — same comedic thread, different surface.
 
 ## Stack
 
@@ -148,6 +173,17 @@ Goal: at any moment, anyone — new teammate or a fresh AI session with zero pri
 `CHANGELOG.md` top to bottom and know the current state of the build without reading the diff or asking
 around.
 
-## Team
+## Team & roles
 
 Daniel Leon Glauert (Captain 🏴‍☠️), Franz von Esebeck, Emma Sporn, David Cisar, Carolina Fromm.
+
+Proposed split (2026-07-22 call; confirm/adjust Wednesday morning once everyone's in the room):
+
+- **Build track — Franz + Daniel:** this repo — stitching pre-built assets into the storyboard, faking
+  the seams (checkout, briefing hookup, slide builder, DX feed).
+- **Pitch/story track — Emma, David, Carolina:** the narrative and "theater-play" blocking (who plays
+  which persona, when the screen switches), the DX-employee gag montage/edit (gong, Slack-money-spam,
+  beer cutscenes), virtual-background/avatar polish for the Referent recording simulation, and the ROI
+  numbers + presentation format (live demo vs. demo+deck) for the pitch.
+
+Both tracks build against [`docs/STORYBOARD.md`](docs/STORYBOARD.md) as the shared source of truth.
