@@ -42,6 +42,7 @@ Full context from both planning meetings: [`docs/meeting-notes/`](docs/meeting-n
 | Path | What it's for |
 |---|---|
 | [`CLAUDE.md`](CLAUDE.md) | **Start here.** Co-pilot brief — what we're building, the stack, constraints, and how to make visual/technical choices. |
+| [`CHANGELOG.md`](CHANGELOG.md) | What's changed, release by release. |
 | [`app/`](app/) | Next.js App Router routes. Theme in [`app/globals.css`](app/globals.css), fonts in [`app/layout.tsx`](app/layout.tsx). |
 | [`components/ui/`](components/ui/) | shadcn/ui components (we own the source), themed to Doctorflix. |
 | [`docs/PREBUILT-ASSETS.md`](docs/PREBUILT-ASSETS.md) | Inventory of what already exists (landing page, cost configurator, briefing form) so we don't rebuild it. |
