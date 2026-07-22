@@ -27,6 +27,35 @@ _Work planned for / during the hackathon (Wednesday onward), per [`docs/STORYBOA
 - Optional stretch: voice input on the briefing screen.
 - Story-track open items: character names, full line-by-line dialogue script, costumes.
 
+### Added (docs)
+
+- **Twelve concrete bonus-button/prop gags locked into `docs/STORYBOARD.md`** (last full mirror before
+  the Notion move, below):
+  - Scene 2 checkout: **"Pay with your Kidneys"** + **"Pay with your Firstborn"** fake-payment buttons;
+    flagship bonus button **"Projekt starten und One-Way-Ticket an den Strand buchen"** on confirm.
+  - Scene 3 briefing: bonus button **"Briefing absenden und Autoantwort aktivieren bis Q4"**; fake
+    processing-bar label **"KI liest Ihre Gedanken... 87 %"**.
+  - Scene 4: Referent introduced **eating pizza** when notified (payoff for Scene 5's topic); upload
+    dialog shows the cursed filename **`Vortrag_FINAL_FINAL_v3_wirklich_final.ppt`**.
+  - Scene 5: video topic locked as **"Effect of Pizza on the Human Body"**; avatar picker rebuilt as a
+    literal **Street Fighter–style "pick your fighter" select screen** with **Sehouli, Prelog, and Paula
+    Cramer** as the three fighters (⚠️ needs likeness/approval confirmation — flagged in
+    `docs/TECH-ROADMAP.md`); script step gets a second, smaller sibling button **"Take My Job Away (aber
+    Gehalt behalten)"** next to the original.
+  - Scene 7: platform view-counter **ticks up like a slot machine** instead of a static number.
+  - Scene 8: blinking **"Shift Whole Business Unit to Doctorflix and Retire Me"** banner button, plus a
+    small, shy second button **"Vielleicht nur Urlaub"** right next to it.
+- **`docs/STORYBOARD.md` is now a frozen mirror, not the live doc.** The storyboard's SSOT moved to
+  Notion (2026-07-22) — a banner at the top of the file says so and flags the repo docs that still need
+  their links swapped to the Notion URL once shared (`CLAUDE.md`, `README.md`, `PREBUILT-ASSETS.md`).
+  `CLAUDE.md`/`README.md` pipeline/storyboard references updated to point at Notion as the SSOT, with
+  `docs/STORYBOARD.md` explicitly called out as history-only.
+- **New `docs/TECH-ROADMAP.md`**: engineering build-task breakdown and required-asset list per storyboard
+  scene (checkout, briefing, slide builder, avatar select, publish, payoff), plus cross-cutting tasks
+  (scene-sequence shell, transition component, bonus-button pattern, confetti utility) and open questions
+  (fighter-avatar likeness approval, real vs. mocked AI-avatar preview). Linked from `CLAUDE.md` and
+  `README.md`'s repo map and team-roles sections.
+
 ## [0.4.0] — 2026-07-22
 
 Storyboard revised live against the 0.3.0 draft: hard 7-minute pitch timing, a named/costumed cast

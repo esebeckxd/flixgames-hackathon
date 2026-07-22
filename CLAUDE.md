@@ -15,7 +15,9 @@ human input is only required at a **handful of specific steps**; everything else
 between AI agents. The over-the-top humor exists specifically to sell *how little the stakeholder has to
 do anymore*.
 
-**Pipeline (full 10-scene script + cast: [`docs/STORYBOARD.md`](docs/STORYBOARD.md)):**
+**Pipeline (full 10-scene script + cast — SSOT is now Notion, see the banner in
+[`docs/STORYBOARD.md`](docs/STORYBOARD.md); that file is a frozen pre-Notion mirror kept for git
+history, do not edit it for narrative changes):**
 1. Cold open: a dismissive **Pharma Boss** hands the project off ("just make a TV video, come back in
    six months") — sets up the ending's payoff.
 2. **Pharma picks a topic** from the shop, configures the offer (video + add-ons), and **books a
@@ -214,4 +216,6 @@ Proposed split (2026-07-22 call; confirm/adjust Wednesday morning once everyone'
   beer cutscenes), virtual-background/avatar polish for the Referent recording simulation, and the ROI
   numbers + presentation format (live demo vs. demo+deck) for the pitch.
 
-Both tracks build against [`docs/STORYBOARD.md`](docs/STORYBOARD.md) as the shared source of truth.
+Both tracks build against the **Notion storyboard** as the shared source of truth for narrative; the
+build track additionally tracks engineering tasks and required assets in
+[`docs/TECH-ROADMAP.md`](docs/TECH-ROADMAP.md) — keep it updated as Notion scenes get locked/changed.

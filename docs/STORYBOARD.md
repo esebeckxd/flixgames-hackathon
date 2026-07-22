@@ -1,5 +1,13 @@
 # Pitch storyboard
 
+> ⚠️ **SSOT has moved to Notion.** As of 2026-07-22 the storyboard is maintained live in Notion — that
+> page, not this file, is the **single source of truth** going forward. Change and reference the
+> storyboard **only in Notion**; this file is frozen as the last pre-Notion mirror (kept for git
+> history / offline reading) and should **not** be edited for narrative changes anymore.
+> **TODO:** paste the Notion page URL here once shared (`[FlixGames Storyboard — Notion](<url>)`), then
+> update the links in [`../CLAUDE.md`](../CLAUDE.md), [`../README.md`](../README.md), and
+> [`PREBUILT-ASSETS.md`](PREBUILT-ASSETS.md) that currently point at this file.
+
 The scene-by-scene script for the live demo. First drafted after the 2026-07-22 onboarding call, then
 revised live with the team against this exact draft — see
 [`meeting-notes/2026-07-22-onboarding-storyboard.md`](meeting-notes/2026-07-22-onboarding-storyboard.md)
@@ -102,7 +110,15 @@ Stripe/PayPal-styled checkout using joke brand names** — never the real Stripe
 **Checkout gag:** alongside (or instead of) the faked PayPal flow, show a joke-branded company credit
 card (e.g. a fake "AstraZeneca" card) with a visible remaining budget/limit ("€15,000 left of your
 €50,000 limit") and a couple of absurd fake expense line items for comic effect (e.g. "medications," a
-wink-wink "bribery trip to Ibiza").
+wink-wink "bribery trip to Ibiza"). Payment method row includes two joke-branded fake payment buttons
+side by side, instead of/alongside a "Pay with Apple"-style button: **"Pay with your Kidneys"** and
+**"Pay with your Firstborn."**
+
+**Project-start bonus button:** the checkout's final confirm button is doubled up per the "absurd extra
+win" pattern — next to the plain `Projekt starten`, an over-the-top sibling button: **"Projekt starten
+und One-Way-Ticket an den Strand buchen"** — the flagship example of the humor & motion direction rule
+(see [`../CLAUDE.md`](../CLAUDE.md#humor--motion-direction)), landing right where Pharma's work is
+effectively done.
 
 As part of checkout, **books a Referent directly** — staged live: three teammates appear on stage as
 candidate Referents, Pharma picks one, the other two leave, the chosen one sits down at the computer.
@@ -120,24 +136,39 @@ video") is the stretch version of this screen.
 *Prebuilt to reference:* the real Pre-Kick-Off Briefing form, `dx-agents` repo, `apps/handover`
 (`survey.html`) — see [`PREBUILT-ASSETS.md`](PREBUILT-ASSETS.md).
 
+**Bonus button + processing gag:** next to the plain "Briefing absenden," an over-the-top sibling button:
+**"Briefing absenden und Autoantwort aktivieren bis Q4."** After submit, a short processing/loading state
+runs before the automatic requirements-definition kicks in, labeled **"KI liest Ihre Gedanken... 87 %"**
+instead of a generic "Verarbeite…" — the joke being the system needs no real brief at all.
+
 Pharma is now "done" — the narrative sends them on vacation/to the airport. Hand off to the Referent.
 
 ### 4. Referent — notified, sits down, builds
-Cut to the **Referent** (the one picked in Scene 2), on the couch scrolling, or watching a Doctorflix
-CME video (getting their own continuing-education credits — a small reflexive joke). A notification
-appears — both narrated *and* visible on-screen as a UI toast/pop-up: new booking. They sit down at the
-computer and open the (to-be-built) **simple slide builder** — deliberately not Moritz's full kasuistik
-tool (see [`PREBUILT-ASSETS.md`](PREBUILT-ASSETS.md#4-simple-slide-builder--referent-builds-the-presentation-to-build-ours)).
+Cut to the **Referent** (the one picked in Scene 2) — mid-bite into a slice of **pizza** when the
+notification lands, a reflexive nod to this video's topic (see Scene 5: "Effect of Pizza on the Human
+Body"). The notification appears both narrated *and* visible on-screen as a UI toast/pop-up: new
+booking. They sit down at the computer and open the (to-be-built) **simple slide builder** — deliberately
+not Moritz's full kasuistik tool (see [`PREBUILT-ASSETS.md`](PREBUILT-ASSETS.md#4-simple-slide-builder--referent-builds-the-presentation-to-build-ours)).
 
 **The ugly-deck mechanism (Murphy's Law beat):** the Referent's secretary/assistant digs an ancient deck
 out of the archive ("the deck from 1995"), scans/faxes/emails it over. The Referent uploads that trashy
-deck into the AI slide builder, which cleans it up automatically — "turning shit into gold."
+deck into the AI slide builder, which cleans it up automatically — "turning shit into gold." **Upload
+dialog gag:** the file picker shows the uploaded filename as
+**`Vortrag_FINAL_FINAL_v3_wirklich_final.ppt`** — the universal cursed-filename joke, read out loud by
+the Narrator for the laugh.
 
 ### 5. Video generation — "pick your fighter," credit Moritz's pipeline transparently
-The Referent picks an avatar/outfit from a character-select style screen ("pick your fighter"),
-explicitly choosing **AI Avatar over Live Recording** — no real recording needed. An auto-generated
-script appears for the slides (edited by nobody — just click through), then the Referent clicks "Create
-Video," a loading state runs, and a preview shows the avatar saying something funny.
+**Video topic: "Effect of Pizza on the Human Body"** — pays off the Referent's Scene 4 pizza-eating beat.
+The Referent picks an avatar/outfit from a character-select style screen, built as a literal **Street
+Fighter–style "pick your fighter" grid**: portrait tiles, versus-screen framing, a select-sound/flash on
+hover. The three selectable avatars are **Sehouli, Prelog, and Paula Cramer** — real Doctorflix-known
+referent personas turned into playable "fighters," explicitly choosing **AI Avatar over Live Recording**
+— no real recording needed. An auto-generated script appears for the slides (edited by nobody — just
+click through) behind two stacked buttons instead of a plain "Generate script"/"Continue": the main
+**"Take My Job Away"** and, right below it, a smaller sibling **"Take My Job Away (aber Gehalt
+behalten)"** — the Referent gleefully clicking away their own relevance, but not their salary, is the
+joke. Clicking either runs the generation, then the Referent clicks "Create Video," a loading state runs,
+and a preview shows the avatar saying something funny (about pizza).
 
 Video generation itself is **not reinvented** — credited on the pitch as building on Moritz's existing
 avatar pipeline (recording → transcript → AI avatar → automated animation), which Franz NDA'd early.
@@ -150,12 +181,19 @@ heading to the airport, glancing at their phone: *"Video is live!"*
 
 ### 7. Video publishes — Pharma notified
 The video is live on the platform. Pharma gets a notification while, narratively, on the way to
-vacation — reinforcing "I barely had to do anything."
+vacation — reinforcing "I barely had to do anything." **View-counter gag:** the platform page's view
+count doesn't just display a number — it **ticks up visibly like a slot machine** (rolling digits,
+quick deceleration to land on the final count), selling "the numbers are already climbing" in real time.
 
 ### 8. Optional — one month later, the payoff *(cut first if time is tight after the stinger)*
-Jump forward a month: Pharma pulls up strong numbers (views, engagement) on their dashboard and shows
-their Boss. Punchline: the Pharma Boss (Scene 1's dismissive character) throws his hands up in amazed
-disbelief and claims the win as his own to *his* boss — gets "promoted to Senior Vice President."
+Jump forward a month: Pharma pulls up **absurdly huge numbers** (e.g. "10,000,000 views") on their
+dashboard and shows their Boss. A big, deliberately **penetrant, blinking banner-ad-style button** lights
+up on the dashboard right after the numbers land: **"Shift Whole Business Unit to Doctorflix and Retire
+Me"** — the joke being the numbers are so good the platform is now selling the Boss on obsoleting
+himself. Right next to it, a much **smaller, shyer second button**: **"Vielleicht nur Urlaub"** — the
+timid fallback option, undercutting the bombast of the first for the laugh. Punchline: the Pharma Boss
+(Scene 1's dismissive character) throws his hands up in amazed disbelief and claims the win as his own to
+*his* boss — gets "promoted to Senior Vice President."
 
 ### 9. DX-employee highlight reel — the closing ~60 seconds (do not cut)
 Hard cut into the pre-cut highlight-reel video: the beer-drinking DX employee, an over-the-top-edited

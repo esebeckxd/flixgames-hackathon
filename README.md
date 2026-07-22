@@ -41,12 +41,14 @@ automated Slack updates roll in). Humor is a deliberate design tool, not garnish
 buttons (e.g. `Projekt starten und One-Way-Ticket an den Strand buchen`) and playful animations underline
 *how easy the process has become* at every step — see [`CLAUDE.md`](CLAUDE.md) for the full brief.
 
-**The full scene-by-scene demo script is [`docs/STORYBOARD.md`](docs/STORYBOARD.md)** — build to it, not
-the other way around. **Hard limit: a 7-minute pitch** — build breadth and timing accordingly. It also
-has the single most important build rule: **oversimplify every screen** — 2–3 real clickable fields,
-everything else greyed-out/symbolic, no full-depth forms. And a build-architecture decision: this is a
-**deterministic scene-by-scene presentation** (one fixed path, a persistent "Next" control), not a
-free-roam multi-page app.
+**The full scene-by-scene demo script now lives in Notion — that's the single source of truth**; build
+to it, not the other way around. [`docs/STORYBOARD.md`](docs/STORYBOARD.md) is a frozen pre-Notion
+mirror (kept for git history, not to be edited for narrative changes anymore — see the banner at its
+top). **Hard limit: a 7-minute pitch** — build breadth and timing accordingly. Single most important
+build rule: **oversimplify every screen** — 2–3 real clickable fields, everything else greyed-out/
+symbolic, no full-depth forms. Build-architecture decision: this is a **deterministic scene-by-scene
+presentation** (one fixed path, a persistent "Next" control), not a free-roam multi-page app. Engineering
+tasks and required assets per scene are tracked in [`docs/TECH-ROADMAP.md`](docs/TECH-ROADMAP.md).
 
 Full context from all planning meetings: [`docs/meeting-notes/`](docs/meeting-notes/).
 
@@ -55,7 +57,9 @@ Full context from all planning meetings: [`docs/meeting-notes/`](docs/meeting-no
 | Path | What it's for |
 |---|---|
 | [`CLAUDE.md`](CLAUDE.md) | **Start here.** Co-pilot brief — what we're building, the stack, constraints, demo philosophy, and team roles. |
-| [`docs/STORYBOARD.md`](docs/STORYBOARD.md) | The scene-by-scene pitch script — build to this. |
+| **Notion storyboard** | **SSOT for the scene-by-scene pitch script** — build to this. |
+| [`docs/STORYBOARD.md`](docs/STORYBOARD.md) | Frozen pre-Notion mirror of the storyboard — history only, don't edit for narrative changes. |
+| [`docs/TECH-ROADMAP.md`](docs/TECH-ROADMAP.md) | Engineering build tasks + required assets, per storyboard scene. |
 | [`CHANGELOG.md`](CHANGELOG.md) | What's changed, release by release. |
 | [`app/`](app/) | Next.js App Router routes. Theme in [`app/globals.css`](app/globals.css), fonts in [`app/layout.tsx`](app/layout.tsx). |
 | [`components/ui/`](components/ui/) | shadcn/ui components (we own the source), themed to Doctorflix. |
@@ -84,12 +88,13 @@ embed/iframe the existing app or rebuild it as a shadcn page.
 ## How we build (constraints)
 
 - **Oversimplify every screen** — 2–3 real, clickable fields/actions; everything else is a grey, inert
-  placeholder. No full-depth forms, even where a real one exists. Full rule: [`docs/STORYBOARD.md`](docs/STORYBOARD.md).
+  placeholder. No full-depth forms, even where a real one exists.
 - **shadcn/ui is the UI basis** — reach for shadcn primitives before hand-rolling markup; build with the
   themed utilities, don't hardcode hex. See [`docs/BRANDING.md`](docs/BRANDING.md).
-- **No real backend / DB / payments for the demo** — state can be faked; PayPal checkout is simulated.
-- **Build to the pitch storyboard** ([`docs/STORYBOARD.md`](docs/STORYBOARD.md)), not the other way
-  around — final scope gets locked Wednesday morning, but the scene order and demo philosophy are set.
+- **No real backend / DB / payments for the demo** — state can be faked; checkout is simulated.
+- **Build to the Notion pitch storyboard** (SSOT), not the other way around — final scope gets locked
+  Wednesday morning, but the scene order and demo philosophy are set. Track engineering tasks/assets in
+  [`docs/TECH-ROADMAP.md`](docs/TECH-ROADMAP.md).
 
 ## Team & roles
 
@@ -101,7 +106,9 @@ Proposed split from the 2026-07-22 call (confirm/adjust once everyone's in the r
   DX-employee gag montage/edit (gong, Slack money-spam, beer cutscenes), virtual-background/avatar
   polish for the Referent recording simulation, and the ROI numbers + presentation format for the pitch.
 
-Both tracks build against [`docs/STORYBOARD.md`](docs/STORYBOARD.md) as the shared source of truth.
+Both tracks build against the **Notion storyboard** as the shared source of truth for narrative; the
+build track additionally tracks engineering tasks and required assets in
+[`docs/TECH-ROADMAP.md`](docs/TECH-ROADMAP.md).
 
 ## Working together during the hackathon
 
