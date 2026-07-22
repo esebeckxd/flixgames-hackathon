@@ -80,6 +80,11 @@ embed/iframe the existing app or rebuild it as a shadcn page.
 - Everyone pulls/pushes from this one shared repo — no personal forks, one history.
 - Prefer separate routes/components so two people can work without merge conflicts.
 - Pairing with Claude Code? Point it at [`CLAUDE.md`](CLAUDE.md) first.
+- **Changelog is mandatory, for humans and AI tools alike:** read [`CHANGELOG.md`](CHANGELOG.md)'s
+  `[Unreleased]` section before starting, and add an entry there for every change before you stop — see
+  "Changelog discipline" in [`CLAUDE.md`](CLAUDE.md) for the exact rules. It's how everyone (and every AI
+  co-pilot, regardless of which tool) stays in sync on current status and functionality without a live
+  handoff.
 
 ## Status
 

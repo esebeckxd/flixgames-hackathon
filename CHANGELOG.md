@@ -6,6 +6,13 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ## [Unreleased]
 
+### Added
+
+- **Changelog discipline policy** (`CLAUDE.md`, `AGENTS.md`, `README.md`): explicit instructions for all
+  human and AI contributors to read `[Unreleased]` before starting work and log every change here
+  (what changed, current functional status, what's faked/stubbed) before stopping — so the repo stays
+  legible across multiple people and multiple AI tools working in parallel without a live handoff.
+
 _Work planned for / during the hackathon (Wednesday onward):_
 
 - Topic-click handoff from the pharma landing page into the cost configurator.

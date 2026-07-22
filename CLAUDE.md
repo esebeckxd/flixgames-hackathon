@@ -75,6 +75,38 @@ Ask: "does this help the pitch story land, or is it gold-plating a step nobody l
 former. Exact demo scope (built-in-full vs. faked, storyboard order) gets locked Wednesday morning —
 keep things flexible until then.
 
+## Changelog discipline — read before you touch code, update before you stop
+
+Several people and several AI tools (Claude Code, Cursor, Codex, ChatGPT, …) work on this repo in
+parallel, often without seeing each other's sessions live. **`CHANGELOG.md` is the shared source of
+truth for "what exists and works right now."** Treat it as part of the deliverable, not an afterthought.
+
+**Before starting work:** read the `[Unreleased]` section of [`CHANGELOG.md`](CHANGELOG.md) first — it's
+the fastest way to learn what the last person/agent left in place, half-built, or intentionally faked.
+
+**Before you stop / hand off / end a session:** add an entry to `[Unreleased]` for every change you made
+— feature, fix, refactor, doc, or asset. This applies equally to human contributors and AI agents, no
+exceptions, no matter how small the change feels.
+
+Rules for entries:
+- **Same commit/PR as the change** — never batch changelog writing for later; it gets forgotten.
+- **Categorize** using Keep a Changelog headers: `Added`, `Changed`, `Fixed`, `Removed`, `Notes`.
+- **Describe status, not just the diff.** Don't write "updated pricing page" — write what now works,
+  what's still faked/stubbed, and what's known-broken or left for later. Someone who wasn't in the
+  session (human or AI) should be able to read the entry and know exactly what they can rely on.
+- **Name the surface area**: which route/component/doc changed (e.g. `app/checkout/page.tsx`, not just
+  "checkout").
+- **Call out fakes explicitly** — this project deliberately fakes payments/backend/DB; every time you
+  fake or stub something, say so in the entry so nobody later assumes it's real.
+- If you're an AI agent, write the entry in the same voice/format as existing entries — not "Claude did
+  X," just what changed, like a human teammate would log it.
+- When a batch of `[Unreleased]` work reaches a demo-able checkpoint, cut a new dated version section
+  (`## [x.y.z] — YYYY-MM-DD`) above it, following the existing `[0.1.0]` entry as the template.
+
+Goal: at any moment, anyone — new teammate or a fresh AI session with zero prior context — can read
+`CHANGELOG.md` top to bottom and know the current state of the build without reading the diff or asking
+around.
+
 ## Team
 
 Daniel Leon Glauert (Captain 🏴‍☠️), Franz von Esebeck, Emma Sporn, David Cisar, Carolina Fromm.
