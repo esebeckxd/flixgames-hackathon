@@ -134,6 +134,18 @@ type, confetti/money/slot animations) to match the Akt-1 opener. The three high-
 - The edited highlight-reel video itself (Slack notification montage, beer, sales gong, "money money
   money" spam) — owned by the pitch/story track, not the build track.
 
+**Related, separate:** `/money-boy` (`components/money-boy/`) is a **standalone** full-screen Slack-clone
+animation — not part of the deck/scene sequence — that loops "Money Boy" deal-closed messages forever
+with escalating numbers. It's a candidate **live second-screen/background-monitor feed** for this beat
+(real-time and endless, vs. `DxReel.tsx`'s baked-in mini feed) — pick one or run both if there's a second
+screen available; they're not meant to be merged.
+
+**Also related, separate:** `/ops-dashboard` (`components/ops-dashboard/`) is a **second** standalone
+animation — 8 parallel example-customer projects auto-progressing through a 5-stage pipeline, a live-
+climbing total-revenue counter, cards flying out/in on completion. Same "own browser window, runs
+forever, no backend" pattern as `/money-boy`. Good as a second monitor next to Money Boy's Slack feed, or
+on its own during the checkout/briefing beats to sell "meanwhile, elsewhere, more deals are closing."
+
 ## Cross-cutting engineering tasks
 
 - ✅ Scene-sequence shell (`SceneController.tsx`, `lib/scenes.ts`): ordered array of scene components +

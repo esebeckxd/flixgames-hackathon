@@ -6,8 +6,40 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ## [Unreleased]
 
+### Changed
+
+- **`/money-boy` main pane switched from dark to light** — the message list, header, and composer now
+  use a white background with dark (`#1D1C1D`) text, matching real Slack's default light theme. The
+  aubergine `#3F0E40` sidebar is kept exactly as-is, per instruction ("die lila Farbe in Slack aber
+  beibehalten"). `/ops-dashboard` was already light (Doctorflix's default `:root` theme; no `.dark` class
+  toggle exists anywhere in the app) — confirmed, no change needed there.
+
+- **Money Boy renamed to "Money Boy (BOT)"** everywhere in `/money-boy` (message sender, sidebar DM
+  list, member-count chip), and given a real avatar: `components/money-boy/MoneyBoyAvatar.tsx`, an
+  original inline-SVG "bling rapper" icon (silhouette, sunglasses, flat-brim cap, gold chain + pendant)
+  replacing the 🤑 emoji — no photo/likeness of a real person, no third-party logos/trademarks.
+
+### Added
+
+- **Pipeline Control dashboard — a second standalone animation** at `/ops-dashboard`
+  (`components/ops-dashboard/`). Same spirit as `/money-boy`: not an app, a pure looping visual meant to
+  run in its own browser window/tab alongside the pitch. Shows **8 example-customer projects
+  simultaneously**, each running its own independent 5-stage pipeline (`Thema gewählt → Angebot
+  konfiguriert → Bezahlt → Briefing erhalten → In Produktion`) on its own randomized timer
+  (`ProjectCard.tsx`, a self-contained async loop per card — no shared clock, so cards never march in
+  lockstep). On finishing, a card flips green ("✅ Fertig! Video live."), holds briefly, then flies out
+  and is replaced by a freshly-started project flying in from the same side (new fly-in/out keyframes in
+  `app/globals.css`). Each completion reports its deal value up to a live **Gesamtumsatz** counter that
+  eases toward its new target every frame rather than snapping (`LiveNumber`, `OpsDashboard.tsx`) — reads
+  as continuously climbing, never resets, runs forever. A small `Confetti` burst (reused from
+  `components/scene/plakativ.tsx`) fires on every completion. 20-customer/10-format example pool in
+  `data.ts` (same sponsor roster as Money Boy for continuity).
+
 ### Notes
 
+- **Git identity fixed on this machine** per the root-cause note below: `git config --global user.email`
+  set to a real, GitHub-linked address. This commit is the verifying one — if the Vercel deploy for it
+  isn't `BLOCKED`, the fix confirmed working.
 - **Vercel deploy blocking, root cause found.** Every deployment built from Daniel's commits was
   `BLOCKED` (confirmed via the Vercel API: `readyStateReason: "The Deployment was blocked because
   GitHub could not associate the committer with a GitHub user"`, `seatBlock.blockCode:
@@ -23,6 +55,19 @@ pre-hackathon prototype, so versions are lightweight and dated.
   this specific block.
 
 ### Added
+
+- **Money Boy #general feed — a standalone Slack-clone animation** at `/money-boy`
+  (`components/money-boy/MoneyBoyFeed.tsx` + `messages.ts`). Not an app — a pure, endlessly-looping
+  visual: a Slack-styled UI (aubergine sidebar, channel list, decorative composer bar) where "Money Boy"
+  posts a new 💰 MONEY MONEY MONEY 💰 deal-closed message every 2 seconds, forever. 20 hand-written
+  message variations (sponsor/format/referent/funny-aside per template, e.g. Roche/Celltrion/MSD/Pfizer
+  × Video on Demand/DUO-Vortrag/clickCase/etc. × Sehouli/Prelog/Paula Cramer/Prof. Dr. Ego von Kittel),
+  picked at random each tick. Deal size escalates the longer the loop runs (`escalationMultiplier`) so
+  the numbers get properly unhinged over time; MTD/YTD accumulate forever, never reset. Bonus/record-
+  breaking templates and mega-deals (>300k) trigger a `Confetti`/`MoneyRain` burst (reused from
+  `components/scene/plakativ.tsx`). Auto-scrolls to the newest message; message list capped at 200
+  rendered rows to keep the DOM light while MTD/YTD keep growing unbounded. Not wired into the main
+  pitch deck (`/`) — a separate route, meant to run on its own screen/tab during the DX-employee beat.
 
 - **4-act play framing fused onto the 0.5.0 MVP ("verschmelzen").** The deployed 10-scene click-through
   is now grouped into the play's four acts (`lib/scenes.ts` gains an `act` field + `ACT_TITLE`):
