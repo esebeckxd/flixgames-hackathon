@@ -34,15 +34,19 @@ npm run build   # production build
 > content live → lands on the platform.
 
 A **full-circle project process**, mostly self-running and only human-supervised — real human input is
-needed at just a handful of steps. Told from three personas: **Sponsor/Pharma** (self-serve SME
-marketing assistant), **Referent** (builds content live), and the **DX employee** (drinking a beer while
+needed at just a handful of steps. Told by a small cast played by the team in costume: a **Narrator**, a
+dismissive **Pharma Boss** (bookend character), the **Pharma/Marketing Assistant** (self-serve, ~€10k
+budget), the **Referent(s)** (builds content live), and the **DX employee** (drinking a beer while
 automated Slack updates roll in). Humor is a deliberate design tool, not garnish: over-the-top "bonus"
 buttons (e.g. `Projekt starten und One-Way-Ticket an den Strand buchen`) and playful animations underline
 *how easy the process has become* at every step — see [`CLAUDE.md`](CLAUDE.md) for the full brief.
 
 **The full scene-by-scene demo script is [`docs/STORYBOARD.md`](docs/STORYBOARD.md)** — build to it, not
-the other way around. It also has the single most important build rule: **oversimplify every screen** —
-2–3 real clickable fields, everything else greyed-out/symbolic, no full-depth forms.
+the other way around. **Hard limit: a 7-minute pitch** — build breadth and timing accordingly. It also
+has the single most important build rule: **oversimplify every screen** — 2–3 real clickable fields,
+everything else greyed-out/symbolic, no full-depth forms. And a build-architecture decision: this is a
+**deterministic scene-by-scene presentation** (one fixed path, a persistent "Next" control), not a
+free-roam multi-page app.
 
 Full context from all planning meetings: [`docs/meeting-notes/`](docs/meeting-notes/).
 
@@ -59,7 +63,7 @@ Full context from all planning meetings: [`docs/meeting-notes/`](docs/meeting-no
 | [`docs/BRANDING.md`](docs/BRANDING.md) | Doctorflix CI — how every screen should look + how the shadcn theme maps to it. |
 | [`docs/design-tokens.css`](docs/design-tokens.css) | Raw-hex `:root` reference (the app itself uses the shadcn theme in `globals.css`). |
 | [`docs/prebuilt-references/`](docs/prebuilt-references/) | Real, on-brand reference files (the pharma landing page). |
-| [`docs/meeting-notes/`](docs/meeting-notes/) | Notes from the kickoff (07-14), tactics call (07-20), and onboarding/storyboard call (07-22). |
+| [`docs/meeting-notes/`](docs/meeting-notes/) | Notes from the kickoff (07-14), tactics call (07-20), and the two 07-22 calls (onboarding/storyboard, storyboard feedback). |
 
 ## What already exists (don't rebuild it)
 

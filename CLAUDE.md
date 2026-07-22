@@ -15,38 +15,42 @@ human input is only required at a **handful of specific steps**; everything else
 between AI agents. The over-the-top humor exists specifically to sell *how little the stakeholder has to
 do anymore*.
 
-**Pipeline (full scene-by-scene version: [`docs/STORYBOARD.md`](docs/STORYBOARD.md)):**
-1. **Sponsor/Pharma picks a topic** from the shop, configures the offer (video + add-ons), and
-   **books a Referent directly as part of checkout** — **Stripe/PayPal-styled but fully faked**, using
-   joke brand names instead of the real payment logos (never the real Stripe/PayPal marks — see Hard
-   constraints). Checkout completing kicks the project off.
-2. **Project requirements are captured, not drafted** — the Pre-Kick-Off briefing screen (oversimplified
+**Pipeline (full 10-scene script + cast: [`docs/STORYBOARD.md`](docs/STORYBOARD.md)):**
+1. Cold open: a dismissive **Pharma Boss** hands the project off ("just make a TV video, come back in
+   six months") — sets up the ending's payoff.
+2. **Pharma picks a topic** from the shop, configures the offer (video + add-ons), and **books a
+   Referent directly as part of checkout** — **Stripe/PayPal-styled but fully faked**, using joke brand
+   names instead of the real payment logos (never the real Stripe/PayPal marks — see Hard constraints).
+   Referent booking is staged live: three teammates appear as candidate Referents, Pharma picks one.
+3. **Project requirements are captured, not drafted** — the Pre-Kick-Off briefing screen (oversimplified
    to 2–3 real fields + grey placeholders, see Demo philosophy) stands in for a human writing a scope
-   doc. Sponsor/Pharma is now "done" — narratively they go on vacation.
-3. **Referent gets notified** of the booking (while watching a Doctorflix CME video for their own
-   credits — a reflexive gag) and builds the presentation in our own **simple slide builder** — not
-   Moritz's full kasuistik tool. Optional Murphy's-Law beat: feed in a deliberately ugly draft and have
-   the AI clean it up ("turning shit into gold").
-4. **Video generation** — credited transparently to Moritz's existing avatar pipeline (recording →
-   transcript → AI avatar → automated animation); we build the pipeline, not this piece.
-5. **Video publishes**; Sponsor/Pharma is notified (narratively, on the way to the airport).
-6. **One month later:** Sponsor/Pharma pulls up strong numbers and shows their boss — the payoff beat.
+   doc. Pharma is now "done" — narratively they head to the airport.
+4. **Referent gets notified** of the booking and builds the presentation in our own **simple slide
+   builder** — not Moritz's full kasuistik tool. Murphy's-Law beat: an ugly old deck gets dug out of the
+   archive and the AI cleans it up ("turning shit into gold").
+5. **Video generation** — "pick your fighter" avatar select, AI Avatar chosen over Live Recording;
+   credited transparently to Moritz's existing pipeline (recording → transcript → AI avatar →
+   automated animation); we build the pipeline UI, not this piece.
+6–7. **Referent submits, video publishes**; Pharma is notified on the way to vacation.
+8. *(Optional, cut first if tight)* **One month later:** Pharma shows numbers to the Boss, who claims
+   credit for it.
+9. **DX-employee highlight-reel** — the closing ~60 seconds, do not cut (beer, Slack notifications, a
+   sales gong on every closed deal).
+10. *(Optional stinger)* Six months later: the founders realize the team is redundant.
 
-Running throughout/at the end: **DX-employee gag interstitials** (beer, Slack notifications, a sales
-gong on every closed deal) — see Humor & motion direction below and [`docs/STORYBOARD.md`](docs/STORYBOARD.md).
+**Told from a small cast** — Narrator, Pharma Boss, Pharma/Marketing Assistant, Referent(s), DX
+employee — all played by the team in costume. Full cast + character notes:
+[`docs/STORYBOARD.md`](docs/STORYBOARD.md#cast--characters).
 
-**Told from three personas** in the pitch:
-- **Sponsor / Pharma** — young SME marketing assistant, ~mid-20s, ~€10k budget, wants to self-serve fast
-  without Sales.
-- **Referent** — receives the briefing, builds content live, submits, video publishes.
-- **DX employee** — sits drinking a beer while automated Slack updates roll in (the gag: the team could
-  be replaced by this one beer). The cost configurator's real Slack triggers can drive this feed.
+Full context: [`docs/meeting-notes/`](docs/meeting-notes/) (all planning meetings).
 
-Full context: [`docs/meeting-notes/`](docs/meeting-notes/2026-07-14-kickoff.md) (planning meetings; more
-notes to follow as the process gets fleshed out).
+## Pitch format & timing
 
-**Detailed scene-by-scene script:** [`docs/STORYBOARD.md`](docs/STORYBOARD.md) — build to this, not the
-other way around. Full context: [`docs/meeting-notes/`](docs/meeting-notes/) (all planning meetings).
+**Hard limit: 7 minutes.** Budget ~10–15 seconds per scene/interaction. The last ~60 seconds are
+reserved for the DX-employee highlight reel (scene 9) — build to that, don't squeeze it in on top.
+Cut-first order if time is tight: the six-month stinger (scene 10), then the one-month payoff (scene 8).
+**Spoken pitch (Narrator/character lines) is in English; on-screen product UI can stay German** —
+matches the real pre-built assets. Full reasoning: [`docs/STORYBOARD.md`](docs/STORYBOARD.md#format--timing--read-this-first-it-changes-everything-else).
 
 ## Demo philosophy — the most important rule for building any screen
 
@@ -90,6 +94,13 @@ buttons, inputs, cards, dialogs. Run `npm run dev` (port 3000) / `npm run build`
 - The three pre-built assets are plain HTML/Vercel apps (below); this FlixGames app is the new Next.js
   shell that stitches the storyboard together. Per screen, decide Wednesday: embed/iframe the existing
   app, or rebuild the screen as a shadcn page.
+
+**Build it as a deterministic presentation, not a free-roam app** — decided on the 2026-07-22 call, too
+risky to navigate live otherwise. One fixed, linear sequence of full-screen scenes driven by a single
+`currentScene` piece of state, advanced by a persistent bottom-right "Next" control (+ keyboard
+shortcut) — not separate routes the presenter navigates freely. Each scene can still contain its own
+realistic-looking mini-flow (e.g. checkout has a few clicks inside it), but scene-to-scene order is
+fixed. Full reasoning: [`docs/STORYBOARD.md`](docs/STORYBOARD.md#build-format--a-deterministic-presentation-not-a-free-roam-app).
 
 ## Don't rebuild what exists → [`docs/PREBUILT-ASSETS.md`](docs/PREBUILT-ASSETS.md)
 
