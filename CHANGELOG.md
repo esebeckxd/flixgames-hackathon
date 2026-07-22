@@ -6,6 +6,20 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ## [Unreleased]
 
+### Fixed
+
+- **Reverted the Cloudflare auto-build test change** (`ColdOpen.tsx`): title text back to white/teal
+  from the temporary red test color — the Cloudflare Pages git integration was confirmed working.
+- **Fixed two `react-hooks/refs` lint errors** in `components/ops-dashboard/ProjectCard.tsx`: two refs
+  were being mutated during render (`onDoneRef.current = onDone`, `projectRef.current = project`),
+  which the newer lint rule flags as unsafe even though it worked in practice. Moved the callback ref
+  update into an effect, and replaced the project ref entirely with a local variable captured inside
+  the async loop's closure (simpler and removes the stale-read risk). `npm run lint` now reports zero
+  errors/warnings repo-wide. Re-verified the Pipeline Control dashboard in-browser after the fix — cards
+  still cycle and report revenue correctly.
+- Did a full click-through of every scene (dev server) and the static-export build served standalone
+  (what Cloudflare actually runs) — no console errors, no other display issues found on either path.
+
 ### Added
 
 - **Cloudflare Pages support, prepped for parallel hosting.** `next.config.ts` now switches to a static

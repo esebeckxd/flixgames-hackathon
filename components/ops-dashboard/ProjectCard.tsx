@@ -21,12 +21,13 @@ export function ProjectCard({
   const [stageIndex, setStageIndex] = React.useState(0);
   const [phase, setPhase] = React.useState<Phase>("idle");
 
-  // stable refs so the loop below (only ever created once) can read the
-  // latest project/callback without re-running the whole effect
+  // Stable ref so the loop below (only ever created once) can call the
+  // latest onDone without re-running the whole effect. Updated in an effect,
+  // not during render, per react-hooks/refs.
   const onDoneRef = React.useRef(onDone);
-  onDoneRef.current = onDone;
-  const projectRef = React.useRef(project);
-  projectRef.current = project;
+  React.useEffect(() => {
+    onDoneRef.current = onDone;
+  }, [onDone]);
 
   // A single self-perpetuating loop per card, started once on mount. Never
   // depends on external state — each card is its own independent process.
@@ -43,7 +44,8 @@ export function ProjectCard({
       // desync the very first cycle so 8 cards don't all start in lockstep
       await wait(Math.round(Math.random() * 3000));
       while (!cancelled) {
-        setProject(randomProject());
+        const current = randomProject();
+        setProject(current);
         setStageIndex(0);
         setPhase("entering");
         await wait(FLY_MS);
@@ -59,7 +61,7 @@ export function ProjectCard({
         setPhase("done");
         setStageIndex(STAGES.length);
         // report revenue exactly once, right as the card turns green
-        onDoneRef.current(projectRef.current?.dealK ?? 0);
+        onDoneRef.current(current.dealK);
         await wait(DONE_HOLD_MS);
         if (cancelled) return;
 
@@ -74,7 +76,6 @@ export function ProjectCard({
       cancelled = true;
       timeouts.forEach((t) => window.clearTimeout(t));
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const flyIn = flyDir === "left" ? "fg-fly-in-left" : "fg-fly-in-right";

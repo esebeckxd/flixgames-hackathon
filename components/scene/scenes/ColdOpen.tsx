@@ -7,9 +7,10 @@ import { Stage } from "@/components/scene/plakativ";
 // carry the opening in front of it.
 export function ColdOpen() {
   return (
-    <Stage className="bg-[#1A2133] text-red-500">
+    <Stage className="bg-[#1A2133] text-white">
       <h1 className="text-balance text-6xl font-bold leading-[0.95] tracking-tight sm:text-7xl md:text-8xl lg:text-9xl">
-        How We Became Unemployed and Rich
+        How We Became <span className="text-[#0EC1B7]">Unemployed</span> and{" "}
+        <span className="text-[#0EC1B7]">Rich</span>
       </h1>
     </Stage>
   );
