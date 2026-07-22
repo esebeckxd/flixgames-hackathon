@@ -25,7 +25,7 @@ function ViewCounter() {
 
   return (
     <div className="font-heading text-4xl font-black tabular-nums text-brand">
-      {value.toLocaleString("de-DE")}
+      {value.toLocaleString("en-US")}
     </div>
   );
 }
@@ -41,22 +41,22 @@ export function Publish() {
           <CardContent className="flex flex-col items-center gap-4 py-10">
             <h2 className="font-heading text-xl font-bold">Referent submitted</h2>
             <p className="max-w-sm text-sm text-muted-foreground">
-              &ldquo;{topic.title}&rdquo; ist fertig und eingereicht.
+              &ldquo;{topic.title}&rdquo; is finished and submitted.
             </p>
             <Button variant="accent" size="lg" onClick={() => setPublished(true)}>
-              Video live schalten
+              Publish Video
             </Button>
           </CardContent>
         </Card>
       ) : (
         <div className="flex flex-col items-center gap-4">
           <span className="text-5xl">✈️📱</span>
-          <h2 className="font-heading text-2xl font-bold">Video ist live!</h2>
+          <h2 className="font-heading text-2xl font-bold">Video is live!</h2>
           <ViewCounter />
           <p className="text-xs uppercase tracking-wide text-muted-foreground">Views · live</p>
           <p className="max-w-sm text-sm text-muted-foreground">
-            Pharma bekommt die Notification auf dem Weg zum Flughafen — &ldquo;Video live und
-            Feierabend machen.&rdquo;
+            Pharma gets the notification on the way to the airport — &ldquo;video live, time to
+            clock out.&rdquo;
           </p>
         </div>
       )}

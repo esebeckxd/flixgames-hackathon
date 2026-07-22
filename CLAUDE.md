@@ -52,8 +52,10 @@ Full context: [`docs/meeting-notes/`](docs/meeting-notes/) (all planning meeting
 **Hard limit: 7 minutes.** Budget ~10–15 seconds per scene/interaction. The last ~60 seconds are
 reserved for the DX-employee highlight reel (scene 9) — build to that, don't squeeze it in on top.
 Cut-first order if time is tight: the six-month stinger (scene 10), then the one-month payoff (scene 8).
-**Spoken pitch (Narrator/character lines) is in English; on-screen product UI can stay German** —
-matches the real pre-built assets. Full reasoning: [Notion storyboard](https://app.notion.com/p/doctorflix/FlixGames-Hackathon-Pitch-Storyboard-EN-3a525482863c818c9dc3d49cf9d062a5).
+**Everything is in English — spoken pitch and on-screen product UI both** (decided 2026-07-22, overrides
+the original plan to leave on-screen UI in German to match the pre-built assets; the international
+FlixGames audience made that not worth the authenticity trade-off). New copy on any screen should be
+written in English from the start, not left in German to "match the real app."
 
 ## Demo philosophy — the most important rule for building any screen
 
@@ -117,6 +119,17 @@ order is fixed. Full reasoning: [Notion storyboard](https://app.notion.com/p/doc
   on-screen UI beat — build that as a real animated transition component (not a bare loading spinner).
   A **GTA-style character-switch swoop/zoom** is a good alternate/additional treatment for persona-to-
   persona cuts specifically — use whichever reads better once it's built, or vary it scene to scene.
+- **Overview-then-zoom beats within a scene (decided 2026-07-22).** Any scene that represents a real
+  dashboard should open on a full-screen "beat 0" showing the whole product — sidebar, nav, surrounding
+  chrome — so the audience gets the "this is a real tool" establishing shot. Advancing "Next" from
+  there doesn't cut to a new scene; it zooms into a "beat 1+" view of that *same* scene, stripped of
+  chrome, with the one element that matters to the story (the button, the field, the dropzone) blown up
+  large enough to be the obvious focal point. Implemented as a per-scene `beats` count in
+  [`lib/scenes.ts`](lib/scenes.ts): `SceneController` steps `next()`/`prev()` through a scene's own
+  beats before moving to the next scene, and a scene can call `goToBeat(n)` to branch straight to one of
+  its own beats (e.g. Shop's "Read My Mind." button skips past the normal zoom beat into its own joke
+  beat). Applied so far to Shop (topic pick), Checkout (package pick), and Referent Upload (dropzone) —
+  apply the same overview→zoom shape to any future dashboard-style scene rather than a flat single view.
 - **Video placeholders.** Several scenes (e.g. Scene 5's AI-avatar video, Scene 9's DX highlight reel)
   point at a real video that doesn't exist yet. Render those as clearly labeled placeholder blocks (a
   bordered box with `[Video: <what it'll show>]`) that are trivial to swap for a real `<video>`/embed

@@ -11,20 +11,19 @@ export function ColdOpen() {
 
   return (
     <Stage className="bg-[#1A2133] text-white">
-      <Kicker>Akt 1 · Der letzte Arbeitstag</Kicker>
+      <Kicker>Act 1 · The Last Work Day</Kicker>
 
-      <h1 className="text-balance text-5xl font-bold leading-[0.95] tracking-tight sm:text-7xl md:text-8xl">
-        Wie wir <span className="text-[#0EC1B7]">arbeitslos</span>
-        <br />
-        und <span className="text-[#0EC1B7]">reich</span> wurden
+      <h1 className="text-balance text-5xl font-bold leading-[0.95] tracking-tight sm:text-6xl md:text-7xl">
+        How We Became <span className="text-[#0EC1B7]">Unemployed</span> and{" "}
+        <span className="text-[#0EC1B7]">Rich</span>
       </h1>
 
       <p className="max-w-3xl text-xl font-medium sm:text-2xl md:text-3xl">
-        Chef <b>Bernd Bonus</b>:{" "}
-        <i>&bdquo;Macht mal so&rsquo;n Pharma-Video. In sechs Monaten. Und nervt mich nicht.&ldquo;</i>
+        Boss <b>Bernd Bonus</b>:{" "}
+        <i>&ldquo;Just make a pharma video. In six months. And don&rsquo;t bother me.&rdquo;</i>
       </p>
       <p className="max-w-2xl text-lg text-white/60 sm:text-xl">
-        Normalerweise: Monate Arbeit, Panik, Überstunden. Oder&hellip; wir lassen das die Maschine machen.
+        Normally: months of work, panic, overtime. Or&hellip; we let the machine do it.
       </p>
 
       <GagButton
@@ -36,12 +35,12 @@ export function ColdOpen() {
           setOn(true);
         }}
       >
-        {on ? "✅ AUTOPILOT LÄUFT — WEITER →" : "⚡ AUTOPILOT AN"}
+        {on ? "✅ AUTOPILOT RUNNING — NEXT →" : "⚡ AUTOPILOT ON"}
       </GagButton>
 
       {on && (
         <p className="fg-pop text-lg font-semibold text-[#0EC1B7] sm:text-xl">
-          Ab hier macht die Maschine alles. Wir gucken zu. 🍺
+          From here, the machine does everything. We watch. 🍺
         </p>
       )}
     </Stage>

@@ -24,7 +24,7 @@ export function PersonaTransition({
           {act ? (
             <>
               <div className="font-heading text-lg font-bold uppercase tracking-[0.35em] text-[#0EC1B7] sm:text-2xl">
-                Akt {act}
+                Act {act}
               </div>
               <div className="font-heading mt-3 text-balance text-4xl font-bold leading-[0.95] sm:text-6xl md:text-7xl">
                 {actTitle}

@@ -15,9 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Wie wir arbeitslos und reich wurden — FlixGames",
-  description:
-    "Doctorflix FlixGames — ein Theaterstück in 4 Akten. Klick-Dummy für den Pitch.",
+  title: "How We Became Unemployed and Rich — FlixGames",
+  description: "Doctorflix FlixGames — a play in 4 acts. Click-dummy for the pitch.",
 };
 
 export default function RootLayout({
@@ -27,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="de"
+      lang="en"
       className={`${beVietnam.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>

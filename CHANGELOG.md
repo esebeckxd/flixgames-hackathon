@@ -37,6 +37,37 @@ pre-hackathon prototype, so versions are lightweight and dated.
 - **Plakativ motion kit** kept from the parallel build and merged into `app/globals.css`
   (`components/scene/plakativ.tsx`): huge `GagButton`, `Confetti`, `MoneyRain`, `SlotCounter`,
   `FakeProgress`, `Stage`, `Kicker` — available for amping the remaining symbolic scenes next.
+- **Overview → zoom "beat" system.** `lib/scenes.ts`'s `SceneDef` gained an optional `beats` count;
+  `SceneController` now steps `next()`/`prev()` through a scene's own beats (beat 0 = full dashboard
+  view, beat 1+ = zoomed onto the one element the story needs the audience looking at) before advancing
+  to the next scene, and exposes a new `goToBeat(n)` (via `components/scene/nav.ts`) so a scene can
+  branch straight to one of its own beats. Applied to Shop (topic pick), Checkout (package pick), and
+  the new Referent Upload scene (dropzone) — see `CLAUDE.md`'s interaction-model section for the
+  standing rule this codifies.
+- **Shared dashboard shell** (`components/scene/DashboardShell.tsx`, new): a left sidebar + topbar
+  wrapper with `variant: "pharma" | "referent"` nav item sets, used by Shop, Checkout, and the new
+  Referent Upload scene so all three read as one coherent product family. **This is a v1 placeholder**
+  — built from description only, not yet matched against the real pharma-dashboard video/screenshots
+  the user is going to supply; expect a visual pass once those land.
+- **Generic "Tubely" video-platform layout** (`components/scene/YouTubePage.tsx`, new): a fake
+  YouTube-style watch page (title/channel/views/description around a labeled video placeholder) —
+  deliberately not the real YouTube UI/branding. Used for the DX highlight reel ("One Day in Our Work
+  Life") and the stinger ("The End"), both full-bleed instead of the old boxed layouts.
+- **"Read My Mind." joke branch on Shop.** A small button on the Shop overview (`goToBeat(2)`) jumps to
+  a dedicated giant-button beat; clicking it assigns a joke placeholder topic ("Why Pizza Cures
+  Everything: A Comprehensive Review", `lib/demo-state.tsx`'s new `JOKE_TOPIC` — **content itself is a
+  placeholder pending the user's final joke topic**) and skips straight into Checkout with it. The real
+  landing-page topics (`TOPICS`) are untouched/serious; only this explicit branch is a joke.
+- **"Leo's iPhone" interstitial scene** (`components/scene/scenes/LeosIphone.tsx`, new; registered as
+  `leos-iphone` between the DX reel and the stinger): a CSS phone-frame mockup on a gradient background,
+  showing a text from "Hans" — "Do we need them anymore?" — as the visual beat between "One Day in Our
+  Work Life" and "The End."
+- **Synthesized notification sound** (`lib/sound.ts`, new): a small Web Audio API chime built from
+  oscillator tones (`playNotification`, `playGong`, `playConfirm` — only `playNotification` wired so
+  far, into `LeosIphone`). Deliberately synthesized rather than a sampled/licensed sound effect — avoids
+  reproducing Apple's actual iPhone tone or any copyrighted SFX, and needs no audio file to ship. Works
+  reliably here because the whole app is click/keypress-driven, so it's always inside a user gesture —
+  no browser autoplay restrictions apply.
 
 ### Changed
 
@@ -53,6 +84,24 @@ pre-hackathon prototype, so versions are lightweight and dated.
   `"prepare"` script that runs `git config core.hooksPath .githooks` automatically on `npm install`, so
   every clone picks up the enforcement without a manual setup step.
 
+- **Everything translated to English, on-screen UI included.** Overrides the earlier "on-screen UI can
+  stay German" call in `CLAUDE.md` (updated to match) — every scene's copy, all topic/package/product
+  data (`lib/demo-state.tsx`'s `TOPICS`, checkout packages), `ACT_TITLE`, and `app/layout.tsx` metadata
+  are now English. `SlotCounter`'s number formatting switched `"de-DE"` → `"en-US"` to match.
+- **Moderator nav controls shrunk and de-emphasized.** The old persistent "Akt n/4 · Szene" chip +
+  "Weiter →" button are gone; `SceneController` now renders two small (24px) low-opacity icon-only
+  back/forward buttons bottom-right (`opacity-40`, full opacity on hover) — a moderator affordance, not
+  something meant to read as part of the pitch. The big plakativ Act-title curtain on act changes is
+  kept as-is.
+- **Referent's `slide-builder` scene replaced with a DX-style upload interface**
+  (`components/scene/scenes/ReferentUpload.tsx`, replaces the deleted `SlideBuilder.tsx`): opens on a
+  full Referent Dashboard overview (booking-notification banner, assignment/deadline/payout cards, using
+  the new `DashboardShell` in its `referent` variant) before zooming into a huge dropzone for the
+  upload → AI-cleanup beat. Cursed filename gag carried over and re-anglicized:
+  `Presentation_FINAL_FINAL_v3_actually_final.ppt`.
+- **`eslint.config.mjs`** ignores `.vercel/**` — the `.vercel/output/**` prebuilt-build artifacts from
+  `vercel build` were being linted as source and threw ~1,900 false-positive problems.
+
 _Still open after the 0.5.0 MVP below — see [`docs/TECH-ROADMAP.md`](docs/TECH-ROADMAP.md) for the full
 per-scene breakdown:_
 
@@ -66,6 +115,15 @@ per-scene breakdown:_
   gong, beer, money-spam) is a pitch/story-track production task, not app engineering.
 - Scene 5's avatar-speaking preview is a labeled placeholder — depends on how far Moritz's pipeline
   integration gets by Wednesday.
+- **`DashboardShell` (Shop/Checkout/Referent Upload sidebar) is a v1 placeholder**, built from
+  description only — waiting on the real pharma-dashboard screenshots/video the user is going to supply
+  for a pixel-accurate pass.
+- **"Read My Mind." joke topic content is a placeholder** ("Why Pizza Cures Everything") — user said
+  final content is still TBD.
+- Referent Upload's "DX style" character/avatar assets are pending from the user (different characters
+  per persona) — currently text/icon-only.
+- `lib/sound.ts` only has `playNotification()` wired in (Leo's iPhone scene); `playGong`/`playConfirm`
+  exist but aren't triggered anywhere yet.
 - Reusable "bonus button" component (primary + over-the-top sibling) — currently hand-rolled per screen,
   works fine for the MVP but duplicated.
 - Referent line-up beat (Scene 2) is intentionally **not** built in-app — per `TECH-ROADMAP.md` it's

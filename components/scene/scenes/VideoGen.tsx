@@ -49,7 +49,7 @@ export function VideoGen() {
           </div>
 
           <div className="rounded-xl border border-border bg-muted/40 px-4 py-2 text-center text-xs font-medium text-muted-foreground">
-            Video-Thema: <span className="font-semibold text-foreground">{VIDEO_TOPIC}</span>
+            Video topic: <span className="font-semibold text-foreground">{VIDEO_TOPIC}</span>
           </div>
 
           <div className="flex gap-2 rounded-full border border-border bg-muted/40 p-1">
@@ -96,7 +96,7 @@ export function VideoGen() {
 
           {step === "creating" && (
             <p className="text-center text-sm text-muted-foreground">
-              Generiere Video mit {fighter} ({mode === "avatar" ? "AI Avatar" : "Live Recording"})…
+              Generating video with {fighter} ({mode === "avatar" ? "AI Avatar" : "Live Recording"})…
             </p>
           )}
 
@@ -104,7 +104,7 @@ export function VideoGen() {
             <div className="flex flex-col items-center gap-3">
               <VideoPlaceholder label={`${fighter} — "${VIDEO_TOPIC}"`} />
               <p className="text-xs text-muted-foreground">
-                Credited: baut auf Moritz&apos;s Avatar-Pipeline (Transkript → Avatar → Animation).
+                Credited: builds on Moritz&apos;s avatar pipeline (transcript → avatar → animation).
               </p>
             </div>
           )}

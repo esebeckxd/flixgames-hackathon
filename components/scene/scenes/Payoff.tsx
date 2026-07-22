@@ -3,8 +3,8 @@ import { Badge } from "@/components/ui/badge";
 import { useDemoState } from "@/lib/demo-state";
 
 const STATS = [
-  { label: "Views", value: "10.000.000" },
-  { label: "CME-Zertifikate", value: "1.930" },
+  { label: "Views", value: "10,000,000" },
+  { label: "CME Certificates", value: "1,930" },
   { label: "Engagement", value: "+64%" },
 ];
 
@@ -34,7 +34,7 @@ export function Payoff() {
               Shift Whole Business Unit to Doctorflix and Retire Me
             </button>
             <button className="rounded border border-border px-2 py-1 text-[10px] text-muted-foreground hover:text-foreground">
-              Vielleicht nur Urlaub
+              Maybe Just a Vacation
             </button>
           </div>
 

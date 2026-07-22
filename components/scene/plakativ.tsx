@@ -172,7 +172,7 @@ export function SlotCounter({
 
   return (
     <span className={cn("tabular-nums", className)}>
-      {value.toLocaleString("de-DE")}
+      {value.toLocaleString("en-US")}
     </span>
   );
 }

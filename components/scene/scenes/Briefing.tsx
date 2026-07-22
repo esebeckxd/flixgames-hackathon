@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useDemoState } from "@/lib/demo-state";
 import styles from "./briefing.module.css";
 
-const FOCUS_CHIPS = ["Diagnostik", "Therapieoptionen", "Praxisrelevanz", "Leitlinien-Update"];
+const FOCUS_CHIPS = ["Diagnostics", "Treatment Options", "Practice Relevance", "Guideline Update"];
 
 type Step = "form" | "processing" | "done";
 
@@ -35,8 +35,8 @@ export function Briefing() {
       <div className={styles.page}>
         <div className={styles.stateScreen}>
           <div className={styles.stateIcon}>🧠</div>
-          <h2>Einen Moment…</h2>
-          <p>KI liest Ihre Gedanken… {Math.min(progress, 87)} %</p>
+          <h2>One moment…</h2>
+          <p>AI is reading your mind… {Math.min(progress, 87)} %</p>
           <div className="mt-4 h-2 w-64 overflow-hidden rounded-full bg-muted">
             <div
               className="h-full bg-brand transition-all duration-150"
@@ -53,10 +53,10 @@ export function Briefing() {
       <div className={styles.page}>
         <div className={styles.stateScreen}>
           <div className={styles.stateIcon}>✓</div>
-          <h2>Vielen Dank für Ihr Briefing!</h2>
+          <h2>Thank you for your briefing!</h2>
           <p>
-            Ihr Pre Kick-Off Briefing wurde erfolgreich an Doctorflix übermittelt. Der Referent
-            wurde benachrichtigt.
+            Your Pre-Kick-Off briefing was successfully submitted to Doctorflix. The Referent has
+            been notified.
           </p>
         </div>
       </div>
@@ -69,41 +69,41 @@ export function Briefing() {
         <div className={`${styles.wrap} ${styles.topbarInner}`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/brand/doctorflix-logo.svg" alt="Doctorflix" className={styles.logo} />
-          <span className={styles.progressChip}>Bereit zum Absenden</span>
+          <span className={styles.progressChip}>Ready to submit</span>
         </div>
       </header>
 
       <div className={styles.wrap}>
         <section className={styles.hero}>
-          <div className={styles.eyebrow}>Kick-Off Vorbereitung</div>
+          <div className={styles.eyebrow}>Kick-Off Preparation</div>
           <h1>
-            Gemeinsam gut <span className={styles.ac}>vorbereitet</span>.
+            Well <span className={styles.ac}>prepared</span>, together.
           </h1>
           <p>
-            Doctorflix Medical hat für &ldquo;{topic.title}&rdquo; bereits ein Konzept
-            entwickelt. Ein paar ergänzende Angaben, dann sind wir startklar.
+            Doctorflix Medical has already developed a concept for &ldquo;{topic.title}&rdquo;. A
+            few additional details, and we&rsquo;re ready to go.
           </p>
         </section>
 
         <div className={styles.dealCard}>
           <div className={styles.dealField}>
-            <span className={styles.dcLabel}>Thema</span>
+            <span className={styles.dcLabel}>Topic</span>
             <span className={styles.dcVal}>{topic.title}</span>
           </div>
           <div className={styles.dealField}>
-            <span className={styles.dcLabel}>Ansprechpartner</span>
+            <span className={styles.dcLabel}>Contact</span>
             <span className={styles.dcVal}>{topic.speaker}</span>
           </div>
         </div>
 
         <div className={styles.disclaimer}>
-          Die Angaben in diesem Formular dienen ausschließlich der Transparenz und
-          Dokumentation. Thema und Durchführung werden eigenständig vom Referenten festgelegt.
+          The information in this form is for transparency and documentation purposes only. The
+          topic and delivery are determined independently by the Referent.
         </div>
 
         <div className={styles.section}>
-          <div className={styles.sectionTitle}>Inhaltlicher Fokus</div>
-          <div className={styles.sectionSubtitle}>Was soll im Vordergrund stehen?</div>
+          <div className={styles.sectionTitle}>Content Focus</div>
+          <div className={styles.sectionSubtitle}>What should take center stage?</div>
           <div className={styles.chipRow}>
             {FOCUS_CHIPS.map((c) => (
               <button
@@ -118,35 +118,35 @@ export function Briefing() {
         </div>
 
         <div className={styles.section}>
-          <div className={styles.sectionTitle}>Anmerkungen</div>
-          <div className={styles.sectionSubtitle}>Optional — alles Weitere besprechen wir im Kick-Off Call.</div>
+          <div className={styles.sectionTitle}>Notes</div>
+          <div className={styles.sectionSubtitle}>Optional — we&rsquo;ll cover everything else on the kick-off call.</div>
           <textarea
             className={styles.fieldTextarea}
-            placeholder="z. B. Praxisbeispiele einbauen…"
+            placeholder="e.g. include practice examples…"
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
           />
         </div>
 
-        {["Zielgruppe & Reichweite", "Format-Details", "Abrechnungshinweise"].map((title) => (
+        {["Target Audience & Reach", "Format Details", "Billing Notes"].map((title) => (
           <div key={title} className={`${styles.section} ${styles.sectionDisabled}`}>
             <div className={styles.sectionTitle}>{title}</div>
-            <div className={styles.sectionSubtitle}>Wird im Kick-Off Call besprochen.</div>
+            <div className={styles.sectionSubtitle}>Discussed on the kick-off call.</div>
           </div>
         ))}
       </div>
 
       <div className={styles.submitBar}>
-        <span className={styles.submitInfo}>Bereit zum Absenden</span>
+        <span className={styles.submitInfo}>Ready to submit</span>
         <div className="flex items-center gap-2">
           <button
             className="rounded-full border border-brand/40 bg-brand/5 px-4 py-2 text-xs font-semibold text-brand hover:bg-brand/10"
             onClick={() => setStep("processing")}
           >
-            Briefing absenden und Autoantwort aktivieren bis Q4 📤
+            Submit briefing and enable auto-reply until Q4 📤
           </button>
           <button className={styles.btnDark} onClick={() => setStep("processing")}>
-            An Doctorflix übermitteln →
+            Submit to Doctorflix →
           </button>
         </div>
       </div>
