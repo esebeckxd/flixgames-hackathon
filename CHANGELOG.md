@@ -13,6 +13,24 @@ pre-hackathon prototype, so versions are lightweight and dated.
   (what changed, current functional status, what's faked/stubbed) before stopping — so the repo stays
   legible across multiple people and multiple AI tools working in parallel without a live handoff.
 
+### Changed
+
+- **Project concept refined in `CLAUDE.md`/`README.md`**: reframed as a full-circle, mostly
+  human-*supervised* (not human-*driven*) project process — human input required at only a few steps.
+  Pipeline steps 1–2 locked (sponsor picks topic + books via a faked/joke-branded Stripe/PayPal-style
+  checkout → project steps/requirements defined automatically); steps 3+ intentionally left as
+  placeholders pending more meeting-transcript context.
+  New **"Humor & motion direction"** section in `CLAUDE.md` codifies the "absurd extra win" button
+  pattern (e.g. `Projekt starten und One-Way-Ticket an den Strand buchen`) and requires proposing a
+  fitting joke + a small delightful animation at every step, not just where explicitly asked.
+- **Hard constraint tightened**: fake checkout must never use the real Stripe/PayPal logos/trademarks —
+  invent joke-branded fake payment options instead.
+
+### Notes
+
+- No UI/code changes yet for this pass — docs-only update to realign the shared context ahead of
+  implementing the humor/animation pattern and the checkout step.
+
 _Work planned for / during the hackathon (Wednesday onward):_
 
 - Topic-click handoff from the pharma landing page into the cost configurator.

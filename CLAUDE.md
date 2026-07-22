@@ -5,23 +5,56 @@ so you don't rebuild it. Deeper detail is linked; don't start building pages fro
 
 ## What we're building
 
-A demo of an **end-to-end, mostly-automated pharma sales pipeline** for a two-day internal DoctorFlix
-hackathon (FlixGames). Not a shipping product — a **click-dummy built to sell a pitch**. Optimize for
-"looks convincing and tells the story," not architectural correctness.
+A **click-dummy of a full-circle Doctorflix project process**, hosted on **Vercel**, for a two-day
+internal hackathon (FlixGames). Not a shipping product — built to sell a pitch. Optimize for "looks
+convincing, tells the story, and gets a laugh," not architectural correctness.
 
-**The flow:** Pharma browses a topic shop → configures an offer → pays (PayPal, faked) → fills a
-briefing form → Referent builds the presentation live → video is published to the platform. AI agents
-nudge stalled steps via email/Slack in the background.
+**The point of the demo:** the whole project lifecycle — sponsor picks a topic through to finished,
+published content — runs **mostly on its own**, supervised by humans rather than driven by them. Real
+human input is only required at a **handful of specific steps**; everything else is automated hand-offs
+between AI agents. The over-the-top humor exists specifically to sell *how little the stakeholder has to
+do anymore*.
+
+**Pipeline (locked so far — more steps land once meeting-transcript context comes in):**
+1. **Sponsor picks a topic** from a curated topic list, then books the project through a checkout —
+   **Stripe/PayPal-styled but fully faked**, using joke brand names instead of the real payment logos
+   (never the real Stripe/PayPal marks — see Hard constraints). Checkout completing kicks the project off.
+2. **Project steps and requirements are defined automatically** — no human drafts a scope doc; the
+   system derives the plan from the topic/offer.
+3. …
+4. … _(steps 3+ to be filled in from the team's meeting transcripts — treat this pipeline as a draft,
+   not final, until then)._
 
 **Told from three personas** in the pitch:
-- **Pharma** — young SME marketing assistant, ~mid-20s, ~€10k budget, wants to self-serve fast without Sales.
+- **Sponsor / Pharma** — young SME marketing assistant, ~mid-20s, ~€10k budget, wants to self-serve fast
+  without Sales.
 - **Referent** — receives the briefing, builds content live, submits, video publishes.
 - **DX employee** — sits drinking a beer while automated Slack updates roll in (the gag: the team could
   be replaced by this one beer). The cost configurator's real Slack triggers can drive this feed.
 
-Humor angle: Murphy's Law — whatever the referent fumbles, the AI fixes gracefully.
+Full context: [`docs/meeting-notes/`](docs/meeting-notes/2026-07-14-kickoff.md) (planning meetings; more
+notes to follow as the process gets fleshed out).
 
-Full context: [`docs/meeting-notes/`](docs/meeting-notes/2026-07-14-kickoff.md) (both planning meetings).
+## Humor & motion direction
+
+The comedy is a **deliberate design tool**, not garnish — it exists to underline how absurdly easy each
+step has become for the stakeholder. Two rules for every screen:
+
+- **Murphy's Law angle:** whatever the human fumbles, the AI fixes gracefully ("turning shit into
+  gold") — keep this thread running throughout.
+- **"Absurd extra win" buttons:** wherever a step becomes trivially easy for the stakeholder, offer the
+  normal action **plus** an over-the-top bonus option that spells out the time/effort saved as a joke —
+  e.g. instead of just `Projekt starten`, also show `Projekt starten und One-Way-Ticket an den Strand
+  buchen`. Propose a fitting joke like this **at every step**, tailored to what that step's win actually
+  is (e.g. auto-generated requirements → "Anforderungen automatisch generiert und Kaffeepause einlegen";
+  auto-published video → "Video live und Feierabend machen"). The joke should always point at the
+  *user's* payoff, not just be random silliness.
+- **Fun, playful animations are wanted throughout** — confetti/checkmarks on completions, cheeky
+  micro-interactions on hover, celebratory transitions between pipeline steps. Lean into shadcn +
+  Tailwind transitions/keyframes; favor something over nothing, but keep it snappy, not laggy.
+
+When proposing copy or interactions for a new screen, always suggest at least one "absurd extra win"
+option and one small delightful animation alongside the straightforward version — don't wait to be asked.
 
 ## Stack
 
@@ -65,7 +98,9 @@ Every screen must look like Doctorflix. The CI is **already mapped onto the shad
 - **shadcn/ui is the UI basis** — reach for shadcn primitives before hand-rolling `div`/`button`. Don't
   fight the theme with ad-hoc hex.
 - **No real backend/DB for the demo, no live Notion writes.** Cross-screen state can be local/faked.
-- **No real payments** — the PayPal checkout is simulated. Never wire up real payment processing.
+- **No real payments** — checkout is fully simulated. Never wire up real payment processing, and never
+  use the actual Stripe/PayPal logos or trademarks — invent joke-branded fake payment options instead
+  (fitting the humor direction above).
 - Favor **breadth** (whole flow clickable, shallow) over **depth** (one perfect step, others missing).
   A Western-movie set: ten doors, one opens.
 

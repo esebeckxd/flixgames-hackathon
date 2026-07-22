@@ -28,12 +28,16 @@ npm run build   # production build
 
 ## The idea
 
-> Pharma browses topic shop → configures offer → pays (PayPal, faked for the demo) → fills briefing
-> form → Referent builds content live → lands on the platform.
+> Sponsor picks a topic → books via a faked, joke-branded checkout → project steps/requirements get
+> defined automatically → …(more steps land as meeting-transcript context comes in)… → Referent builds
+> content live → lands on the platform.
 
-Told from three personas: **Pharma** (self-serve SME marketing assistant), **Referent** (builds content
-live), and the **DX employee** (drinking a beer while automated Slack updates roll in). Humor angle:
-Murphy's Law — whatever gets fumbled, the AI fixes gracefully.
+A **full-circle project process**, mostly self-running and only human-supervised — real human input is
+needed at just a handful of steps. Told from three personas: **Sponsor/Pharma** (self-serve SME
+marketing assistant), **Referent** (builds content live), and the **DX employee** (drinking a beer while
+automated Slack updates roll in). Humor is a deliberate design tool, not garnish: over-the-top "bonus"
+buttons (e.g. `Projekt starten und One-Way-Ticket an den Strand buchen`) and playful animations underline
+*how easy the process has become* at every step — see [`CLAUDE.md`](CLAUDE.md) for the full brief.
 
 Full context from both planning meetings: [`docs/meeting-notes/`](docs/meeting-notes/).
 
