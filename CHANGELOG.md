@@ -25,6 +25,10 @@ pre-hackathon prototype, so versions are lightweight and dated.
   fitting joke + a small delightful animation at every step, not just where explicitly asked.
 - **Hard constraint tightened**: fake checkout must never use the real Stripe/PayPal logos/trademarks —
   invent joke-branded fake payment options instead.
+- **`CLAUDE.md` hard constraints**: added an explicit "nothing needs to be deeply functional" rule —
+  every screen only needs the clicks/animation/reactivity that sells its specific pitch-story beat, not
+  real logic, validation, or state handling. Depth of implementation is explicitly a non-goal anywhere
+  in this app.
 
 ### Notes
 

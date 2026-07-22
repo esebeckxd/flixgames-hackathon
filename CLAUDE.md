@@ -101,14 +101,20 @@ Every screen must look like Doctorflix. The CI is **already mapped onto the shad
 - **No real payments** — checkout is fully simulated. Never wire up real payment processing, and never
   use the actual Stripe/PayPal logos or trademarks — invent joke-branded fake payment options instead
   (fitting the humor direction above).
+- **Nothing needs to be deeply functional.** Every screen just needs to have the *clicks, animations,
+  and reactivity* that sell that specific beat of the pitch story — no real validation, no real state
+  machine, no edge-case handling. If a click doesn't visibly move the story forward, don't build the
+  logic behind it; if it does, fake whatever's needed to make the click/animation feel real and stop
+  there. Depth of implementation is not a goal anywhere in this app.
 - Favor **breadth** (whole flow clickable, shallow) over **depth** (one perfect step, others missing).
   A Western-movie set: ten doors, one opens.
 
 ## When in doubt
 
 Ask: "does this help the pitch story land, or is it gold-plating a step nobody lingers on?" Favor the
-former. Exact demo scope (built-in-full vs. faked, storyboard order) gets locked Wednesday morning —
-keep things flexible until then.
+former — including on the engineering side: a convincing click + animation beats correct, robust logic
+every time here. Exact demo scope (built-in-full vs. faked, storyboard order) gets locked Wednesday
+morning — keep things flexible until then.
 
 ## Changelog discipline — read before you touch code, update before you stop
 
