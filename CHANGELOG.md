@@ -8,6 +8,19 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ### Added
 
+- **Money Boy #general feed — a standalone Slack-clone animation** at `/money-boy`
+  (`components/money-boy/MoneyBoyFeed.tsx` + `messages.ts`). Not an app — a pure, endlessly-looping
+  visual: a Slack-styled UI (aubergine sidebar, channel list, decorative composer bar) where "Money Boy"
+  posts a new 💰 MONEY MONEY MONEY 💰 deal-closed message every 2 seconds, forever. 20 hand-written
+  message variations (sponsor/format/referent/funny-aside per template, e.g. Roche/Celltrion/MSD/Pfizer
+  × Video on Demand/DUO-Vortrag/clickCase/etc. × Sehouli/Prelog/Paula Cramer/Prof. Dr. Ego von Kittel),
+  picked at random each tick. Deal size escalates the longer the loop runs (`escalationMultiplier`) so
+  the numbers get properly unhinged over time; MTD/YTD accumulate forever, never reset. Bonus/record-
+  breaking templates and mega-deals (>300k) trigger a `Confetti`/`MoneyRain` burst (reused from
+  `components/scene/plakativ.tsx`). Auto-scrolls to the newest message; message list capped at 200
+  rendered rows to keep the DOM light while MTD/YTD keep growing unbounded. Not wired into the main
+  pitch deck (`/`) — a separate route, meant to run on its own screen/tab during the DX-employee beat.
+
 - **4-act play framing fused onto the 0.5.0 MVP ("verschmelzen").** The deployed 10-scene click-through
   is now grouped into the play's four acts (`lib/scenes.ts` gains an `act` field + `ACT_TITLE`):
   Akt 1 setup, Akt 2 shop+checkout+briefing, Akt 3 slide-builder+video-gen, Akt 4 publish+payoff+reel+
