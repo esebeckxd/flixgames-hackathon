@@ -1,12 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { Upload, Sparkles } from "lucide-react";
+import { Loader2, Upload, Sparkles } from "lucide-react";
 import { DashboardShell } from "@/components/scene/DashboardShell";
 import { useDemoState } from "@/lib/demo-state";
+import { useSceneNav } from "@/components/scene/nav";
 import { Badge } from "@/components/ui/badge";
 
-type UploadStep = "idle" | "uploaded" | "cleaned";
+type UploadStep = "idle" | "uploading" | "uploaded" | "cleaning" | "cleaned";
+
+const SLIDES = [
+  { src: "/slides/slide-1-title.png", label: "Title" },
+  { src: "/slides/slide-2-symptoms.png", label: "Symptoms & Findings" },
+  { src: "/slides/slide-3-therapy.png", label: "Therapy Options" },
+];
 
 // Combined into one single screen per Daniel's 2026-07-22 flow-reorder call
 // (docs/TECH-ROADMAP.md) — the overview and the upload used to be two
@@ -14,6 +21,7 @@ type UploadStep = "idle" | "uploaded" | "cleaned";
 // now lives inline where the decorative teaser used to be.
 export function ReferentUpload() {
   const { topic } = useDemoState();
+  const { next } = useSceneNav();
   const [step, setStep] = useState<UploadStep>("idle");
 
   return (
@@ -64,7 +72,10 @@ export function ReferentUpload() {
         <div className="flex flex-1 flex-col items-center justify-center gap-6 rounded-2xl border-2 border-dashed border-border bg-muted/30 p-10 text-center">
           {step === "idle" && (
             <button
-              onClick={() => setStep("uploaded")}
+              onClick={() => {
+                setStep("uploading");
+                setTimeout(() => setStep("uploaded"), 900);
+              }}
               className="flex w-full max-w-xl flex-col items-center gap-4 rounded-[28px] border-4 border-dashed border-brand/50 bg-brand/5 px-10 py-14 transition hover:border-brand hover:bg-brand/10"
             >
               <Upload className="size-14 text-brand" />
@@ -75,13 +86,23 @@ export function ReferentUpload() {
             </button>
           )}
 
+          {step === "uploading" && (
+            <div className="flex flex-col items-center gap-3 text-muted-foreground">
+              <Loader2 className="size-10 animate-spin text-brand" />
+              <span className="text-sm font-medium">Uploading…</span>
+            </div>
+          )}
+
           {step === "uploaded" && (
             <div className="flex w-full max-w-xl flex-col items-center gap-5 rounded-[28px] border-4 border-brand bg-white px-10 py-12">
               <div className="rounded-xl border border-border bg-muted/40 px-6 py-4 font-mono text-sm text-muted-foreground shadow-sm">
                 Presentation_FINAL_FINAL_v3_actually_final.ppt
               </div>
               <button
-                onClick={() => setStep("cleaned")}
+                onClick={() => {
+                  setStep("cleaning");
+                  setTimeout(() => setStep("cleaned"), 1100);
+                }}
                 className="flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-lg font-bold text-primary-foreground hover:bg-primary/90"
               >
                 <Sparkles className="size-5" /> Clean up with AI
@@ -89,17 +110,37 @@ export function ReferentUpload() {
             </div>
           )}
 
+          {step === "cleaning" && (
+            <div className="flex flex-col items-center gap-3 text-muted-foreground">
+              <Loader2 className="size-10 animate-spin text-brand" />
+              <span className="text-sm font-medium">AI is cleaning up the deck…</span>
+            </div>
+          )}
+
           {step === "cleaned" && (
-            <div className="grid w-full max-w-2xl grid-cols-3 gap-4">
-              {["Title & Agenda", "Key Points", "Summary"].map((slide) => (
-                <div
-                  key={slide}
-                  className="flex aspect-[4/3] flex-col items-center justify-center gap-2 rounded-2xl border-2 border-brand bg-brand/5 p-4 text-center"
-                >
-                  <span className="text-2xl">✅</span>
-                  <span className="text-sm font-semibold">{slide}</span>
-                </div>
-              ))}
+            <div className="flex w-full max-w-3xl flex-col items-center gap-5">
+              <div className="grid w-full grid-cols-3 gap-4">
+                {SLIDES.map((slide) => (
+                  <div
+                    key={slide.label}
+                    className="flex flex-col items-center gap-2 overflow-hidden rounded-2xl border-2 border-brand bg-white p-2 text-center"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={slide.src}
+                      alt={slide.label}
+                      className="aspect-video w-full rounded-lg object-cover"
+                    />
+                    <span className="pb-1 text-xs font-semibold">{slide.label}</span>
+                  </div>
+                ))}
+              </div>
+              <button
+                onClick={next}
+                className="rounded-full bg-primary px-8 py-4 text-lg font-bold text-primary-foreground hover:bg-primary/90"
+              >
+                Continue →
+              </button>
             </div>
           )}
         </div>

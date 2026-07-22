@@ -27,16 +27,21 @@ export type SceneDef = {
 // preview → payout, 3 beats).
 export const SCENES: SceneDef[] = [
   { id: "cold-open", persona: "narrator", title: "The Assignment", act: 1 },
+  // Act-intro pages (2026-07-22): a dedicated moderator-paced beat at the
+  // start of each act (except Act 1 — ColdOpen already is that billboard
+  // moment) so the narrator has room to describe the scene out loud.
+  { id: "act-intro-2", persona: "narrator", title: "Act 2 Intro", act: 2 },
   // beats: 0 overview w/ prominent inline "Read My Mind" button + topic grid,
   // 1 suggested-topic confirmation (see Shop.tsx)
   { id: "shop", persona: "pharma", title: "Topic Shop", act: 2, beats: 2 },
   { id: "speaker-select", persona: "pharma", title: "Pick Your Speaker", act: 2 },
-  // beats: 0 overview + form, 1 package-pick zoom
-  { id: "checkout", persona: "pharma", title: "Cost Configurator & Checkout", act: 2, beats: 2 },
+  { id: "checkout", persona: "pharma", title: "Cost Configurator & Checkout", act: 2 },
   { id: "briefing", persona: "pharma", title: "Projects Dashboard", act: 2 },
+  { id: "act-intro-3", persona: "narrator", title: "Act 3 Intro", act: 3 },
   { id: "slide-builder", persona: "speaker", title: "Slide Upload", act: 3 },
   // beats: 0 pick your style, 1 slides+script+generate, 2 preview+submit, 3 payout success
   { id: "video-gen", persona: "speaker", title: "Video Generation", act: 3, beats: 4 },
+  { id: "act-intro-4", persona: "narrator", title: "Act 4 Intro", act: 4 },
   { id: "publish", persona: "pharma", title: "Submit & Publish", act: 4 },
   { id: "payoff", persona: "pharma", title: "One Month Later", act: 4 },
   { id: "dx-reel", persona: "dx", title: "DX Highlight Reel", act: 4 },
@@ -56,6 +61,6 @@ export const PERSONA_LABEL: Record<Persona, string> = {
 export const ACT_TITLE: Record<1 | 2 | 3 | 4, string> = {
   1: "The Last Work Day",
   2: "Pia Buys In Three Clicks",
-  3: "Pizza Becomes Gold",
+  3: "Chotto Becomes Gold",
   4: "Unemployed and Rich",
 };

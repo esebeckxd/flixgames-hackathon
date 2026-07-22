@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { Loader2 } from "lucide-react";
 import { useDemoState } from "@/lib/demo-state";
 import { useSceneNav } from "@/components/scene/nav";
 
@@ -15,7 +16,11 @@ const STYLES = [
   { id: "arzt", label: "The Doctor", src: "/videos/pick-your-style/arzt.mp4" },
 ];
 
-const SLIDES = ["Title & Agenda", "Key Points", "Summary"];
+const SLIDES = [
+  { src: "/slides/slide-1-title.png", label: "Title" },
+  { src: "/slides/slide-2-symptoms.png", label: "Symptoms & Findings" },
+  { src: "/slides/slide-3-therapy.png", label: "Therapy Options" },
+];
 
 function StyleCard({
   style,
@@ -58,6 +63,7 @@ export function VideoGen() {
   const { topic } = useDemoState();
   const { next, beat } = useSceneNav();
   const [styleId, setStyleId] = useState(STYLES[0].id);
+  const [generating, setGenerating] = useState(false);
 
   const selected = STYLES.find((s) => s.id === styleId) ?? STYLES[0];
 
@@ -131,17 +137,19 @@ export function VideoGen() {
       </div>
 
       <div className="grid grid-cols-2 gap-6">
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2">
           {SLIDES.map((slide) => (
             <div
-              key={slide}
-              className="flex items-center gap-3 rounded-2xl border-2 border-brand bg-brand/5 p-4"
+              key={slide.label}
+              className="flex items-center gap-3 overflow-hidden rounded-2xl border-2 border-brand bg-brand/5 p-2"
             >
-              <span className="text-xl">✅</span>
-              <div>
-                <div className="text-sm font-semibold">{slide}</div>
-                <div className="text-xs text-muted-foreground">Speaker: Daniel</div>
-              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={slide.src}
+                alt={slide.label}
+                className="aspect-video w-28 flex-none rounded-lg object-cover"
+              />
+              <div className="text-sm font-semibold">{slide.label}</div>
             </div>
           ))}
         </div>
@@ -160,12 +168,22 @@ export function VideoGen() {
         </div>
       </div>
 
-      <button
-        onClick={next}
-        className="fg-blink mx-auto flex items-center gap-3 rounded-full px-10 py-5 text-xl font-extrabold shadow-[0_20px_60px_-15px_rgba(21,159,149,0.5)] transition hover:-translate-y-0.5"
-      >
-        Generate Video Now
-      </button>
+      {generating ? (
+        <div className="mx-auto flex items-center gap-3 text-muted-foreground">
+          <Loader2 className="size-6 animate-spin text-brand" />
+          <span className="text-sm font-medium">Generating video…</span>
+        </div>
+      ) : (
+        <button
+          onClick={() => {
+            setGenerating(true);
+            setTimeout(next, 1200);
+          }}
+          className="fg-blink mx-auto flex items-center gap-3 rounded-full px-10 py-5 text-xl font-extrabold shadow-[0_20px_60px_-15px_rgba(21,159,149,0.5)] transition hover:-translate-y-0.5"
+        >
+          Generate Video Now
+        </button>
+      )}
     </div>
   );
 }

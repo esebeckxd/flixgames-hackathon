@@ -57,15 +57,17 @@ export const TOPICS: Topic[] = [
 
 export const DEFAULT_TOPIC = TOPICS[0];
 
-// PLACEHOLDER — Franz said the real joke topic is TBD, swap this out once
-// he decides. Ties into VideoGen's already-locked "Effect of Pizza on the
-// Human Body" video topic, which is why pizza specifically for now.
+// Locked in 2026-07-22: "Chotto" is a restaurant the team actually eats at a
+// lot — reframed here as a fake worldwide overdose epidemic (people going
+// too often), with Pharma's "treatment" being a REWE salad bar dressed up as
+// a medicament. Real slide content exists for this (see VideoGen.tsx/
+// ReferentUpload.tsx's SLIDES, public/slides/) — this topic drives that deck.
 export const JOKE_TOPIC: Topic = {
   id: "joke-mind-read",
-  field: "Nutrition",
-  title: "Why Pizza Cures Everything: A Comprehensive Review",
-  speaker: "Definitely a Real Doctor",
-  format: "CME course · peer-reviewed*",
+  field: "Epidemiology",
+  title: "World Chotto Overdose Day",
+  speaker: "Board-Certified Chottoism Specialist",
+  format: "45 min. CME video",
 };
 
 type DemoState = {

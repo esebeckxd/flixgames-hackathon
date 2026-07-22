@@ -23,53 +23,56 @@ plakativ billboard opener. A shared plakativ kit lives in `components/scene/plak
 type, confetti/money/slot animations) to match the Akt-1 opener. The three high-fidelity replicas
 (`Shop`/`Checkout`/`Briefing`) stay realistic on purpose — that's the "best of both" contrast.
 
-## ✅ Reorder built — Pharma flow (Captain's call, 2026-07-22)
+## ✅ Current scene sequence (as of 2026-07-22, end of day)
 
-Daniel's required order for the Pharma-persona part of the flow, now built:
+After two rounds of same-day revisions, here's what's actually built, top to bottom
+(`lib/scenes.ts` is the source of truth for exact ordering/beats):
 
-1. **Topic selection screen** — `Shop.tsx` beat 0: topic grid, plus a big, prominent, glowing inline
-   **"Read My Mind"** button in the hero (no longer a separate zoomed beat — "more present" per Franz's
-   follow-up instruction).
-2. **Suggested-topic confirmation** — `Shop.tsx` beat 1 (new): shows whichever topic is selected (Read
-   My Mind's joke topic, or a manual pick) with an explicit **"Confirm this topic"** button. Replaces
-   the old direct skip-to-Checkout behavior.
-3. **"Pick Your Speaker" select** — new standalone scene `SpeakerSelect.tsx`, registered as
-   `speaker-select` between `shop` and `checkout` in `lib/scenes.ts`. Reversed out of `Checkout.tsx`
-   (was its third beat, after package config). **Open question resolved**: Checkout stays in the
-   sequence, immediately after speaker-select — Daniel's spec just didn't mention it, per his own
-   flagged uncertainty. The picked name is threaded via a new `speaker` field on `useDemoState()` so
-   Checkout's completion message and the Briefing/Projects card can reference it by name.
-4. **Briefing self-fills via one button** — `Briefing.tsx` fully rebuilt (see "Projects dashboard"
-   note below) — no more manual focus-chip/notes fields, just one **"Fill Briefing with AI"** button.
-5. **End of scene** — unchanged, the existing Act 2→3 curtain in `SceneController.tsx` already handles
-   the Pharma→Speaker handoff.
+1. `cold-open` — Act 1 billboard opener.
+2. `act-intro-2` — new: Act-title page, narrator cue, "Begin →" (see "Act-intro pages" below).
+3. `shop` — beat 0: topic grid + prominent inline "Read My Mind" button. Beat 1: "Confirm your
+   topic" (shows format + a slide preview image for the joke topic).
+4. `speaker-select` — standalone scene (moved out of Checkout), 4 candidates with real photos incl.
+   Daniel; picking one threads the name into `useDemoState()`'s `speaker` field.
+5. `checkout` — single beat (the old "Choose a Package" zoom was removed as redundant — package pick
+   already happens inline here). "Video on demand" is now a real empty/clickable checkbox.
+6. `briefing` — the **original detailed form** (hero, deal card, disclaimer, focus chips, notes
+   textarea, 3 disabled sections) — restored from git history after a same-day detour through a
+   single-card "Projects dashboard" version. Now has a "Fill in with AI" button that visibly
+   auto-fills a chip + types notes before the moderator submits normally.
+7. `act-intro-3` — new.
+8. `slide-builder` (`ReferentUpload.tsx`) — single combined overview+upload screen, real slide images,
+   "Continue →" button, loading spinners on upload/clean-up.
+9. `video-gen` (`VideoGen.tsx`) — 4 beats: **pick your style** (real video previews: Business Punk /
+   Lederhosen / The Doctor, Daniel's own footage) → **slides + script + Generate Video Now** (real
+   slide images, generate has a loading spinner) → **preview + Submit Video** (plays the actual chosen
+   style clip) → **payout** ("Honorarium payout successful — €1,800").
+10. `act-intro-4` — new.
+11. `publish` — back in the Pharma `DashboardShell` (Projects tab): video overview + "Publish Video" →
+    reveals the live view counter *and* the "Shift Whole Business Unit..." gag button together.
+12. `payoff`, `dx-reel`, `leos-iphone`, `stinger` — unchanged.
 
-**Also folded in (Franz, same day):** Briefing collapsed to a single "Projects" dashboard slide —
-`DashboardShell active="projects"`, one card showing the booked project, the speaker's name, and a
-quote from them ("Say less — I'll turn this into gold by Friday."), plus the one AI-fill button.
+### Act-intro pages (new)
 
-## ✅ Reorder built — Speaker/Referent flow (Captain's call, 2026-07-22)
+`components/scene/scenes/ActIntro.tsx` — a dedicated full-screen beat at the start of Acts 2/3/4 (Act 1
+doesn't need one; `ColdOpen` already is that moment). Gives the moderator/narrator room to describe the
+scene out loud and control pacing, on top of (not instead of) the existing curtain animation between
+scenes. No act-intro was added between `dx-reel`/`leos-iphone`/`stinger` — they're all Act 4 already, and
+Franz asked explicitly for that stretch to stay a plain walkthrough.
 
-Daniel's required structure for the Speaker-persona part of the flow, now built:
+### Reconciled open questions from the two 2026-07-22 flow-reorder rounds
 
-1. **Combined overview + upload screen** — `ReferentUpload.tsx` collapsed to a single beat: the
-   dashboard overview (notification banner, 3 stat cards) and the real interactive upload flow
-   (idle → uploaded → cleaned) now live in the same screen, no separate zoomed beat.
-2. **Slides + script screen** — `VideoGen.tsx` beat 0: left column shows the 3 processed slides
-   (labeled "Speaker: Daniel"), right column shows a short generated script, bottom has a big
-   green **blinking "Generate Video Now"** button (`.fg-blink` utility). **Open question resolved**:
-   the old "Pick your fighter" avatar/outfit selector is dropped — Daniel's spec has no avatar-picker
-   step, replaced entirely by this slides+script screen. (The avatar **outfit** picker from the
-   2026-07-22 follow-up call notes is still a separate open item, not part of this reorder — see
-   "Open items from the 2026-07-22 follow-up call" below.)
-3. **Preview screen** — `VideoGen.tsx` beat 1: `VideoPlaceholder` + a **"Submit Video"** button.
-4. **Payout feedback** — `VideoGen.tsx` beat 2 (new, final beat): **"Honorarium payout successful —
-   €1,800."** **Open question resolved**: sits *before* `Publish.tsx`/`Payoff.tsx` in the sequence,
-   which remain unchanged as the Pharma-side payoff moment.
+- Checkout stays in the sequence, immediately after speaker-select (Daniel's spec just hadn't
+  mentioned it).
+- The avatar/style picker is back (Daniel supplied real video clips for it same-day) as `VideoGen`'s
+  first beat — a costume/style choice (Business Punk/Lederhosen/The Doctor), not a named-person avatar
+  picker, so no likeness sign-off needed. Distinct from `SpeakerSelect.tsx`'s real-name booking picker.
+- The "Shift Whole Business Unit" gag button now fires twice — once right after Publish, once again in
+  `Payoff.tsx` one month later. Left both in place rather than guessing which one to cut.
 
 **Renamed throughout the app**: "Referent" → "**Speaker**" (persona type, `DashboardShell` variant,
-nav labels, badges, headings) per Franz's 2026-07-22 instruction. Component/file names
-(`ReferentUpload.tsx`) were left as-is — internal, not user-visible — to limit unnecessary churn.
+nav labels, badges, headings). Component/file names (`ReferentUpload.tsx`) were left as-is — internal,
+not user-visible — to limit unnecessary churn.
 
 ## Scene 2 — Shop → configure → checkout → book Referent
 

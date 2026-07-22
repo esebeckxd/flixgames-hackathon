@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import { useDemoState } from "@/lib/demo-state";
 import { DashboardShell } from "@/components/scene/DashboardShell";
-import { useSceneNav } from "@/components/scene/nav";
 import styles from "./checkout.module.css";
 
 const PACKAGES = [
@@ -22,51 +21,17 @@ const PAY_METHODS = [
 
 export function Checkout() {
   const { topic, speaker } = useDemoState();
-  const { next, beat } = useSceneNav();
   const [pkg, setPkg] = useState<(typeof PACKAGES)[number]>(PACKAGES[1]);
+  const [formatOn, setFormatOn] = useState(false);
   const [addonOn, setAddonOn] = useState(true);
   const [qty, setQty] = useState(1);
   const [payMethod, setPayMethod] = useState<string>(PAY_METHODS[0].id);
   const [submitted, setSubmitted] = useState(false);
 
   const total = useMemo(
-    () => pkg.year1 + FORMAT.price * qty + (addonOn ? ADDON.price : 0),
-    [pkg, qty, addonOn]
+    () => pkg.year1 + (formatOn ? FORMAT.price * qty : 0) + (addonOn ? ADDON.price : 0),
+    [pkg, qty, formatOn, addonOn]
   );
-
-  if (beat === 1) {
-    // Zoomed beat: the package decision, blown up — this is the click that
-    // sets the whole deal size.
-    return (
-      <DashboardShell active="shop">
-        <div className={styles.page}>
-          <div className={styles.zoomWrap}>
-            <span className={styles.zoomKicker}>Choose a package</span>
-            <h1 className={styles.zoomTitle}>Pick a tier, the price updates live.</h1>
-            <div className={styles.zoomPkgs}>
-              {PACKAGES.map((p) => (
-                <button
-                  key={p.id}
-                  onClick={() => setPkg(p)}
-                  className={`${styles.zoomPkg} ${pkg.id === p.id ? styles.zoomPkgSelected : ""}`}
-                >
-                  {"badge" in p && <span className={styles.pkgBadge}>{p.badge}</span>}
-                  <div className={styles.zoomPkgTier}>{p.name}</div>
-                  <div className={styles.zoomPkgPrice}>
-                    {p.year1.toLocaleString("en-US")} € <small style={{ fontSize: 14, fontWeight: 400 }}>/ year 1</small>
-                  </div>
-                  <div className={styles.pkgTag}>{p.tag}</div>
-                </button>
-              ))}
-            </div>
-            <button className={styles.btnSubmit} style={{ maxWidth: 320 }} onClick={next}>
-              Continue with {pkg.name} →
-            </button>
-          </div>
-        </div>
-      </DashboardShell>
-    );
-  }
 
   return (
     <DashboardShell active="shop">
@@ -101,16 +66,17 @@ export function Checkout() {
                   <h2>CME Format</h2>
                 </div>
                 <p className={styles.stepSub}>Based on your topic selection.</p>
-                <div className={styles.opt}>
-                  <div className={`${styles.optCheck}`} style={{ background: "#159f95", borderColor: "#159f95" }}>
-                    ✓
-                  </div>
+                <div
+                  className={`${styles.opt} ${formatOn ? styles.optSelected : ""}`}
+                  onClick={() => setFormatOn((v) => !v)}
+                >
+                  <div className={styles.optCheck}>{formatOn ? "✓" : ""}</div>
                   <div className={styles.optBody}>
                     <div className={styles.optTitle}>{FORMAT.name}</div>
                     <div className={styles.optDesc}>{topic.title}</div>
                   </div>
                   <div className={styles.optPrice}>{FORMAT.price.toLocaleString("en-US")} €</div>
-                  <div className={styles.qty}>
+                  <div className={styles.qty} onClick={(e) => e.stopPropagation()}>
                     <button onClick={() => setQty((q) => Math.max(1, q - 1))}>–</button>
                     <span>{qty}</span>
                     <button onClick={() => setQty((q) => q + 1)}>+</button>
@@ -169,10 +135,12 @@ export function Checkout() {
                   <div className={styles.shPkg}>Package {pkg.name}</div>
                 </div>
                 <div className={styles.sumBody}>
-                  <div className={styles.li}>
-                    <span>{FORMAT.name} × {qty}</span>
-                    <span>{(FORMAT.price * qty).toLocaleString("en-US")} €</span>
-                  </div>
+                  {formatOn && (
+                    <div className={styles.li}>
+                      <span>{FORMAT.name} × {qty}</span>
+                      <span>{(FORMAT.price * qty).toLocaleString("en-US")} €</span>
+                    </div>
+                  )}
                   {addonOn && (
                     <div className={styles.li}>
                       <span>{ADDON.name}</span>

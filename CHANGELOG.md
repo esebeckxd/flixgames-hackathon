@@ -6,7 +6,53 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ## [Unreleased]
 
+### Added
+
+- **Real slide content wired in** (`public/slides/{slide-1-title,slide-2-symptoms,slide-3-therapy}.png`,
+  sourced by Franz): replaces the "Title & Agenda / Key Points / Summary" text-card placeholders in
+  `ReferentUpload.tsx`'s cleaned-deck step and `VideoGen.tsx`'s slides+script beat with the actual
+  generated Chotto-epidemic slides. Also shown as a preview image on Shop's "Confirm your topic" card
+  when the joke topic is selected.
+- **Daniel's real photo** (`public/referents/daniel.jpg`) replaces the "photo pending" placeholder in
+  `SpeakerSelect.tsx` — all 4 speaker candidates now show real headshots.
+- **Act-intro pages** (`components/scene/scenes/ActIntro.tsx`, new `act-intro-2/3/4` scenes in
+  `lib/scenes.ts`) — a dedicated full-screen beat at the start of Acts 2/3/4 (Act 1 already has
+  `ColdOpen` as its billboard moment) so the moderator/narrator has room to describe the upcoming scene
+  out loud and control pacing, separate from the existing curtain animation between scenes. Each shows
+  the Act title, a narrator cue line, and a "Begin →" button.
+- **"Fill in with AI" button + typing animation on Briefing** (`Briefing.tsx`) — the old detailed form
+  (hero, deal card, disclaimer, focus chips, notes textarea, 3 disabled sections — restored from git
+  history, see Changed) gets a new button that auto-selects a focus chip after a beat, then visibly
+  types AI-generated notes into the textarea character-by-character, before the moderator submits
+  normally with the existing buttons.
+- **"Continue →" button after ReferentUpload's cleaned-slides step** and **loading spinners/delays**
+  throughout the Speaker flow (`ReferentUpload.tsx`'s upload/clean-up clicks, `VideoGen.tsx`'s Generate
+  Video click) — brief `Loader2` spinner + delay instead of an instant cut, for realism.
+- **Checkout's "Video on demand" line item is now a real toggle** — was a static pre-checked display;
+  now starts unchecked and is clickable (same pattern as the existing Marketing add-on), with the total
+  and summary line updating live.
+
 ### Changed
+
+- **`JOKE_TOPIC` content locked to the real joke topic** (`lib/demo-state.tsx`): "World Chotto Overdose
+  Day" — Chotto is a restaurant the team actually eats at a lot, reframed as a fake worldwide overdose
+  epidemic (people going too often), with Pharma's "treatment" being a REWE salad bar dressed up as a
+  medicament. Format locked to "45 min. CME video". Briefing's AI-fill content and Act 3's title
+  ("Chotto Becomes Gold", was "Pizza Becomes Gold") updated to match.
+- **Shop's "Confirm your topic" card expanded** — now shows the topic's format ("45 min. CME video")
+  and, for the joke topic, the actual title-slide image as a visual preview.
+- **Checkout's "Choose a Package" zoom beat removed** — package choice already happens inline on the
+  main Checkout page; the separate zoomed beat was redundant now that Speaker-select (which used to be
+  Checkout's *other* extra beat) has its own scene. Checkout is back to a single beat.
+- **Briefing reverted to its original detailed form** (recovered byte-for-byte from git history —
+  `git show 748b9df~1:...`) — the single "Projects dashboard card" version from earlier the same day
+  is out; the old hero/deal-card/disclaimer/chips/textarea/3-disabled-sections layout is back, now with
+  the AI-fill button (see Added). `briefing.module.css` restored alongside it.
+- **Publish rebuilt as a Pharma "Projects" dashboard again** (`Publish.tsx`) — back in `DashboardShell`
+  instead of a standalone centered card, showing the submitted video overview + a "Publish Video"
+  button; once published, the "Shift Whole Business Unit to Doctorflix and Retire Me" gag button (also
+  still in `Payoff.tsx`, one month later — left unchanged, so the joke lands twice) appears right next
+  to the live view counter instead of waiting for the follow-up scene.
 
 - **Implemented Daniel's Pharma-flow and Speaker-flow reorders** (documented earlier the same day as
   planning-only commits in `docs/TECH-ROADMAP.md` — see "Reorder built" sections there for full detail):

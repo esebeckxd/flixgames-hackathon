@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Brain } from "lucide-react";
 import { useDemoState, TOPICS, JOKE_TOPIC, type Topic } from "@/lib/demo-state";
+import { Video } from "lucide-react";
 import { DashboardShell } from "@/components/scene/DashboardShell";
 import { useSceneNav } from "@/components/scene/nav";
 import styles from "./shop.module.css";
@@ -48,9 +49,20 @@ export function Shop() {
               style={{ background: "#fff" }}
               onClick={next}
             >
+              {topic.id === JOKE_TOPIC.id && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src="/slides/slide-1-title.png"
+                  alt="Presentation title slide"
+                  className="mb-4 w-full rounded-xl border border-border object-cover"
+                />
+              )}
               <span className={styles.fieldTag}>{topic.field}</span>
               <div className={styles.zoomCardTitle}>{topic.title}</div>
               <div className={styles.cardSpeaker}>{topic.speaker}</div>
+              <div className="mt-3 flex items-center gap-2 text-sm font-semibold text-muted-foreground">
+                <Video className="size-4" /> {topic.format}
+              </div>
               <span className={styles.zoomCta}>Confirm this topic →</span>
             </button>
           </div>

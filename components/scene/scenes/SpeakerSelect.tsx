@@ -8,12 +8,12 @@ import styles from "./checkout.module.css";
 
 // Moved ahead of Checkout per Daniel's 2026-07-22 flow-reorder call (see
 // docs/TECH-ROADMAP.md). Picking a name is the live cue for that person to
-// walk on stage — Daniel has no photo yet, shown as a placeholder.
+// walk on stage.
 const SPEAKERS = [
   { name: "Sehouli", photo: "/referents/sehouli.jpg" },
   { name: "Prelog", photo: "/referents/prelog.jpg" },
   { name: "Paula Cramer", photo: "/referents/cramer.jpg" },
-  { name: "Daniel", photo: null },
+  { name: "Daniel", photo: "/referents/daniel.jpg" },
 ];
 
 export function SpeakerSelect() {
