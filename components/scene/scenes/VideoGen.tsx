@@ -22,6 +22,11 @@ const SLIDES = [
   { src: "/slides/slide-3-therapy.png", label: "Therapy Options" },
 ];
 
+// The actual "AI-generated video" reveal after clicking "Generate Video Now" —
+// a real produced-looking clip (not one of the raw pick-your-style poses
+// above), which then gets fake-submitted via the Submit Video button.
+const GENERATED_VIDEO_SRC = "/videos/generated/doctor-presentation.mp4";
+
 function StyleCard({
   style,
   active,
@@ -100,7 +105,14 @@ export function VideoGen() {
       <div className="mx-auto flex h-full w-full max-w-2xl flex-col items-center justify-center gap-6 px-6 text-center">
         <span className="text-xs font-bold uppercase tracking-wide text-brand">Preview</span>
         <div className="mx-auto aspect-video w-full overflow-hidden rounded-2xl border-2 border-brand bg-black">
-          <video src={selected.src} className="h-full w-full object-cover" muted loop playsInline autoPlay controls />
+          <video
+            src={GENERATED_VIDEO_SRC}
+            className="h-full w-full object-cover"
+            muted
+            playsInline
+            autoPlay
+            controls
+          />
         </div>
         <p className="text-sm font-semibold">
           {selected.label} — &ldquo;{topic.title}&rdquo;

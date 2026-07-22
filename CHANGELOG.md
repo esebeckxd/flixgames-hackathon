@@ -31,6 +31,11 @@ pre-hackathon prototype, so versions are lightweight and dated.
 - **Checkout's "Video on demand" line item is now a real toggle** — was a static pre-checked display;
   now starts unchecked and is clickable (same pattern as the existing Marketing add-on), with the total
   and summary line updating live.
+- **Real "generated video" clip for the preview/submit beat.** Hosted Daniel's supplied clip as
+  `public/videos/generated/doctor-presentation.mp4` (10s, 720p, ~2.4 MB, plain static asset). `VideoGen.tsx`
+  beat 2 (preview) now autoplays this dedicated clip instead of replaying the picked style's raw pose-clip
+  from beat 0 — reads as an actual produced keynote/avatar video. "Submit Video" still fake-submits
+  straight through to the "Honorarium payout successful — €1,800" beat. Verified end-to-end in-browser.
 
 ### Changed
 
