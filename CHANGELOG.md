@@ -8,6 +8,21 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ### Added
 
+- **Real "pick your style" preview clips, hosted as static assets.** Added `public/videos/pick-your-
+  style/{business-punk,lederhosen,arzt}.mp4` (Daniel's 3 supplied clips, ~3.4 MB total) — plain
+  `public/` static hosting, no CDN/Blob needed at this size. `VideoGen.tsx`'s style-select cards now
+  autoplay these on loop instead of showing initial-circle placeholders, and the post-generation "done"
+  reveal plays the selected clip back (with controls) instead of a generic `VideoPlaceholder` box.
+
+### Changed
+
+- **"Pick your fighter" renamed to "Pick your style" — real-referent-name roster replaced.** `VideoGen.tsx`
+  no longer asks the Referent to pick which of Sehouli/Prelog/Paula Cramer to render as (that roster was
+  blocked on likeness sign-off); it now asks them to pick their **own** on-screen style — Business Punk /
+  Lederhosen / The Doctor — which needs no such approval since it's a costume, not a named person.
+  Checkout's separate referent-*booking* picker (still the three real names, a different beat — Pharma
+  hiring someone) is untouched. `docs/TECH-ROADMAP.md` Scene 5 updated to match, marked resolved.
+
 - **Publish-scene view-counter redesign specified, documented, not built yet** — new note in
   `docs/TECH-ROADMAP.md` under "Scenes 6–7": after Submit/Publish Video, the stats should climb
   **forever** (today's `ViewCounter` in `Publish.tsx` eases up once to a fixed `48213` and stops), styled

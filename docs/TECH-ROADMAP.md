@@ -139,25 +139,34 @@ only, not implemented yet:**
 - ~8 slide template layouts per [`docs/PREBUILT-ASSETS.md`](PREBUILT-ASSETS.md) template-strategy note
   (can be simplified/mocked for the demo, don't need all 8 real).
 
-## Scene 5 — Avatar select ("pick your fighter") → script → video generation
+## Scene 5 — Avatar select ("pick your style") → script → video generation
+
+**✅ Resolved (2026-07-22): real preview clips delivered, roster changed from named people to styles.**
+Daniel supplied 3 real short clips (`Business–Punk.mp4`, `Lederhosn.mp4`, `Arzt.mp4`, ~0.7–1.9 MB each,
+720p). This **replaced the real-referent-name roster entirely** — the scene is no longer "pick which of
+Sehouli/Prelog/Paula Cramer to render as" (which was blocked on likeness sign-off), it's now **"pick your
+style"**: the Referent picks their *own* on-screen look (Business Punk / Lederhosen / The Doctor), which
+needs no likeness approval since it's a costume/style, not a named person. The Checkout referent-*booking*
+picker (`Checkout.tsx`, still `Sehouli`/`Prelog`/`Paula Cramer`) is unaffected — that's a different beat
+(Pharma hiring a specific person), not this one.
 
 **Build:**
-- 🟡 **Street Fighter–style character-select screen**: VS-framed grid with hover/select highlight is
-  built (`VideoGen.tsx`); tiles are initial-circle placeholders (Sehouli/Prelog/Paula Cramer by name),
-  not portrait art, and there's no select-confirm sound cue yet — both blocked on/pending real assets.
-- 🟡 Two stacked buttons `Take My Job Away` / `Take My Job Away (aber Gehalt behalten)` are built; no
-  separate auto-filled script preview text before them yet.
-- ✅ "Create Video" loading state + a preview via the reusable `VideoPlaceholder` (labeled placeholder,
-  not a real avatar video).
+- ✅ **Hosting decided & done**: clips copied into `public/videos/pick-your-style/` (`business-punk.mp4`,
+  `lederhosen.mp4`, `arzt.mp4`) and served as plain static assets — no CDN/Blob needed, ~3.4 MB total is
+  trivial for git/Vercel. Referenced by path from `VideoGen.tsx`.
+- ✅ Style-select grid (`VideoGen.tsx`, `StyleCard`): each of the 3 cards autoplays its clip on loop
+  (muted, `playsInline`), 9:16 crop, VS dividers kept from the old fighter-select layout, hover replays.
+- ✅ Two stacked buttons `Take My Job Away` / `Take My Job Away (but keep the paycheck)` — unchanged.
+- ✅ "Create Video" loading state + **the selected style's own clip plays back** as the "generated video"
+  reveal (with controls) — replaces the old generic `VideoPlaceholder` box for this scene; verified
+  working in-browser (Business Punk clip correctly played after picking it and clicking through).
 - ✅ Video topic locked as **"Effect of Pizza on the Human Body"** — shown as on-screen text in the scene.
 
-**Assets needed — the big one for this scene:**
-- **Three character-select portraits**, Street-Fighter-poster style, for **Sehouli, Prelog, and Paula
-  Cramer** (stylized illustration or treated photo — need source photos/likeness-approval from each
-  before treating them as "fighters"; flag this as a to-confirm item, not just an asset-fetch task).
-- A select-screen sound effect (short "confirm"/"whoosh") and background art/frame for the versus grid.
-- Placeholder avatar-speaking preview asset (image or short clip) for the pizza-topic video, since the
-  real AI-avatar pipeline output may not be ready to demo live.
+**Open/nice-to-have:**
+- No select-confirm sound cue yet on hover/click.
+- No separate auto-filled script preview text before the two buttons yet.
+- These 3 clips are stand-ins, not final production assets — swap the files in
+  `public/videos/pick-your-style/` if/when real ones are ready; filenames/paths can stay the same.
 
 ## Scenes 6–7 — Submit → publish → Pharma notified
 
