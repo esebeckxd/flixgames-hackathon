@@ -5,7 +5,8 @@ so you don't rebuild it. Deeper detail is linked; don't start building pages fro
 
 ## What we're building
 
-A **click-dummy of a full-circle Doctorflix project process**, hosted on **Vercel**, for a two-day
+A **click-dummy of a full-circle Doctorflix project process**, hosted on **Vercel** (Franz's deploy) with
+a **Cloudflare Pages mirror** as a parallel backup host (see `docs/TECH-ROADMAP.md`), for a two-day
 internal hackathon (FlixGames). Not a shipping product — built to sell a pitch. Optimize for "looks
 convincing, tells the story, and gets a laugh," not architectural correctness.
 

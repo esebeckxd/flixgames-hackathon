@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, Play } from "lucide-react";
 import { useDemoState } from "@/lib/demo-state";
 import { useSceneNav } from "@/components/scene/nav";
 
@@ -69,6 +69,8 @@ export function VideoGen() {
   const { next, beat } = useSceneNav();
   const [styleId, setStyleId] = useState(STYLES[0].id);
   const [generating, setGenerating] = useState(false);
+  const previewRef = useRef<HTMLVideoElement>(null);
+  const [previewStarted, setPreviewStarted] = useState(false);
 
   const selected = STYLES.find((s) => s.id === styleId) ?? STYLES[0];
 
@@ -104,15 +106,31 @@ export function VideoGen() {
     return (
       <div className="mx-auto flex h-full w-full max-w-2xl flex-col items-center justify-center gap-6 px-6 text-center">
         <span className="text-xs font-bold uppercase tracking-wide text-brand">Preview</span>
-        <div className="mx-auto aspect-video w-full overflow-hidden rounded-2xl border-2 border-brand bg-black">
+        <div className="relative mx-auto aspect-video w-full overflow-hidden rounded-2xl border-2 border-brand bg-black">
           <video
+            ref={previewRef}
             src={GENERATED_VIDEO_SRC}
             className="h-full w-full object-cover"
-            muted
             playsInline
-            autoPlay
-            controls
+            controls={previewStarted}
           />
+          {!previewStarted && (
+            <button
+              onClick={() => {
+                const v = previewRef.current;
+                if (!v) return;
+                v.muted = false;
+                v.play();
+                setPreviewStarted(true);
+              }}
+              className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/40 transition hover:bg-black/30"
+            >
+              <span className="flex size-20 items-center justify-center rounded-full bg-white/90 shadow-lg">
+                <Play className="size-9 translate-x-0.5 fill-[#1A2133] text-[#1A2133]" />
+              </span>
+              <span className="text-sm font-semibold text-white">Play with sound 🔊</span>
+            </button>
+          )}
         </div>
         <p className="text-sm font-semibold">
           {selected.label} — &ldquo;{topic.title}&rdquo;
@@ -191,7 +209,7 @@ export function VideoGen() {
             setGenerating(true);
             setTimeout(next, 1200);
           }}
-          className="fg-blink mx-auto flex items-center gap-3 rounded-full px-10 py-5 text-xl font-extrabold shadow-[0_20px_60px_-15px_rgba(21,159,149,0.5)] transition hover:-translate-y-0.5"
+          className="mx-auto flex items-center gap-3 rounded-full bg-brand px-10 py-5 text-xl font-extrabold text-brand-foreground shadow-[0_20px_60px_-15px_rgba(21,159,149,0.5)] transition hover:-translate-y-0.5"
         >
           Generate Video Now
         </button>

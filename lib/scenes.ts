@@ -16,34 +16,36 @@ export type SceneDef = {
 };
 
 // The play "How we became unemployed and rich" runs in 4 acts (Notion SSOT).
-// The clickable screens below are grouped into those acts — the audience
-// feels 4 beats, not N scenes, because a big plakativ act-title curtain drops
-// at every act boundary.
+// The clickable screens below are grouped into those acts. Scenes cut
+// straight into each other (no animated act/persona curtain — removed
+// 2026-07-22, see SceneController.tsx) — the moderator/narrator carries the
+// pacing and act hand-offs live, backed by the on-stage backdrop scenes below.
 //
 // 2026-07-22 (Daniel's flow-reorder call, see docs/TECH-ROADMAP.md "Planned
 // reorder" sections): Pharma flow is now Shop → SpeakerSelect → Checkout →
 // Briefing (speaker-pick moved out of Checkout, ahead of it); Speaker flow is
-// now ReferentUpload (combined single screen) → VideoGen (slides+script →
-// preview → payout, 3 beats).
+// now ReferentUpload (combined single screen) → VideoGen (pick your style →
+// slides+script → preview → payout, 4 beats).
 export const SCENES: SceneDef[] = [
   { id: "cold-open", persona: "narrator", title: "The Assignment", act: 1 },
-  // Act-intro pages (2026-07-22): a dedicated moderator-paced beat at the
-  // start of each act (except Act 1 — ColdOpen already is that billboard
-  // moment) so the narrator has room to describe the scene out loud.
-  { id: "act-intro-2", persona: "narrator", title: "Act 2 Intro", act: 2 },
+  // Live-acting backdrops (no portal UI) — the actors perform in front of these.
+  // Added 2026-07-22 per Daniel's call; one per persona hand-off. Replaces an
+  // earlier same-day "Act-intro" title-card experiment (dropped — doubled up
+  // with these backdrops and the narrator's own live description).
+  { id: "pharma-backdrop", persona: "pharma", title: "On Stage · Pharma", act: 2 },
   // beats: 0 overview w/ prominent inline "Read My Mind" button + topic grid,
   // 1 suggested-topic confirmation (see Shop.tsx)
   { id: "shop", persona: "pharma", title: "Topic Shop", act: 2, beats: 2 },
   { id: "speaker-select", persona: "pharma", title: "Pick Your Speaker", act: 2 },
   { id: "checkout", persona: "pharma", title: "Cost Configurator & Checkout", act: 2 },
-  { id: "briefing", persona: "pharma", title: "Projects Dashboard", act: 2 },
-  { id: "act-intro-3", persona: "narrator", title: "Act 3 Intro", act: 3 },
+  { id: "briefing", persona: "pharma", title: "Kick-Off Prep", act: 2 },
+  { id: "speaker-backdrop", persona: "speaker", title: "On Stage · Speaker", act: 3 },
   { id: "slide-builder", persona: "speaker", title: "Slide Upload", act: 3 },
   // beats: 0 pick your style, 1 slides+script+generate, 2 preview+submit, 3 payout success
   { id: "video-gen", persona: "speaker", title: "Video Generation", act: 3, beats: 4 },
-  { id: "act-intro-4", persona: "narrator", title: "Act 4 Intro", act: 4 },
   { id: "publish", persona: "pharma", title: "Submit & Publish", act: 4 },
-  { id: "payoff", persona: "pharma", title: "One Month Later", act: 4 },
+  { id: "payoff", persona: "pharma", title: "Reporting", act: 4 },
+  { id: "dx-backdrop", persona: "dx", title: "On Stage · DX", act: 4 },
   { id: "dx-reel", persona: "dx", title: "DX Highlight Reel", act: 4 },
   { id: "leos-iphone", persona: "narrator", title: "Leo's iPhone", act: 4 },
   { id: "stinger", persona: "narrator", title: "Six Months Later", act: 4 },
@@ -56,8 +58,8 @@ export const PERSONA_LABEL: Record<Persona, string> = {
   narrator: "Narrator",
 };
 
-// Act titles from the play. The curtain shows "ACT n" + this line at each act
-// boundary — the overarching storyline made visible on screen.
+// Act titles from the play. No longer rendered on screen (the act curtain
+// was removed 2026-07-22) — kept as reference for the moderator's narration.
 export const ACT_TITLE: Record<1 | 2 | 3 | 4, string> = {
   1: "The Last Work Day",
   2: "Pia Buys In Three Clicks",

@@ -13,6 +13,36 @@ Status legend: ❌ not started · 🟡 in progress · ✅ done.
 "Weiter" control (or → / Space / ← keys). See `CHANGELOG.md` [0.5.0] for the full list of what's real vs.
 placeholder.
 
+## 🟡 Cloudflare Pages — parallel hosting mirror (2026-07-22, in progress)
+
+A second, independent host alongside Vercel, auto-building on every push to `main` — pure redundancy,
+not a replacement (Franz keeps deploying Vercel himself, per [[flixgames-hackathon-workflow]]).
+
+**Why this is safe/easy:** the app has no API routes, server actions, middleware, or dynamic routes — a
+pure static export is lossless for everything it does. `next.config.ts` now switches to
+`output: "export"` **only** when `CF_PAGES` is set (Cloudflare Pages sets this automatically in its own
+build environment) — Vercel's build has no such variable, so it keeps using the default hybrid output,
+completely unaffected. Verified both build modes locally.
+
+**Done:**
+- ✅ `next.config.ts`: conditional static export (`images: { unoptimized: true }` too, since `next/image`
+  isn't used anywhere anyway — purely defensive).
+- ✅ Verified `npm run build` (Vercel-mode) and `CF_PAGES=1 npm run build` (Cloudflare-mode) both succeed;
+  the latter produces a complete `out/` with all 3 routes (`/`, `/money-boy`, `/ops-dashboard`) + assets.
+
+**❌ Needs a human with Cloudflare account access** — this is an account-authorization step, can't be
+scripted from here:
+1. Log into (or create) a Cloudflare account.
+2. Dashboard → **Workers & Pages** → **Create application** → **Pages** → **Connect to Git**.
+3. Authorize the Cloudflare GitHub App for the `esebeckxd/flixgames-hackathon` repo (or the whole org).
+4. Build settings: **Framework preset** `Next.js (Static HTML Export)` (or `None`) · **Build command**
+   `npm run build` · **Build output directory** `out`.
+5. Deploy. Every future push to `main` auto-rebuilds — no webhook/token setup needed beyond this.
+6. Once live, paste the `*.pages.dev` URL back so it can be added here and to `CLAUDE.md`/`README.md`.
+
+No API tokens or secrets needed for this git-integration path — nothing to hand over, just the
+one-time Cloudflare-side click-through above.
+
 **4-act framing (blend):** the 10 scenes are grouped into the play's 4 acts (`lib/scenes.ts` `act` field
 + `ACT_TITLE`); a big plakativ „AKT n" curtain drops at each act boundary. Akt 1 (`ColdOpen`) is the
 plakativ billboard opener. A shared plakativ kit lives in `components/scene/plakativ.tsx` (`GagButton`,

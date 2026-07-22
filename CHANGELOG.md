@@ -15,11 +15,6 @@ pre-hackathon prototype, so versions are lightweight and dated.
   when the joke topic is selected.
 - **Daniel's real photo** (`public/referents/daniel.jpg`) replaces the "photo pending" placeholder in
   `SpeakerSelect.tsx` — all 4 speaker candidates now show real headshots.
-- **Act-intro pages** (`components/scene/scenes/ActIntro.tsx`, new `act-intro-2/3/4` scenes in
-  `lib/scenes.ts`) — a dedicated full-screen beat at the start of Acts 2/3/4 (Act 1 already has
-  `ColdOpen` as its billboard moment) so the moderator/narrator has room to describe the upcoming scene
-  out loud and control pacing, separate from the existing curtain animation between scenes. Each shows
-  the Act title, a narrator cue line, and a "Begin →" button.
 - **"Fill in with AI" button + typing animation on Briefing** (`Briefing.tsx`) — the old detailed form
   (hero, deal card, disclaimer, focus chips, notes textarea, 3 disabled sections — restored from git
   history, see Changed) gets a new button that auto-selects a focus chip after a beat, then visibly
@@ -31,6 +26,32 @@ pre-hackathon prototype, so versions are lightweight and dated.
 - **Checkout's "Video on demand" line item is now a real toggle** — was a static pre-checked display;
   now starts unchecked and is clickable (same pattern as the existing Marketing add-on), with the total
   and summary line updating live.
+- **Cloudflare Pages support, prepped for parallel hosting.** `next.config.ts` now switches to a static
+  export (`output: "export"`, `images: { unoptimized: true }`) whenever `CF_PAGES` is set — Cloudflare
+  Pages sets this automatically in its build environment, so Vercel's build (no such var) is completely
+  unaffected. Safe because the app has no API routes/server actions/middleware/dynamic routes. Verified
+  both `npm run build` and `CF_PAGES=1 npm run build` succeed locally; the latter produces a full `out/`
+  with all 3 routes. Actually connecting the Cloudflare Pages project to the repo needs a one-time,
+  human, account-authorization step — see `docs/TECH-ROADMAP.md`'s new Cloudflare Pages section for the
+  exact dashboard steps (no API tokens needed for the git-integration path).
+- **Live-acting backdrop scenes** (`components/scene/Backdrop.tsx` + `PharmaBackdrop`/`SpeakerBackdrop`/
+  `DxBackdrop`): full-screen branded gradients the actors perform in front of when there's no portal UI
+  to show — one after the Act-1 title (pharma), one at the start of the speaker's act, and one as the
+  fixed screen right before the DX YouTube reel. Real photos can be dropped into `public/backgrounds/`
+  (`pharma.jpg`/`speaker.jpg`/`dx.jpg`) and they layer over the gradient; absent files just show the
+  gradient (see `public/backgrounds/README.txt`). Supersedes an earlier same-day "Act-intro" title-card
+  experiment (`ActIntro.tsx`, since deleted) — dropped in favor of these backdrops plus the narrator's own
+  live description, to avoid doubling up on pacing beats.
+- **Checkout payment flow** (`Checkout.tsx`): real Credit Card / Company Card options alongside the joke
+  Kidneys/Firstborn ones, a "Pay … & Start Project" button (+ the beach-ticket bonus), a short fake
+  processing spinner, then a corner pop-up CTA "Submit your briefing to the speaker →" that advances.
+- **Kick-off prep process stepper** (`Briefing.tsx`): Booking ✓ → Briefing → Production → Go Live →
+  Reporting, shown above a now-larger project card, combined with the AI-fill form above.
+- **Publish scene** now lives in the pharma dashboard with a **video thumbnail**, a LIVE badge, an
+  **endless slow-climbing view counter** (was a one-shot ease to a fixed 48,213), the "Shift Whole
+  Business Unit" gag button, and a "View Reporting →" button that clicks through to the reporting slide.
+- **Reporting slide** (`Payoff.tsx`) rebuilt inside the dashboard shell (Reports tab) with a small green
+  WhatsApp-style "Tell your pharma friends about it" share button.
 - **Real "generated video" clip for the preview/submit beat.** Hosted Daniel's supplied clip as
   `public/videos/generated/doctor-presentation.mp4` (10s, 720p, ~2.4 MB, plain static asset). `VideoGen.tsx`
   beat 2 (preview) now autoplays this dedicated clip instead of replaying the picked style's raw pose-clip
@@ -54,10 +75,24 @@ pre-hackathon prototype, so versions are lightweight and dated.
   is out; the old hero/deal-card/disclaimer/chips/textarea/3-disabled-sections layout is back, now with
   the AI-fill button (see Added). `briefing.module.css` restored alongside it.
 - **Publish rebuilt as a Pharma "Projects" dashboard again** (`Publish.tsx`) — back in `DashboardShell`
-  instead of a standalone centered card, showing the submitted video overview + a "Publish Video"
-  button; once published, the "Shift Whole Business Unit to Doctorflix and Retire Me" gag button (also
-  still in `Payoff.tsx`, one month later — left unchanged, so the joke lands twice) appears right next
-  to the live view counter instead of waiting for the follow-up scene.
+  instead of a standalone centered card, showing the submitted video's real thumbnail + a "Publish
+  Video" button; once published, the "Shift Whole Business Unit to Doctorflix and Retire Me" gag button
+  (also still in `Payoff.tsx`, one month later — left unchanged, so the joke lands twice) appears right
+  next to the now slow-climbing live view counter, followed by a "View Reporting →" button that hands
+  off to the Reporting slide instead of waiting for a separate follow-up scene.
+- **Title slide** (`ColdOpen.tsx`): dropped the "Act 1 · The Last Work Day" kicker, the AUTOPILOT/advance
+  button (moderator clicks Next), and the "the machine does everything" subheading — just the big
+  headline now, much larger.
+- **Removed the animated act/persona transitions** entirely (`SceneController.tsx`; deleted
+  `PersonaTransition.tsx`) — they doubled up with the static title + backdrop slides. Scenes cut straight.
+- **VideoGen.tsx**: "Generate Video Now" no longer blinks (still shows a brief `Loader2` spinner while
+  "generating"); the preview no longer autoplays — it shows a big "Play with sound 🔊" button that starts
+  it unmuted.
+- **Briefing.tsx**: removed the "AI is reading your brain" processing animation that used to run after
+  submit — submitting now goes straight to the sent confirmation; the pre-submit AI-fill typing animation
+  is unchanged.
+- Stripped remaining actor-direction subtext (Payoff boss line, Publish airport line, Speaker-upload
+  "while you earned your CME credits" aside).
 
 - **Implemented Daniel's Pharma-flow and Speaker-flow reorders** (documented earlier the same day as
   planning-only commits in `docs/TECH-ROADMAP.md` — see "Reorder built" sections there for full detail):
