@@ -1,64 +1,58 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Sparkles } from "lucide-react";
+import { useState } from "react";
+import { Check, Sparkles } from "lucide-react";
 import { useDemoState } from "@/lib/demo-state";
 import { DashboardShell } from "@/components/scene/DashboardShell";
 
-type Step = "card" | "processing" | "done";
+// Kick-off prep, inside the Pharma "Projects" dashboard tab. One card showing
+// the booked project + a process stepper, and one AI-fill button. Per Daniel's
+// 2026-07-22 call: no manual fields, and no "AI is reading your brain"
+// processing animation — the fill just completes.
+const STEPS = ["Booking", "Briefing", "Production", "Go Live", "Reporting"] as const;
+const CURRENT_STEP = 1; // "Briefing"
 
-// Collapsed to a single "Projects" dashboard slide per Daniel's 2026-07-22
-// flow-reorder call (docs/TECH-ROADMAP.md): one card showing how the project
-// is booked, plus one AI-fill button — no manual typed fields anymore.
+function ProcessStepper() {
+  return (
+    <div className="flex items-center gap-1 sm:gap-2">
+      {STEPS.map((label, i) => {
+        const done = i < CURRENT_STEP;
+        const current = i === CURRENT_STEP;
+        return (
+          <div key={label} className="flex items-center gap-1 sm:gap-2">
+            <div className="flex items-center gap-2">
+              <span
+                className={`flex size-6 flex-none items-center justify-center rounded-full text-[11px] font-bold ${
+                  done
+                    ? "bg-brand text-brand-foreground"
+                    : current
+                      ? "bg-primary text-primary-foreground ring-4 ring-primary/15"
+                      : "bg-muted text-muted-foreground"
+                }`}
+              >
+                {done ? <Check className="size-3.5" /> : i + 1}
+              </span>
+              <span
+                className={`text-xs font-semibold ${
+                  current ? "text-foreground" : "text-muted-foreground"
+                }`}
+              >
+                {label}
+              </span>
+            </div>
+            {i < STEPS.length - 1 && (
+              <span className={`h-px w-5 sm:w-8 ${done ? "bg-brand" : "bg-border"}`} />
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export function Briefing() {
   const { topic, speaker } = useDemoState();
-  const [step, setStep] = useState<Step>("card");
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    if (step !== "processing") return;
-    const interval = setInterval(() => {
-      setProgress((p) => {
-        if (p >= 100) {
-          clearInterval(interval);
-          setTimeout(() => setStep("done"), 400);
-          return 100;
-        }
-        return p + Math.ceil(Math.random() * 18);
-      });
-    }, 120);
-    return () => clearInterval(interval);
-  }, [step]);
-
-  if (step === "processing" || step === "done") {
-    return (
-      <DashboardShell active="projects">
-        <div className="flex min-h-full flex-col items-center justify-center gap-4 px-8 py-10 text-center">
-          {step === "processing" ? (
-            <>
-              <div className="text-4xl">🤖</div>
-              <h2 className="text-xl font-bold">AI is filling out the briefing…</h2>
-              <p className="text-sm text-muted-foreground">{Math.min(progress, 100)} %</p>
-              <div className="mt-2 h-2 w-64 overflow-hidden rounded-full bg-muted">
-                <div
-                  className="h-full bg-brand transition-all duration-150"
-                  style={{ width: `${Math.min(progress, 100)}%` }}
-                />
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="text-4xl">✓</div>
-              <h2 className="text-xl font-bold">Briefing sent!</h2>
-              <p className="max-w-sm text-sm text-muted-foreground">
-                Doctorflix has everything it needs. {speaker ?? "The speaker"} has been notified.
-              </p>
-            </>
-          )}
-        </div>
-      </DashboardShell>
-    );
-  }
+  const [done, setDone] = useState(false);
 
   return (
     <DashboardShell active="projects">
@@ -68,7 +62,11 @@ export function Briefing() {
           <p className="text-sm text-muted-foreground">Everything about your booked project, in one place.</p>
         </div>
 
-        <div className="max-w-xl rounded-2xl border border-border bg-card p-6">
+        <div className="rounded-2xl border border-border bg-card px-6 py-5">
+          <ProcessStepper />
+        </div>
+
+        <div className="max-w-3xl rounded-3xl border border-border bg-card p-8">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
               Project Booked
@@ -77,24 +75,30 @@ export function Briefing() {
               Confirmed
             </span>
           </div>
-          <div className="mt-2 text-lg font-bold">{topic.title}</div>
-          <div className="mt-1 text-sm text-muted-foreground">
-            Speaker: <span className="font-semibold text-foreground">{speaker ?? "TBD"}</span>
+          <div className="mt-3 text-3xl font-bold leading-tight">{topic.title}</div>
+          <div className="mt-2 text-base text-muted-foreground">
+            Speaker: <span className="font-semibold text-foreground">{speaker ?? "TBD"}</span> · {topic.format}
           </div>
 
-          <div className="mt-5 rounded-xl bg-muted/40 p-4 text-sm italic text-muted-foreground">
+          <div className="mt-6 rounded-2xl bg-muted/40 p-5 text-base italic text-muted-foreground">
             &ldquo;Say less — I&rsquo;ll turn this into gold by Friday.&rdquo;
-            <div className="mt-1 text-xs font-semibold not-italic text-foreground">
+            <div className="mt-1 text-sm font-semibold not-italic text-foreground">
               — {speaker ?? "your speaker"}
             </div>
           </div>
 
-          <button
-            onClick={() => setStep("processing")}
-            className="mt-5 flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground hover:bg-primary/90"
-          >
-            <Sparkles className="size-4" /> Fill Briefing with AI
-          </button>
+          {!done ? (
+            <button
+              onClick={() => setDone(true)}
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-4 text-base font-bold text-primary-foreground hover:bg-primary/90"
+            >
+              <Sparkles className="size-5" /> Fill Briefing with AI
+            </button>
+          ) : (
+            <div className="mt-6 flex items-center justify-center gap-2 rounded-full bg-brand/10 px-6 py-4 text-base font-bold text-brand">
+              <Check className="size-5" /> Briefing sent — {speaker ?? "the speaker"} is notified.
+            </div>
+          )}
         </div>
       </div>
     </DashboardShell>

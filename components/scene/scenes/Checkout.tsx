@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { Loader2, MessageSquareText } from "lucide-react";
 import { useDemoState } from "@/lib/demo-state";
 import { DashboardShell } from "@/components/scene/DashboardShell";
 import { useSceneNav } from "@/components/scene/nav";
@@ -16,9 +17,13 @@ const FORMAT = { name: "Video on demand", price: 11950 };
 const ADDON = { name: "Marketing Plus M", price: 6500 };
 
 const PAY_METHODS = [
-  { id: "kidneys", label: "🫘 Pay with your Kidneys" },
-  { id: "firstborn", label: "👶 Pay with your Firstborn" },
+  { id: "card", label: "💳 Credit Card" },
+  { id: "company", label: "🏢 Company Card" },
+  { id: "kidneys", label: "🫘 Your Kidneys" },
+  { id: "firstborn", label: "👶 Your Firstborn" },
 ] as const;
+
+type PayStatus = "idle" | "paying" | "paid";
 
 export function Checkout() {
   const { topic, speaker } = useDemoState();
@@ -27,12 +32,19 @@ export function Checkout() {
   const [addonOn, setAddonOn] = useState(true);
   const [qty, setQty] = useState(1);
   const [payMethod, setPayMethod] = useState<string>(PAY_METHODS[0].id);
-  const [submitted, setSubmitted] = useState(false);
+  const [payStatus, setPayStatus] = useState<PayStatus>("idle");
 
   const total = useMemo(
     () => pkg.year1 + FORMAT.price * qty + (addonOn ? ADDON.price : 0),
     [pkg, qty, addonOn]
   );
+
+  // Fake payment processing → then the "submit your briefing" CTA pops up.
+  useEffect(() => {
+    if (payStatus !== "paying") return;
+    const t = setTimeout(() => setPayStatus("paid"), 1500);
+    return () => clearTimeout(t);
+  }, [payStatus]);
 
   if (beat === 1) {
     // Zoomed beat: the package decision, blown up — this is the click that
@@ -69,6 +81,7 @@ export function Checkout() {
   }
 
   return (
+    <>
     <DashboardShell active="shop">
       <div className={styles.page}>
         <header className={styles.topbar}>
@@ -190,14 +203,17 @@ export function Checkout() {
                     <div className={styles.tVal}>{total.toLocaleString("en-US")} €</div>
                   </div>
 
-                  {!submitted ? (
+                  {payStatus === "idle" && (
                     <>
-                      <div className="mt-4 flex gap-2">
+                      <div className="mt-4 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                        Payment method
+                      </div>
+                      <div className="mt-2 grid grid-cols-2 gap-2">
                         {PAY_METHODS.map((m) => (
                           <button
                             key={m.id}
                             onClick={() => setPayMethod(m.id)}
-                            className={`flex-1 rounded-lg border px-2 py-2 text-xs font-medium transition ${
+                            className={`rounded-lg border px-2 py-2 text-xs font-medium transition ${
                               payMethod === m.id
                                 ? "border-brand bg-brand/5 text-brand"
                                 : "border-border bg-card hover:border-brand/40"
@@ -207,19 +223,28 @@ export function Checkout() {
                           </button>
                         ))}
                       </div>
-                      <button className={styles.btnSubmit} onClick={() => setSubmitted(true)}>
-                        Start Project
+                      <button className={styles.btnSubmit} onClick={() => setPayStatus("paying")}>
+                        Pay {total.toLocaleString("en-US")} € &amp; Start Project
                       </button>
                       <button
                         className="mt-2 w-full rounded-full border border-brand/40 bg-brand/5 py-2 text-xs font-semibold text-brand hover:bg-brand/10"
-                        onClick={() => setSubmitted(true)}
+                        onClick={() => setPayStatus("paying")}
                       >
-                        Start Project and Book a One-Way Ticket to the Beach 🏖️
+                        Pay &amp; Book a One-Way Ticket to the Beach 🏖️
                       </button>
                     </>
-                  ) : (
+                  )}
+
+                  {payStatus === "paying" && (
+                    <div className="mt-4 flex flex-col items-center gap-2 rounded-xl bg-muted/40 p-4 text-sm text-muted-foreground">
+                      <Loader2 className="size-6 animate-spin text-brand" />
+                      Processing payment…
+                    </div>
+                  )}
+
+                  {payStatus === "paid" && (
                     <p className="mt-4 rounded-xl bg-brand/10 p-3 text-center text-sm font-medium text-brand">
-                      ✓ Checkout complete — {speaker ?? "your speaker"} is booked directly.
+                      ✓ Payment successful — {speaker ?? "your speaker"} is booked directly.
                     </p>
                   )}
                 </div>
@@ -229,5 +254,22 @@ export function Checkout() {
         </div>
       </div>
     </DashboardShell>
+
+    {/* Corner CTA that pops up once payment is done — hands off to the briefing. */}
+    {payStatus === "paid" && (
+      <button
+        onClick={next}
+        className="fg-pop fixed bottom-16 right-6 z-40 flex items-center gap-3 rounded-2xl bg-primary px-5 py-4 text-left text-primary-foreground shadow-[0_18px_50px_-12px_rgba(26,33,51,0.6)] transition hover:scale-[1.02]"
+      >
+        <MessageSquareText className="size-6 flex-none" />
+        <span>
+          <span className="block text-[11px] font-medium uppercase tracking-wide opacity-70">
+            Next step
+          </span>
+          <span className="block text-sm font-bold">Submit your briefing to the speaker →</span>
+        </span>
+      </button>
+    )}
+    </>
   );
 }

@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { MessageCircle } from "lucide-react";
+import { DashboardShell } from "@/components/scene/DashboardShell";
 import { useDemoState } from "@/lib/demo-state";
 
 const STATS = [
@@ -8,28 +8,29 @@ const STATS = [
   { label: "Engagement", value: "+64%" },
 ];
 
+// The Reporting slide, inside the Pharma dashboard (Reports tab) — reached when
+// Pharma clicks through from the live project. No actor-direction subtext.
 export function Payoff() {
   const { topic } = useDemoState();
   return (
-    <div className="mx-auto flex h-full w-full max-w-3xl flex-col justify-center gap-6 px-6">
-      <Badge variant="outline" className="self-start">
-        Optional · one month later
-      </Badge>
-      <Card>
-        <CardHeader>
-          <CardTitle className="font-heading text-xl">Reporting: {topic.title}</CardTitle>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-6">
+    <DashboardShell active="reports">
+      <div className="flex min-h-full flex-col gap-6 px-8 py-8">
+        <div>
+          <h1 className="text-2xl font-bold">Reporting</h1>
+          <p className="text-sm text-muted-foreground">{topic.title}</p>
+        </div>
+
+        <div className="max-w-3xl rounded-3xl border border-border bg-card p-8">
           <div className="grid grid-cols-3 gap-4">
             {STATS.map((s) => (
-              <div key={s.label} className="rounded-xl border border-border bg-muted/30 p-4 text-center">
-                <div className="font-heading text-2xl font-bold text-brand">{s.value}</div>
-                <div className="text-xs text-muted-foreground">{s.label}</div>
+              <div key={s.label} className="rounded-2xl border border-border bg-muted/30 p-5 text-center">
+                <div className="font-heading text-3xl font-bold text-brand">{s.value}</div>
+                <div className="mt-1 text-xs text-muted-foreground">{s.label}</div>
               </div>
             ))}
           </div>
 
-          <div className="flex items-center justify-center gap-3">
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
             <button className="animate-pulse rounded-md border-2 border-yellow-400 bg-yellow-300 px-4 py-3 text-sm font-black uppercase text-red-700 shadow-[0_0_0_3px_#fff,0_0_0_5px_#ef4444]">
               Shift Whole Business Unit to Doctorflix and Retire Me
             </button>
@@ -38,12 +39,13 @@ export function Payoff() {
             </button>
           </div>
 
-          <p className="text-center text-sm text-muted-foreground">
-            Pharma Boss, hands thrown up: &ldquo;That was so easy!&rdquo; — claims the win to
-            <em> his</em> boss. Gets &ldquo;promoted to Senior Vice President.&rdquo;
-          </p>
-        </CardContent>
-      </Card>
-    </div>
+          {/* WhatsApp-style share gag */}
+          <button className="mx-auto mt-6 flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:brightness-105">
+            <MessageCircle className="size-4 fill-white" />
+            Tell your pharma friends about it
+          </button>
+        </div>
+      </div>
+    </DashboardShell>
   );
 }

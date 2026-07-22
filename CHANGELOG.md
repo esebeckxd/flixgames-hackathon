@@ -8,6 +8,37 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ### Added
 
+- **Live-acting backdrop scenes** (`components/scene/Backdrop.tsx` + `PharmaBackdrop`/`SpeakerBackdrop`/
+  `DxBackdrop`): full-screen branded gradients the actors perform in front of when there's no portal UI
+  to show — one after the Act-1 title (pharma), one at the start of the speaker's act, and one as the
+  fixed screen right before the DX YouTube reel. Real photos can be dropped into `public/backgrounds/`
+  (`pharma.jpg`/`speaker.jpg`/`dx.jpg`) and they layer over the gradient; absent files just show the
+  gradient (see `public/backgrounds/README.txt`).
+- **Checkout payment flow** (`Checkout.tsx`): real Credit Card / Company Card options alongside the joke
+  Kidneys/Firstborn ones, a "Pay … & Start Project" button (+ the beach-ticket bonus), a short fake
+  processing spinner, then a corner pop-up CTA "Submit your briefing to the speaker →" that advances.
+- **Kick-off prep process stepper** (`Briefing.tsx`): Booking ✓ → Briefing → Production → Go Live →
+  Reporting, shown above a now-larger project card.
+- **Publish scene** now lives in the pharma dashboard with a **video thumbnail**, a LIVE badge, an
+  **endless slow-climbing view counter** (was a one-shot ease to a fixed 48,213), and a "View Reporting →"
+  button that clicks through to the reporting slide.
+- **Reporting slide** (`Payoff.tsx`) rebuilt inside the dashboard shell (Reports tab) with a small green
+  WhatsApp-style "Tell your pharma friends about it" share button.
+
+### Changed
+
+- **Title slide** (`ColdOpen.tsx`): dropped the "Act 1 · The Last Work Day" kicker, the AUTOPILOT/advance
+  button (moderator clicks Next), and the "the machine does everything" subheading — just the big
+  headline now, much larger.
+- **Removed the animated act/persona transitions** entirely (`SceneController.tsx`; deleted
+  `PersonaTransition.tsx`) — they doubled up with the static title + backdrop slides. Scenes cut straight.
+- **VideoGen.tsx**: "Generate Video Now" no longer blinks; the preview no longer autoplays — it shows a
+  big "Play with sound 🔊" button that starts it unmuted.
+- **Briefing.tsx**: removed the "AI is reading your brain" processing animation — the AI-fill completes
+  immediately.
+- Stripped remaining actor-direction subtext (Payoff boss line, Publish airport line, Speaker-upload
+  "while you earned your CME credits" aside).
+
 - **Real "generated video" clip for the preview/submit beat.** Hosted Daniel's supplied clip as
   `public/videos/generated/doctor-presentation.mp4` (10s, 720p, ~2.4 MB, plain static asset). `VideoGen.tsx`
   beat 2 (preview) now autoplays this dedicated clip instead of replaying the picked style's raw pose-clip

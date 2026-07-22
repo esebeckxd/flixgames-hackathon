@@ -24,8 +24,7 @@ export function ReferentUpload() {
             🔔
           </span>
           <span className="text-sm">
-            🍕 New assignment: <span className="font-semibold">{topic.title}</span> — mid-slice,
-            while you were earning your own CME credits.
+            🍕 New assignment: <span className="font-semibold">{topic.title}</span>
           </span>
         </div>
 

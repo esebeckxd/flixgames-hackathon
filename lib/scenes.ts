@@ -27,18 +27,23 @@ export type SceneDef = {
 // preview → payout, 3 beats).
 export const SCENES: SceneDef[] = [
   { id: "cold-open", persona: "narrator", title: "The Assignment", act: 1 },
+  // Live-acting backdrops (no portal UI) — the actors perform in front of these.
+  // Added 2026-07-22 per Daniel's call; one per persona hand-off.
+  { id: "pharma-backdrop", persona: "pharma", title: "On Stage · Pharma", act: 2 },
   // beats: 0 overview w/ prominent inline "Read My Mind" button + topic grid,
   // 1 suggested-topic confirmation (see Shop.tsx)
   { id: "shop", persona: "pharma", title: "Topic Shop", act: 2, beats: 2 },
   { id: "speaker-select", persona: "pharma", title: "Pick Your Speaker", act: 2 },
   // beats: 0 overview + form, 1 package-pick zoom
   { id: "checkout", persona: "pharma", title: "Cost Configurator & Checkout", act: 2, beats: 2 },
-  { id: "briefing", persona: "pharma", title: "Projects Dashboard", act: 2 },
+  { id: "briefing", persona: "pharma", title: "Kick-Off Prep", act: 2 },
+  { id: "speaker-backdrop", persona: "speaker", title: "On Stage · Speaker", act: 3 },
   { id: "slide-builder", persona: "speaker", title: "Slide Upload", act: 3 },
   // beats: 0 pick your style, 1 slides+script+generate, 2 preview+submit, 3 payout success
   { id: "video-gen", persona: "speaker", title: "Video Generation", act: 3, beats: 4 },
   { id: "publish", persona: "pharma", title: "Submit & Publish", act: 4 },
-  { id: "payoff", persona: "pharma", title: "One Month Later", act: 4 },
+  { id: "payoff", persona: "pharma", title: "Reporting", act: 4 },
+  { id: "dx-backdrop", persona: "dx", title: "On Stage · DX", act: 4 },
   { id: "dx-reel", persona: "dx", title: "DX Highlight Reel", act: 4 },
   { id: "leos-iphone", persona: "narrator", title: "Leo's iPhone", act: 4 },
   { id: "stinger", persona: "narrator", title: "Six Months Later", act: 4 },
