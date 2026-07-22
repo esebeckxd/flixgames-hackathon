@@ -41,10 +41,11 @@ automated Slack updates roll in). Humor is a deliberate design tool, not garnish
 buttons (e.g. `Projekt starten und One-Way-Ticket an den Strand buchen`) and playful animations underline
 *how easy the process has become* at every step — see [`CLAUDE.md`](CLAUDE.md) for the full brief.
 
-**The full scene-by-scene demo script now lives in Notion — that's the single source of truth**; build
-to it, not the other way around. [`docs/STORYBOARD.md`](docs/STORYBOARD.md) is a frozen pre-Notion
-mirror (kept for git history, not to be edited for narrative changes anymore — see the banner at its
-top). **Hard limit: a 7-minute pitch** — build breadth and timing accordingly. Single most important
+**The full scene-by-scene demo script now lives in Notion — that's the single source of truth:**
+[FlixGames Hackathon — Pitch Storyboard](https://app.notion.com/p/doctorflix/FlixGames-Hackathon-Pitch-Storyboard-EN-3a525482863c818c9dc3d49cf9d062a5).
+Build to it, not the other way around. [`docs/STORYBOARD.md`](docs/STORYBOARD.md) is now just a pointer
+to that page — kept for git history, not to be edited for narrative changes anymore. **Hard limit: a
+7-minute pitch** — build breadth and timing accordingly. Single most important
 build rule: **oversimplify every screen** — 2–3 real clickable fields, everything else greyed-out/
 symbolic, no full-depth forms. Build-architecture decision: this is a **deterministic scene-by-scene
 presentation** (one fixed path, a persistent "Next" control), not a free-roam multi-page app. Engineering
@@ -57,8 +58,8 @@ Full context from all planning meetings: [`docs/meeting-notes/`](docs/meeting-no
 | Path | What it's for |
 |---|---|
 | [`CLAUDE.md`](CLAUDE.md) | **Start here.** Co-pilot brief — what we're building, the stack, constraints, demo philosophy, and team roles. |
-| **Notion storyboard** | **SSOT for the scene-by-scene pitch script** — build to this. |
-| [`docs/STORYBOARD.md`](docs/STORYBOARD.md) | Frozen pre-Notion mirror of the storyboard — history only, don't edit for narrative changes. |
+| [FlixGames Storyboard (Notion)](https://app.notion.com/p/doctorflix/FlixGames-Hackathon-Pitch-Storyboard-EN-3a525482863c818c9dc3d49cf9d062a5) | **SSOT for the scene-by-scene pitch script** — build to this. |
+| [`docs/STORYBOARD.md`](docs/STORYBOARD.md) | Pointer to the Notion storyboard — history only, don't edit for narrative changes. |
 | [`docs/TECH-ROADMAP.md`](docs/TECH-ROADMAP.md) | Engineering build tasks + required assets, per storyboard scene. |
 | [`CHANGELOG.md`](CHANGELOG.md) | What's changed, release by release. |
 | [`app/`](app/) | Next.js App Router routes. Theme in [`app/globals.css`](app/globals.css), fonts in [`app/layout.tsx`](app/layout.tsx). |

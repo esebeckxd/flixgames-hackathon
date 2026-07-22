@@ -1,10 +1,11 @@
 # Technical roadmap — build tasks & assets
 
 Engineering-facing companion to the storyboard: **what to actually build, per scene, and what raw
-assets someone needs to go find/create for it.** The storyboard (narrative, cast, timing, jokes) now
-lives in **Notion as the SSOT** — see the banner at the top of [`STORYBOARD.md`](STORYBOARD.md) — this
-file stays in the repo and tracks the engineering side only. Keep this in sync by hand whenever the
-Notion storyboard changes; it is not itself the source of truth for narrative content.
+assets someone needs to go find/create for it.** The storyboard (narrative, cast, timing, jokes) lives
+in **Notion as the SSOT** —
+[FlixGames Hackathon — Pitch Storyboard](https://app.notion.com/p/doctorflix/FlixGames-Hackathon-Pitch-Storyboard-EN-3a525482863c818c9dc3d49cf9d062a5)
+— this file stays in the repo and tracks the engineering side only. Keep this in sync by hand whenever
+the Notion storyboard changes; it is not itself the source of truth for narrative content.
 
 Status legend: ❌ not started · 🟡 in progress · ✅ done.
 
@@ -137,4 +138,4 @@ Status legend: ❌ not started · 🟡 in progress · ✅ done.
   avatars — confirm with them (or get sign-off) before finalizing the character-select art.
 - Whether Scene 5's avatar-speaking preview uses a real AI-avatar output or a mocked static asset depends
   on how far Moritz's pipeline integration gets by Wednesday — track alongside the password-recovery
-  item in [`STORYBOARD.md`](STORYBOARD.md) / meeting notes.
+  item in [Notion storyboard](https://app.notion.com/p/doctorflix/FlixGames-Hackathon-Pitch-Storyboard-EN-3a525482863c818c9dc3d49cf9d062a5) / meeting notes.

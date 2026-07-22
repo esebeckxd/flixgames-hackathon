@@ -15,9 +15,10 @@ human input is only required at a **handful of specific steps**; everything else
 between AI agents. The over-the-top humor exists specifically to sell *how little the stakeholder has to
 do anymore*.
 
-**Pipeline (full 10-scene script + cast — SSOT is now Notion, see the banner in
-[`docs/STORYBOARD.md`](docs/STORYBOARD.md); that file is a frozen pre-Notion mirror kept for git
-history, do not edit it for narrative changes):**
+**Pipeline (full 10-scene script + cast — SSOT is the
+[Notion storyboard](https://app.notion.com/p/doctorflix/FlixGames-Hackathon-Pitch-Storyboard-EN-3a525482863c818c9dc3d49cf9d062a5);
+[`docs/STORYBOARD.md`](docs/STORYBOARD.md) is just a pointer to it now, do not edit that file for
+narrative changes):**
 1. Cold open: a dismissive **Pharma Boss** hands the project off ("just make a TV video, come back in
    six months") — sets up the ending's payoff.
 2. **Pharma picks a topic** from the shop, configures the offer (video + add-ons), and **books a
@@ -42,7 +43,7 @@ history, do not edit it for narrative changes):**
 
 **Told from a small cast** — Narrator, Pharma Boss, Pharma/Marketing Assistant, Referent(s), DX
 employee — all played by the team in costume. Full cast + character notes:
-[`docs/STORYBOARD.md`](docs/STORYBOARD.md#cast--characters).
+[Notion storyboard](https://app.notion.com/p/doctorflix/FlixGames-Hackathon-Pitch-Storyboard-EN-3a525482863c818c9dc3d49cf9d062a5).
 
 Full context: [`docs/meeting-notes/`](docs/meeting-notes/) (all planning meetings).
 
@@ -52,7 +53,7 @@ Full context: [`docs/meeting-notes/`](docs/meeting-notes/) (all planning meeting
 reserved for the DX-employee highlight reel (scene 9) — build to that, don't squeeze it in on top.
 Cut-first order if time is tight: the six-month stinger (scene 10), then the one-month payoff (scene 8).
 **Spoken pitch (Narrator/character lines) is in English; on-screen product UI can stay German** —
-matches the real pre-built assets. Full reasoning: [`docs/STORYBOARD.md`](docs/STORYBOARD.md#format--timing--read-this-first-it-changes-everything-else).
+matches the real pre-built assets. Full reasoning: [Notion storyboard](https://app.notion.com/p/doctorflix/FlixGames-Hackathon-Pitch-Storyboard-EN-3a525482863c818c9dc3d49cf9d062a5).
 
 ## Demo philosophy — the most important rule for building any screen
 
@@ -61,7 +62,7 @@ only. Pick 2–3 fields/actions per screen that are genuinely clickable; render 
 inert placeholders that just suggest more configuration exists. Do **not** build a real 20-field form —
 that's already too much for a pitch, even if it'd be "more realistic." Voice input (speak → form fills
 itself) is an explicit stretch goal, not a v1 requirement. Full reasoning + scene script:
-[`docs/STORYBOARD.md`](docs/STORYBOARD.md).
+[Notion storyboard](https://app.notion.com/p/doctorflix/FlixGames-Hackathon-Pitch-Storyboard-EN-3a525482863c818c9dc3d49cf9d062a5).
 
 ## Humor & motion direction
 
@@ -85,7 +86,7 @@ step has become for the stakeholder. Rules for every screen:
 When proposing copy or interactions for a new screen, always suggest at least one "absurd extra win"
 option and one small delightful animation alongside the straightforward version — don't wait to be asked.
 This pairs with the DX-employee gag interstitials (gong, Slack money-spam) from
-[`docs/STORYBOARD.md`](docs/STORYBOARD.md) — same comedic thread, different surface.
+[Notion storyboard](https://app.notion.com/p/doctorflix/FlixGames-Hackathon-Pitch-Storyboard-EN-3a525482863c818c9dc3d49cf9d062a5) — same comedic thread, different surface.
 
 ## Stack
 
@@ -106,12 +107,12 @@ shortcut) — not separate routes the presenter navigates freely. This **is** th
 mechanism: the module must never auto-advance on a timer — a live human stands in front of the screen
 and narrates, and pacing stays entirely in their hands via that "Next" control. Each scene can still
 contain its own realistic-looking mini-flow (e.g. checkout has a few clicks inside it), but scene-to-scene
-order is fixed. Full reasoning: [`docs/STORYBOARD.md`](docs/STORYBOARD.md#build-format--a-deterministic-presentation-not-a-free-roam-app).
+order is fixed. Full reasoning: [Notion storyboard](https://app.notion.com/p/doctorflix/FlixGames-Hackathon-Pitch-Storyboard-EN-3a525482863c818c9dc3d49cf9d062a5).
 
 - **Persona-grouped scenes.** Group scenes by whose screen they represent — **Pharma/Sponsor**,
-  **Referent**, **DX employee** — per [`docs/STORYBOARD.md`](docs/STORYBOARD.md#cast--characters); keep
+  **Referent**, **DX employee** — per [Notion storyboard](https://app.notion.com/p/doctorflix/FlixGames-Hackathon-Pitch-Storyboard-EN-3a525482863c818c9dc3d49cf9d062a5); keep
   each persona's scenes a clear, contiguous block in the scene sequence/components.
-- **Persona/actor switch = a themed transition, not a cut.** [`docs/STORYBOARD.md`](docs/STORYBOARD.md#staging--transitions)
+- **Persona/actor switch = a themed transition, not a cut.** [Notion storyboard](https://app.notion.com/p/doctorflix/FlixGames-Hackathon-Pitch-Storyboard-EN-3a525482863c818c9dc3d49cf9d062a5)
   already calls for a black screen / curtain-drop / dimmed lighting between an actor beat and the next
   on-screen UI beat — build that as a real animated transition component (not a bare loading spinner).
   A **GTA-style character-switch swoop/zoom** is a good alternate/additional treatment for persona-to-

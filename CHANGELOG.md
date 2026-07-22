@@ -6,7 +6,9 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ## [Unreleased]
 
-_Work planned for / during the hackathon (Wednesday onward), per [`docs/STORYBOARD.md`](docs/STORYBOARD.md)'s 10-scene script — build as a deterministic scene sequence (see Build format), not a free-roam app:_
+_Work planned for / during the hackathon (Wednesday onward), per the
+[Notion storyboard](https://app.notion.com/p/doctorflix/FlixGames-Hackathon-Pitch-Storyboard-EN-3a525482863c818c9dc3d49cf9d062a5)'s
+10-scene script — build as a deterministic scene sequence (see Build format), not a free-roam app:_
 
 - Scene 1 (optional cold open): dismissive Pharma Boss hand-off.
 - Scene 2: topic shop → configure offer → checkout with a checkout budget/company-card gag, **Referent
@@ -45,11 +47,14 @@ _Work planned for / during the hackathon (Wednesday onward), per [`docs/STORYBOA
   - Scene 7: platform view-counter **ticks up like a slot machine** instead of a static number.
   - Scene 8: blinking **"Shift Whole Business Unit to Doctorflix and Retire Me"** banner button, plus a
     small, shy second button **"Vielleicht nur Urlaub"** right next to it.
-- **`docs/STORYBOARD.md` is now a frozen mirror, not the live doc.** The storyboard's SSOT moved to
-  Notion (2026-07-22) — a banner at the top of the file says so and flags the repo docs that still need
-  their links swapped to the Notion URL once shared (`CLAUDE.md`, `README.md`, `PREBUILT-ASSETS.md`).
-  `CLAUDE.md`/`README.md` pipeline/storyboard references updated to point at Notion as the SSOT, with
-  `docs/STORYBOARD.md` explicitly called out as history-only.
+- **Storyboard fully migrated to Notion — the real SSOT, live now.** Wrote the complete, current
+  storyboard (concept, format & timing, build format, demo philosophy, cast, all 10 scenes with every
+  locked gag above, staging & transitions, Q&A prep) into
+  [FlixGames Hackathon — Pitch Storyboard](https://app.notion.com/p/doctorflix/FlixGames-Hackathon-Pitch-Storyboard-EN-3a525482863c818c9dc3d49cf9d062a5)
+  (replacing its stale pre-hackathon draft). `docs/STORYBOARD.md` is now a **short pointer stub only** —
+  full narrative content removed from the repo, linking to Notion instead. All links across `CLAUDE.md`,
+  `README.md`, and `docs/TECH-ROADMAP.md` that used to point at the old `docs/STORYBOARD.md` sections
+  now point at the real Notion URL.
 - **New `docs/TECH-ROADMAP.md`**: engineering build-task breakdown and required-asset list per storyboard
   scene (checkout, briefing, slide builder, avatar select, publish, payoff), plus cross-cutting tasks
   (scene-sequence shell, transition component, bonus-button pattern, confetti utility) and open questions
