@@ -8,6 +8,15 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ### Added
 
+- **Cloudflare Pages support, prepped for parallel hosting.** `next.config.ts` now switches to a static
+  export (`output: "export"`, `images: { unoptimized: true }`) whenever `CF_PAGES` is set — Cloudflare
+  Pages sets this automatically in its build environment, so Vercel's build (no such var) is completely
+  unaffected. Safe because the app has no API routes/server actions/middleware/dynamic routes. Verified
+  both `npm run build` and `CF_PAGES=1 npm run build` succeed locally; the latter produces a full `out/`
+  with all 3 routes. Actually connecting the Cloudflare Pages project to the repo needs a one-time,
+  human, account-authorization step — see `docs/TECH-ROADMAP.md`'s new Cloudflare Pages section for the
+  exact dashboard steps (no API tokens needed for the git-integration path).
+
 - **Live-acting backdrop scenes** (`components/scene/Backdrop.tsx` + `PharmaBackdrop`/`SpeakerBackdrop`/
   `DxBackdrop`): full-screen branded gradients the actors perform in front of when there's no portal UI
   to show — one after the Act-1 title (pharma), one at the start of the speaker's act, and one as the
