@@ -6,23 +6,110 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ## [Unreleased]
 
+_Work planned for / during the hackathon (Wednesday onward), per [`docs/STORYBOARD.md`](docs/STORYBOARD.md)'s 10-scene script — build as a deterministic scene sequence (see Build format), not a free-roam app:_
+
+- Scene 1 (optional cold open): dismissive Pharma Boss hand-off.
+- Scene 2: topic shop → configure offer → checkout with a checkout budget/company-card gag, **Referent
+  booking staged live** (three candidate Referents, Pharma picks one) — checkout fully faked,
+  joke-branded, never the real Stripe/PayPal marks.
+- Scene 3: Pre-Kick-Off briefing — 2–3 real fields + grey placeholders (oversimplified per demo philosophy).
+- Scene 4: simple slide builder (ours, minimal — not Moritz's kasuistik tool); the ugly-archived-deck →
+  AI-cleans-it-up Murphy's Law mechanism.
+- Scene 5: video generation — "pick your fighter" avatar select (AI Avatar over Live Recording),
+  credited to Moritz's avatar pipeline.
+- Scenes 6–7: submit → publish → Pharma notified.
+- Scene 8 (optional, cut first after the stinger): one-month-later payoff, Pharma Boss claims credit.
+- Scene 9 (do not cut): DX-employee highlight-reel montage as the closing ~60 seconds (gong, Slack
+  money-spam, beer cutscenes), driven by the configurator's + handover's real Slack triggers where possible.
+- Scene 10 (optional stinger, cut first if tight): six-months-later founders-realize-they're-redundant ending.
+- "Absurd extra win" bonus buttons + playful completion animations, per screen, per the humor & motion
+  direction rule.
+- Optional stretch: voice input on the briefing screen.
+- Story-track open items: character names, full line-by-line dialogue script, costumes.
+
+## [0.4.0] — 2026-07-22
+
+Storyboard revised live against the 0.3.0 draft: hard 7-minute pitch timing, a named/costumed cast
+(Narrator + Pharma Boss added), a concrete build-format decision (deterministic scene sequence, not a
+free-roam app), and several new comedy beats.
+
 ### Added
 
-- **Changelog discipline policy** (`CLAUDE.md`, `AGENTS.md`, `README.md`): explicit instructions for all
-  human and AI contributors to read `[Unreleased]` before starting work and log every change here
-  (what changed, current functional status, what's faked/stubbed) before stopping — so the repo stays
-  legible across multiple people and multiple AI tools working in parallel without a live handoff.
+- `docs/meeting-notes/2026-07-22-storyboard-feedback.md` — the review session notes.
+- **"Format & timing"** section in `docs/STORYBOARD.md`: 7-minute hard limit, ~10–15s per scene, last
+  ~60s reserved for the DX highlight reel, cut-first order for optional beats (stinger, then payoff),
+  spoken pitch in English / on-screen UI stays German.
+- **"Build format"** section in `docs/STORYBOARD.md` + `CLAUDE.md` (Stack): build as one deterministic,
+  linear sequence of full-screen scenes driven by a single `currentScene` state and a persistent
+  bottom-right "Next" control — not separate routes the presenter navigates freely.
+- **"Cast & characters"** section in `docs/STORYBOARD.md`: adds a **Narrator** and a bookend **Pharma
+  Boss/Chef** character (dismissive at the start, claims credit at the end) to the existing Pharma/
+  Referent/DX-employee cast; confirms all personas are played by the team in costume. Character names
+  and full dialogue are flagged as open items for the story track.
+- New comedy beats folded into the scene script: a checkout company-card/budget gag with fake absurd
+  expense line items; a concrete "ugly deck dug out of the archive" mechanism for the Murphy's Law beat;
+  a "pick your fighter" avatar-select screen for video generation (AI Avatar chosen over Live Recording);
+  a staged live Referent-candidate line-up (three teammates, Pharma picks one); a fuller six-month
+  stinger script.
 
 ### Changed
 
-- **Project concept refined in `CLAUDE.md`/`README.md`**: reframed as a full-circle, mostly
-  human-*supervised* (not human-*driven*) project process — human input required at only a few steps.
-  Pipeline steps 1–2 locked (sponsor picks topic + books via a faked/joke-branded Stripe/PayPal-style
-  checkout → project steps/requirements defined automatically); steps 3+ intentionally left as
-  placeholders pending more meeting-transcript context.
-  New **"Humor & motion direction"** section in `CLAUDE.md` codifies the "absurd extra win" button
-  pattern (e.g. `Projekt starten und One-Way-Ticket an den Strand buchen`) and requires proposing a
-  fitting joke + a small delightful animation at every step, not just where explicitly asked.
+- `docs/STORYBOARD.md` renumbered into a 10-scene sequence with explicit optional/cut-first flags (the
+  one-month payoff and six-month stinger are both optional; the DX highlight reel is the fixed closer).
+- `CLAUDE.md`: pipeline summary rewritten to match the 10-scene structure and cast; new "Pitch format &
+  timing" section; Stack section now states the deterministic-presentation build decision.
+- `README.md`: "The idea" section reflects the expanded cast and the 7-minute/deterministic-build notes.
+
+### Notes
+
+- No Notion connector is authorized in this Claude session, so the "separate planning doc" the team
+  floated for line-by-line dialogue lives as a markdown skeleton directly in `docs/STORYBOARD.md` for
+  now — move it into Notion if the team still wants a standalone live doc.
+- No UI/code changes in this pass — docs-only, ahead of scene-controller implementation.
+
+## [0.3.0] — 2026-07-22
+
+Detailed pitch storyboard, demo philosophy, and proposed team-role split, from the onboarding/storyboard
+call — fills in the pipeline steps 3+ left as placeholders in 0.2.0.
+
+### Added
+
+- [`docs/STORYBOARD.md`](docs/STORYBOARD.md) — the scene-by-scene demo script (topic shop → checkout with
+  Referent booking → Pre-Kick-Off briefing → Referent notified & builds → video generation (credited to
+  Moritz's pipeline) → publish → one-month-later payoff → DX-employee gag montage → optional stinger),
+  plus the **demo philosophy**: oversimplify every screen to 2–3 real fields with the rest greyed out,
+  voice input as a stretch goal, and a Q&A defense ("autonomy ladder") for the pitch.
+- `docs/meeting-notes/2026-07-22-onboarding-storyboard.md` — team GitHub/Claude Code onboarding notes +
+  the reasoning behind the storyboard.
+- **Team & roles** section in `CLAUDE.md`/`README.md`: proposed build track (Franz, Daniel) vs.
+  pitch/story track (Emma, David, Carolina), to confirm Wednesday morning.
+
+### Changed
+
+- `CLAUDE.md`: pipeline steps 3+ (previously placeholders) now spelled out from the fuller storyboard;
+  "Humor & motion direction" (0.2.0) and "Demo philosophy" now sit side by side as complementary rules,
+  not competing ones.
+- `CLAUDE.md`/`README.md` now link `docs/STORYBOARD.md` as the build target.
+
+## [0.2.0] — 2026-07-22
+
+Project reframed as a full-circle, mostly human-*supervised* (not human-*driven*) process; changelog
+discipline made mandatory; humor/motion codified as a design tool, not garnish.
+
+### Added
+
+- **Changelog discipline policy** (`CLAUDE.md`, `AGENTS.md`, `README.md`): read `[Unreleased]` before
+  starting work, log every change there before stopping — so the repo stays legible across multiple
+  people and multiple AI tools working in parallel without a live handoff.
+- **"Humor & motion direction"** section in `CLAUDE.md`: codifies the "absurd extra win" button pattern
+  (e.g. `Projekt starten und One-Way-Ticket an den Strand buchen`) and requires proposing a fitting joke
+  + a small delightful animation at every step, not just where explicitly asked.
+
+### Changed
+
+- **Project concept reframed** in `CLAUDE.md`/`README.md`: full-circle project process, human-supervised
+  rather than human-driven — real input needed at only a handful of steps. (Pipeline steps 3+ were left
+  as placeholders here pending more transcript context — filled in by 0.3.0.)
 - **Hard constraint tightened**: fake checkout must never use the real Stripe/PayPal logos/trademarks —
   invent joke-branded fake payment options instead.
 - **`CLAUDE.md` hard constraints**: added an explicit "nothing needs to be deeply functional" rule —
@@ -39,18 +126,8 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ### Notes
 
-- No UI/code changes yet for this pass — docs-only update to realign the shared context ahead of
+- No UI/code changes in this pass — docs-only update to realign the shared context ahead of
   implementing the humor/animation pattern and the checkout step.
-
-_Work planned for / during the hackathon (Wednesday onward):_
-
-- Topic-click handoff from the pharma landing page into the cost configurator.
-- Faked PayPal checkout / pay-confirmation on top of the cost configurator.
-- Wire the Pre-Kick-Off Briefing form (`dx-agents/apps/handover`) into the flow after checkout.
-- Simple slide builder for the referent step (ours, minimal — not Moritz's kasuistik tool).
-- "Video published" platform page.
-- DX-employee Slack-style feed (driven by the configurator's + handover's real Slack triggers).
-- Pitch storyboard tying the three personas (Pharma, Referent, DX employee) together.
 
 ## [0.1.0] — 2026-07-22
 
@@ -89,5 +166,8 @@ Pre-hackathon foundation: project context + a themed Next.js/shadcn shell to bui
 
 - Initial commit (empty repository with placeholder README).
 
-[Unreleased]: https://github.com/esebeckxd/flixgames-hackathon/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/esebeckxd/flixgames-hackathon/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/esebeckxd/flixgames-hackathon/compare/v0.3.0...v0.4.0
+[0.3.0]: https://github.com/esebeckxd/flixgames-hackathon/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/esebeckxd/flixgames-hackathon/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/esebeckxd/flixgames-hackathon/releases/tag/v0.1.0

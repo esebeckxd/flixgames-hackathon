@@ -15,33 +15,60 @@ human input is only required at a **handful of specific steps**; everything else
 between AI agents. The over-the-top humor exists specifically to sell *how little the stakeholder has to
 do anymore*.
 
-**Pipeline (locked so far — more steps land once meeting-transcript context comes in):**
-1. **Sponsor picks a topic** from a curated topic list, then books the project through a checkout —
-   **Stripe/PayPal-styled but fully faked**, using joke brand names instead of the real payment logos
-   (never the real Stripe/PayPal marks — see Hard constraints). Checkout completing kicks the project off.
-2. **Project steps and requirements are defined automatically** — no human drafts a scope doc; the
-   system derives the plan from the topic/offer.
-3. …
-4. … _(steps 3+ to be filled in from the team's meeting transcripts — treat this pipeline as a draft,
-   not final, until then)._
+**Pipeline (full 10-scene script + cast: [`docs/STORYBOARD.md`](docs/STORYBOARD.md)):**
+1. Cold open: a dismissive **Pharma Boss** hands the project off ("just make a TV video, come back in
+   six months") — sets up the ending's payoff.
+2. **Pharma picks a topic** from the shop, configures the offer (video + add-ons), and **books a
+   Referent directly as part of checkout** — **Stripe/PayPal-styled but fully faked**, using joke brand
+   names instead of the real payment logos (never the real Stripe/PayPal marks — see Hard constraints).
+   Referent booking is staged live: three teammates appear as candidate Referents, Pharma picks one.
+3. **Project requirements are captured, not drafted** — the Pre-Kick-Off briefing screen (oversimplified
+   to 2–3 real fields + grey placeholders, see Demo philosophy) stands in for a human writing a scope
+   doc. Pharma is now "done" — narratively they head to the airport.
+4. **Referent gets notified** of the booking and builds the presentation in our own **simple slide
+   builder** — not Moritz's full kasuistik tool. Murphy's-Law beat: an ugly old deck gets dug out of the
+   archive and the AI cleans it up ("turning shit into gold").
+5. **Video generation** — "pick your fighter" avatar select, AI Avatar chosen over Live Recording;
+   credited transparently to Moritz's existing pipeline (recording → transcript → AI avatar →
+   automated animation); we build the pipeline UI, not this piece.
+6–7. **Referent submits, video publishes**; Pharma is notified on the way to vacation.
+8. *(Optional, cut first if tight)* **One month later:** Pharma shows numbers to the Boss, who claims
+   credit for it.
+9. **DX-employee highlight-reel** — the closing ~60 seconds, do not cut (beer, Slack notifications, a
+   sales gong on every closed deal).
+10. *(Optional stinger)* Six months later: the founders realize the team is redundant.
 
-**Told from three personas** in the pitch:
-- **Sponsor / Pharma** — young SME marketing assistant, ~mid-20s, ~€10k budget, wants to self-serve fast
-  without Sales.
-- **Referent** — receives the briefing, builds content live, submits, video publishes.
-- **DX employee** — sits drinking a beer while automated Slack updates roll in (the gag: the team could
-  be replaced by this one beer). The cost configurator's real Slack triggers can drive this feed.
+**Told from a small cast** — Narrator, Pharma Boss, Pharma/Marketing Assistant, Referent(s), DX
+employee — all played by the team in costume. Full cast + character notes:
+[`docs/STORYBOARD.md`](docs/STORYBOARD.md#cast--characters).
 
-Full context: [`docs/meeting-notes/`](docs/meeting-notes/2026-07-14-kickoff.md) (planning meetings; more
-notes to follow as the process gets fleshed out).
+Full context: [`docs/meeting-notes/`](docs/meeting-notes/) (all planning meetings).
+
+## Pitch format & timing
+
+**Hard limit: 7 minutes.** Budget ~10–15 seconds per scene/interaction. The last ~60 seconds are
+reserved for the DX-employee highlight reel (scene 9) — build to that, don't squeeze it in on top.
+Cut-first order if time is tight: the six-month stinger (scene 10), then the one-month payoff (scene 8).
+**Spoken pitch (Narrator/character lines) is in English; on-screen product UI can stay German** —
+matches the real pre-built assets. Full reasoning: [`docs/STORYBOARD.md`](docs/STORYBOARD.md#format--timing--read-this-first-it-changes-everything-else).
+
+## Demo philosophy — the most important rule for building any screen
+
+**Oversimplify. Show the idea in one glance, not a working form.** Every screen is the user-facing view
+only. Pick 2–3 fields/actions per screen that are genuinely clickable; render everything else as grey,
+inert placeholders that just suggest more configuration exists. Do **not** build a real 20-field form —
+that's already too much for a pitch, even if it'd be "more realistic." Voice input (speak → form fills
+itself) is an explicit stretch goal, not a v1 requirement. Full reasoning + scene script:
+[`docs/STORYBOARD.md`](docs/STORYBOARD.md).
 
 ## Humor & motion direction
 
 The comedy is a **deliberate design tool**, not garnish — it exists to underline how absurdly easy each
-step has become for the stakeholder. Two rules for every screen:
+step has become for the stakeholder. Rules for every screen:
 
 - **Murphy's Law angle:** whatever the human fumbles, the AI fixes gracefully ("turning shit into
-  gold") — keep this thread running throughout.
+  gold") — keep this thread running throughout (see the Referent's messy-input beat in the pipeline
+  above).
 - **"Absurd extra win" buttons:** wherever a step becomes trivially easy for the stakeholder, offer the
   normal action **plus** an over-the-top bonus option that spells out the time/effort saved as a joke —
   e.g. instead of just `Projekt starten`, also show `Projekt starten und One-Way-Ticket an den Strand
@@ -55,6 +82,8 @@ step has become for the stakeholder. Two rules for every screen:
 
 When proposing copy or interactions for a new screen, always suggest at least one "absurd extra win"
 option and one small delightful animation alongside the straightforward version — don't wait to be asked.
+This pairs with the DX-employee gag interstitials (gong, Slack money-spam) from
+[`docs/STORYBOARD.md`](docs/STORYBOARD.md) — same comedic thread, different surface.
 
 ## Stack
 
@@ -68,27 +97,27 @@ buttons, inputs, cards, dialogs. Run `npm run dev` (port 3000) / `npm run build`
 
 ## Interaction model — one deterministic click-through module
 
-This is **not** a real app with branching state — it's **one linear, deterministic click-through web
-module**: every screen has exactly one scripted "next" path, built purely to walk an audience through the
-pitch storyboard in order. No real routing logic, no back-end state, no edge cases to handle (ties
-directly into "nothing needs to be deeply functional" below).
+**Build it as a deterministic presentation, not a free-roam app** — decided on the 2026-07-22 call, too
+risky to navigate live otherwise. One fixed, linear sequence of full-screen scenes driven by a single
+`currentScene` piece of state, advanced by a persistent bottom-right "Next" control (+ keyboard
+shortcut) — not separate routes the presenter navigates freely. This **is** the moderator hold-point
+mechanism: the module must never auto-advance on a timer — a live human stands in front of the screen
+and narrates, and pacing stays entirely in their hands via that "Next" control. Each scene can still
+contain its own realistic-looking mini-flow (e.g. checkout has a few clicks inside it), but scene-to-scene
+order is fixed. Full reasoning: [`docs/STORYBOARD.md`](docs/STORYBOARD.md#build-format--a-deterministic-presentation-not-a-free-roam-app).
 
-- **Persona-grouped mockup screens.** The module contains the mockup UI for each storyboard beat, grouped
-  by whose screen it is: **Sponsor/Pharma**, **Referent**, **DX employee**. Structure routes/components
-  so each persona's screens are a clear, contiguous block.
-- **Persona switch = a full-screen transition animation, not a cut.** Whenever the storyboard moves from
-  one persona's screen to another's, play a themed transition first — think **curtain closing and
-  reopening**, or a **GTA-style character-switch swoop/zoom** — before the next persona's UI appears.
-  This is a deliberate storytelling beat, not a loading spinner; build it as an actual animated
-  component, not a plain route change.
-- **Moderator placeholders.** A live human stands in front of the screen and narrates during the pitch —
-  the module must **not** auto-advance on a timer. Build explicit "hold here until the moderator clicks
-  next" points into the flow (a visible advance control, not silent waiting), so pacing stays in the
-  presenter's hands.
-- **Video placeholders.** Several storyboard beats will eventually show a real video that doesn't exist
-  yet. Render these as clearly labeled placeholder blocks (e.g. a bordered box with `[Video: <what it'll
-  show>]`) that are trivially easy to swap for a real `<video>`/embed later — don't build real video
-  playback logic now, don't leave them unlabeled either.
+- **Persona-grouped scenes.** Group scenes by whose screen they represent — **Pharma/Sponsor**,
+  **Referent**, **DX employee** — per [`docs/STORYBOARD.md`](docs/STORYBOARD.md#cast--characters); keep
+  each persona's scenes a clear, contiguous block in the scene sequence/components.
+- **Persona/actor switch = a themed transition, not a cut.** [`docs/STORYBOARD.md`](docs/STORYBOARD.md#staging--transitions)
+  already calls for a black screen / curtain-drop / dimmed lighting between an actor beat and the next
+  on-screen UI beat — build that as a real animated transition component (not a bare loading spinner).
+  A **GTA-style character-switch swoop/zoom** is a good alternate/additional treatment for persona-to-
+  persona cuts specifically — use whichever reads better once it's built, or vary it scene to scene.
+- **Video placeholders.** Several scenes (e.g. Scene 5's AI-avatar video, Scene 9's DX highlight reel)
+  point at a real video that doesn't exist yet. Render those as clearly labeled placeholder blocks (a
+  bordered box with `[Video: <what it'll show>]`) that are trivial to swap for a real `<video>`/embed
+  later — don't build real playback logic now, and don't leave them unlabeled either.
 
 ## Don't rebuild what exists → [`docs/PREBUILT-ASSETS.md`](docs/PREBUILT-ASSETS.md)
 
@@ -172,6 +201,17 @@ Goal: at any moment, anyone — new teammate or a fresh AI session with zero pri
 `CHANGELOG.md` top to bottom and know the current state of the build without reading the diff or asking
 around.
 
-## Team
+## Team & roles
 
 Daniel Leon Glauert (Captain 🏴‍☠️), Franz von Esebeck, Emma Sporn, David Cisar, Carolina Fromm.
+
+Proposed split (2026-07-22 call; confirm/adjust Wednesday morning once everyone's in the room):
+
+- **Build track — Franz + Daniel:** this repo — stitching pre-built assets into the storyboard, faking
+  the seams (checkout, briefing hookup, slide builder, DX feed).
+- **Pitch/story track — Emma, David, Carolina:** the narrative and "theater-play" blocking (who plays
+  which persona, when the screen switches), the DX-employee gag montage/edit (gong, Slack-money-spam,
+  beer cutscenes), virtual-background/avatar polish for the Referent recording simulation, and the ROI
+  numbers + presentation format (live demo vs. demo+deck) for the pitch.
+
+Both tracks build against [`docs/STORYBOARD.md`](docs/STORYBOARD.md) as the shared source of truth.
