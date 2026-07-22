@@ -27,16 +27,17 @@ const FILTERS = ["All", "Neurology", "Diabetology", "Cardiology", "Rheumatology"
 
 export function Shop() {
   const { topic, setTopic } = useDemoState();
-  const { next, beat, goToBeat } = useSceneNav();
+  const { next, beat, goToBeat, skipToNextScene } = useSceneNav();
   const [filter, setFilter] = useState("All");
 
   const cards = [...TOPICS, ...MORE_TOPICS].filter(
     (t) => filter === "All" || t.field === filter
   );
 
-  if (beat === 2) {
-    // "Read My Mind" branch: same button as beat 0, blown up full-screen.
-    // Clicking it picks a joke topic and skips straight to checkout.
+  if (beat === 1) {
+    // "Read My Mind" now comes first — the default next beat after the
+    // overview, ahead of manually browsing. Clicking it picks a joke topic
+    // and skips straight to checkout, bypassing the manual-pick zoom below.
     return (
       <DashboardShell active="shop">
         <div className={styles.page}>
@@ -46,7 +47,7 @@ export function Shop() {
             <button
               onClick={() => {
                 setTopic(JOKE_TOPIC);
-                next();
+                skipToNextScene();
               }}
               className="flex items-center gap-4 rounded-full bg-[#1A2133] px-14 py-8 text-3xl font-extrabold text-white shadow-[0_30px_80px_-20px_rgba(26,33,51,0.5)] transition hover:-translate-y-1"
             >
@@ -58,9 +59,9 @@ export function Shop() {
     );
   }
 
-  if (beat === 1) {
-    // Zoomed beat: drop all chrome, one huge focal card — this is the exact
-    // click the pitch wants the audience's eyes on.
+  if (beat === 2) {
+    // Zoomed beat: drop all chrome, one huge focal card — the manual-pick
+    // path, shown after Read My Mind if the moderator keeps pressing Next.
     return (
       <DashboardShell active="shop">
         <div className={styles.page}>
@@ -105,7 +106,7 @@ export function Shop() {
               </p>
             </div>
             <button
-              onClick={() => goToBeat(2)}
+              onClick={() => goToBeat(1)}
               className="flex items-center gap-2 rounded-full border-2 border-[#1A2133] px-5 py-2.5 text-sm font-bold text-[#1A2133] transition hover:bg-[#1A2133] hover:text-white"
             >
               <Brain className="size-4" /> Read My Mind.

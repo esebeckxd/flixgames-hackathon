@@ -22,7 +22,9 @@ export type SceneDef = {
 // full-screen UIs within Act 2.
 export const SCENES: SceneDef[] = [
   { id: "cold-open", persona: "narrator", title: "The Assignment", act: 1 },
-  // beats: 0 overview, 1 manual-browsing zoom, 2 "Read My Mind" zoom (branch — see Shop.tsx)
+  // beats: 0 overview, 1 "Read My Mind" zoom (the default next beat), 2
+  // manual-browsing zoom (see Shop.tsx — reordered 2026-07-22, Read My Mind
+  // now comes before manual picking, not after)
   { id: "shop", persona: "pharma", title: "Topic Shop", act: 2, beats: 3 },
   // beats: 0 overview, 1 package-pick zoom, 2 "Pick Your Fighter" referent select
   { id: "checkout", persona: "pharma", title: "Cost Configurator & Checkout", act: 2, beats: 3 },

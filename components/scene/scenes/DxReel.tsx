@@ -5,12 +5,13 @@ import { YouTubePage } from "@/components/scene/YouTubePage";
 export function DxReel() {
   return (
     <YouTubePage
-      title="One Day in Our Work Life"
-      channel="Doctorflix DX Team"
+      title="a day in my life (my job is literally AI now) 💸😭"
+      channel="doctorflix.dx"
       views="48,213"
       uploadedWhen="today"
       videoLabel="DX-employee highlight reel — beer, gong, Slack money-spam montage (~60s closer)"
-      description="A day in the life of the DX team: one beer, zero manual work, and a Slack channel that keeps ringing every time a deal closes. The team could be replaced by this one beer."
+      description="no cap this is the whole job now. one beer, zero manual work, slack going off every time a deal closes on its own. we could get replaced by this beer and nobody would notice fr."
+      dislikeNote="(1 dislike. hi bernd 👋)"
     />
   );
 }

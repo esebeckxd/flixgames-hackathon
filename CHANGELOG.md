@@ -8,6 +8,36 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ### Added
 
+- **"Leo's iPhone" rebuilt as a real chat-app UI replica**
+  (`components/scene/scenes/LeosIphone.tsx`, `leosIphone.module.css` — deliberately unbranded, no
+  logo/wordmark anywhere, same rule as the fake payment buttons). Full header (back chevron, avatar,
+  contact name, "last seen", video/call icons), a scrollable message history with date dividers, sent
+  (green) vs. received (white) bubbles, an emoji-only bubble, a voice-call log entry, a decorative input
+  bar, and a status bar. Hans is saved in Leo's contacts as **"Hans (Best Co-Founder Ever) 🩷"** — shown
+  in full in the header (widened the phone frame + shrank the header font specifically so the emoji
+  doesn't get clipped by text-overflow ellipsis on a long contact name). Invented a full Gen-Z-casual
+  texting history building up to the punchline (getting rich, buying a house, the private-jet joke,
+  an 8-second voice call) with two easter eggs for anyone who's seen the rest of the show — a
+  kidneys-joke callback and a nod to "the AI" doing the work. The final "do we need them anymore?"
+  message reveals after a "typing…" beat, with `playNotification()` now firing exactly when it lands
+  (moved from firing on mount). **Chat wallpaper is a solid placeholder colour** — swap for the real
+  background image once supplied (see comment in `leosIphone.module.css`'s `.chatArea`).
+- **YouTube-style watch pages reskinned closer to the real layout** (`components/scene/YouTubePage.tsx`):
+  dropped the old top nav/search bar (not in the reference), added a decorative red progress bar + player
+  control-icon row, a red circular channel avatar with a verified badge, a "Subscribed" pill + bell icon,
+  and a like/dislike/share/save/more action row — matching a real watch page's info panel more closely.
+  Fixed the player to a `56vh` fixed height (was `aspect-video`, which at full width filled the entire
+  viewport and pushed the whole info panel below the fold with no visual cue to scroll).
+- **DX reel and Stinger get Gen-Z titles + easter eggs** (`DxReel.tsx`, `Stinger.tsx`): "a day in my life
+  (my job is literally AI now) 💸😭" / "we automated ourselves out of a job 💀 (not clickbait)", channel
+  renamed to a lowercase handle `doctorflix.dx`, "Comments are off" gag, and a dislike-count easter egg
+  ("1 dislike. hi bernd 👋" / "2 dislikes. it was us. we did that."). View counts/dates kept identical to
+  preserve continuity with the live view-counter beat in `Publish.tsx`.
+- **`skipToNextScene` added to the scene-nav context** (`components/scene/nav.ts`,
+  `SceneController.tsx`) — lets a branch beat that isn't a scene's last one exit straight to the next
+  scene, bypassing any remaining beats. Needed once Shop's "Read My Mind" branch moved earlier in the
+  beat order (see Changed).
+
 - **Checkout gets a "Pick Your Fighter" referent-selection beat** (`Checkout.tsx`, new `beat === 2`;
   `lib/scenes.ts` checkout `beats: 2 → 3`). Reverses the earlier "Referent line-up intentionally not
   built in-app" call from the 0.5.0 roadmap — per the 2026-07-22 follow-up call (Franz/David/Emma/
@@ -29,6 +59,15 @@ pre-hackathon prototype, so versions are lightweight and dated.
   aren't built yet — see `docs/TECH-ROADMAP.md`'s "Open items from the 2026-07-22 follow-up call".
 
 ### Changed
+
+- **Shop's beat order swapped: "Read My Mind" now comes before manually picking a topic** — the default
+  Next-Next sequence used to be overview → manual-pick zoom → Read My Mind (last, so its click could
+  exit the scene); it now goes overview → Read My Mind zoom → manual-pick zoom, matching the story order
+  the audience actually sees. Shop's small "Read My Mind." button on the overview now jumps to `beat 1`
+  (was `beat 2`); the giant button now calls the new `skipToNextScene()` (see Added) instead of `next()`
+  so it still exits straight to Checkout, bypassing the manual-pick beat entirely.
+- **Fixed a leftover German string**: `VideoGen.tsx`'s bonus button read "Take My Job Away (aber Gehalt
+  behalten)" — translated to "…(but keep the paycheck)", per the English-only rule.
 
 - **Cold-open punchline retitled: "How We Became Unemployed and Our Founders Rich"** — the joke now
   correctly lands on the team going unemployed while the founders get rich (was previously just

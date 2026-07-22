@@ -128,8 +128,9 @@ type, confetti/money/slot animations) to match the Akt-1 opener. The three high-
 
 **Build:**
 - 🟡 This scene is a **pre-cut highlight-reel video**, not a live-built screen — production/editing task,
-  not app engineering. App-side (`DxReel.tsx`) has an animated Slack money-spam feed + a labeled
-  `VideoPlaceholder` standing in for the real edit; swap the placeholder for a real `<video>` once the
+  not app engineering. App-side (`DxReel.tsx` + `Stinger.tsx`) render as a reskinned YouTube-style watch
+  page (`components/scene/YouTubePage.tsx`, `56vh`-capped player + a labeled placeholder standing in for
+  the real edit) with Gen-Z titles/easter eggs; swap the player placeholder for a real `<video>` once the
   edit exists.
 
 **Assets needed:**
@@ -182,8 +183,10 @@ Logged in Notion's "Additional story details" section in full; engineering-relev
   done-state. Depends on what's feasible with HiggsField (or similar) by Wednesday.
 - ❌ Publish polish: a cash icon/number popping in top-right the moment the Referent submits; a nicer
   button treatment for "Publish Video" than the current default `Button`.
-- ❌ Leo's iPhone stretch goals: a real background photo (Leo's own LinkedIn/Instagram) instead of the
-  gradient, a voice-cloned line instead of/alongside the text bubble, a mood-shifting music cue.
+- 🟡 Leo's iPhone: rebuilt as a real chat-app UI replica with a full invented Gen-Z conversation history
+  (`LeosIphone.tsx` — see CHANGELOG). Still-open stretch goals: a real background photo (Leo's own
+  LinkedIn/Instagram) instead of the current solid-colour wallpaper placeholder, a voice-cloned line
+  instead of/alongside the text bubble, a mood-shifting music cue.
 - ❌ Cold-open framing device: homeless-person-on-the-ground hook before the title card, narrator
   picking up with "It was July 22nd, the first FlixGames had just begun…" — pure staging/narration, no
   code needed unless the team wants it echoed on-screen too.

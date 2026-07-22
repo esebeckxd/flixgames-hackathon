@@ -89,7 +89,7 @@ export function VideoGen() {
                   setTimeout(() => setStep("done"), 900);
                 }}
               >
-                Take My Job Away (aber Gehalt behalten) 💸
+                Take My Job Away (but keep the paycheck) 💸
               </button>
             </div>
           )}
