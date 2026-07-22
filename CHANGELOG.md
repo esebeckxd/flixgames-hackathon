@@ -8,6 +8,12 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ### Changed
 
+- **`/money-boy` main pane switched from dark to light** — the message list, header, and composer now
+  use a white background with dark (`#1D1C1D`) text, matching real Slack's default light theme. The
+  aubergine `#3F0E40` sidebar is kept exactly as-is, per instruction ("die lila Farbe in Slack aber
+  beibehalten"). `/ops-dashboard` was already light (Doctorflix's default `:root` theme; no `.dark` class
+  toggle exists anywhere in the app) — confirmed, no change needed there.
+
 - **Money Boy renamed to "Money Boy (BOT)"** everywhere in `/money-boy` (message sender, sidebar DM
   list, member-count chip), and given a real avatar: `components/money-boy/MoneyBoyAvatar.tsx`, an
   original inline-SVG "bling rapper" icon (silhouette, sunglasses, flat-brim cap, gold chain + pendant)

@@ -84,12 +84,12 @@ export function MoneyBoyFeed() {
   }, [messages.length]);
 
   return (
-    <div className="flex h-dvh w-full overflow-hidden bg-[#1a1d29] font-sans text-[15px]">
+    <div className="flex h-dvh w-full overflow-hidden bg-white font-sans text-[15px]">
       {/* burst effects */}
       {burst === "confetti" && <Confetti key={`c-${messages.length}`} pieces={30} />}
       {burst === "money" && <MoneyRain key={`m-${messages.length}`} pieces={22} />}
 
-      {/* sidebar */}
+      {/* sidebar — keeps Slack's classic aubergine, unlike the now-light main pane */}
       <aside className="flex w-64 shrink-0 flex-col bg-[#3F0E40] text-white/80">
         <div className="flex items-center gap-2 border-b border-white/10 px-4 py-4">
           <span className="flex size-8 items-center justify-center rounded-md bg-[#0EC1B7] font-bold text-[#1A2133]">
@@ -138,15 +138,15 @@ export function MoneyBoyFeed() {
         </div>
       </aside>
 
-      {/* main */}
-      <div className="flex min-w-0 flex-1 flex-col bg-[#1a1d29]">
-        <header className="flex items-center gap-3 border-b border-white/10 px-6 py-3">
-          <h1 className="text-lg font-bold text-white"># general</h1>
-          <span className="flex items-center gap-1.5 rounded-full bg-red-500/15 px-2.5 py-1 text-xs font-bold text-red-400">
+      {/* main — light Slack theme */}
+      <div className="flex min-w-0 flex-1 flex-col bg-white">
+        <header className="flex items-center gap-3 border-b border-black/10 px-6 py-3">
+          <h1 className="text-lg font-bold text-[#1D1C1D]"># general</h1>
+          <span className="flex items-center gap-1.5 rounded-full bg-red-50 px-2.5 py-1 text-xs font-bold text-red-600">
             <span className="size-1.5 animate-pulse rounded-full bg-red-500" />
             LIVE
           </span>
-          <span className="ml-auto text-sm text-white/40">👥 1 Mitglied (Money Boy (BOT))</span>
+          <span className="ml-auto text-sm text-black/40">👥 1 Mitglied (Money Boy (BOT))</span>
         </header>
 
         <div ref={listRef} className="flex-1 overflow-y-auto px-6 py-4">
@@ -155,16 +155,16 @@ export function MoneyBoyFeed() {
               <MoneyBoyAvatar className="size-10 shrink-0 rounded-md" />
               <div className="min-w-0">
                 <div className="flex items-baseline gap-2">
-                  <span className="font-bold text-white">Money Boy (BOT)</span>
-                  <span className="rounded bg-white/10 px-1.5 py-0.5 text-[10px] font-bold uppercase text-white/50">
+                  <span className="font-bold text-[#1D1C1D]">Money Boy (BOT)</span>
+                  <span className="rounded bg-black/5 px-1.5 py-0.5 text-[10px] font-bold uppercase text-black/50">
                     App
                   </span>
-                  <span className="text-xs text-white/35">{m.time}</span>
+                  <span className="text-xs text-black/35">{m.time}</span>
                 </div>
                 <div
                   className={cn(
-                    "mt-1 whitespace-pre-line rounded-lg px-3 py-2 text-white/90",
-                    m.mega ? "bg-[#0EC1B7]/15 ring-1 ring-[#0EC1B7]/40" : "bg-white/5",
+                    "mt-1 whitespace-pre-line rounded-lg px-3 py-2 text-[#1D1C1D]",
+                    m.mega ? "bg-[#0EC1B7]/10 ring-1 ring-[#0EC1B7]/40" : "bg-black/[0.03]",
                   )}
                 >
                   <span className="font-bold">💰 MONEY MONEY MONEY 💰</span>
@@ -172,13 +172,13 @@ export function MoneyBoyFeed() {
                   {formatK(m.dealK)}k &mdash; {m.sponsor} &mdash; {m.format} @{m.referent}!{"\n"}
                   {m.bonusLine && (
                     <>
-                      <span className="font-semibold text-[#0EC1B7]">{m.bonusLine}</span>
+                      <span className="font-semibold text-[#0d8f86]">{m.bonusLine}</span>
                       {"\n"}
                     </>
                   )}
                   MTD: {formatK(m.mtdK)}k{"\n"}
                   YTD: {formatK(m.ytdK)}k{"\n"}
-                  <span className="text-sm italic text-white/50">{m.funny}</span>
+                  <span className="text-sm italic text-black/45">{m.funny}</span>
                 </div>
               </div>
             </div>
@@ -187,7 +187,7 @@ export function MoneyBoyFeed() {
 
         {/* decorative, non-functional composer */}
         <div className="px-6 pb-5">
-          <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white/30">
+          <div className="flex items-center gap-3 rounded-xl border border-black/10 bg-black/[0.02] px-4 py-3 text-black/35">
             <span>😀</span>
             <span className="flex-1 select-none text-sm">Nachricht an #general</span>
             <span>📎</span>
