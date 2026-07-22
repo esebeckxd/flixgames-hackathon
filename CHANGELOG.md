@@ -6,6 +6,15 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ## [Unreleased]
 
+### Added
+
+- **"No branches" policy, technically enforced.** Documented in `CLAUDE.md`, `AGENTS.md`, and
+  `README.md`: all work (human and AI) happens directly on `main`, committed and pushed immediately —
+  no feature/topic branches, no PRs. Backed by new `.githooks/pre-commit` (blocks commits on any branch
+  but `main`) and `.githooks/pre-push` (blocks pushing any ref but `main`); `package.json` gained a
+  `"prepare"` script that runs `git config core.hooksPath .githooks` automatically on `npm install`, so
+  every clone picks up the enforcement without a manual setup step.
+
 _Work planned for / during the hackathon (Wednesday onward), per the
 [Notion storyboard](https://app.notion.com/p/doctorflix/FlixGames-Hackathon-Pitch-Storyboard-EN-3a525482863c818c9dc3d49cf9d062a5)'s
 10-scene script — build as a deterministic scene sequence (see Build format), not a free-roam app:_

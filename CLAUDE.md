@@ -165,6 +165,23 @@ Every screen must look like Doctorflix. The CI is **already mapped onto the shad
 - Favor **breadth** (whole flow clickable, shallow) over **depth** (one perfect step, others missing).
   A Western-movie set: ten doors, one opens.
 
+## No branches — work on `main`, commit and push immediately
+
+**Branches are forbidden.** Every human and every AI agent works **directly on `main`** — no
+feature/topic branches, no long-lived local work, no PRs. **Commit and push immediately** after every
+change; don't batch multiple changes into one commit "for later," don't leave work uncommitted at the
+end of a turn/session. With several people and several AI tools building in parallel on the same repo
+(see Changelog discipline below), a branch is just unmerged work nobody else can see or build on top of
+— the opposite of what this hackathon needs.
+
+- If `git pull`/`push` rejects because someone else pushed first, **merge** (don't rebase away their
+  history, don't force-push) and push again — same pattern already used earlier in this repo's history.
+- This is **technically enforced**, not just a guideline: `.githooks/pre-commit` blocks any commit made
+  on a branch other than `main`, and `.githooks/pre-push` blocks pushing any ref other than `main`. Hooks
+  install automatically via `npm install` (`"prepare"` script in `package.json` sets `core.hooksPath`).
+  If a hook blocks you, switch to `main` and merge your work there — do **not** bypass it with
+  `git commit --no-verify` / `--no-verify` on push.
+
 ## When in doubt
 
 Ask: "does this help the pitch story land, or is it gold-plating a step nobody lingers on?" Favor the

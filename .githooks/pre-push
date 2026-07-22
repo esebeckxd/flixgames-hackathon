@@ -1,0 +1,21 @@
+#!/bin/sh
+# Enforced by CLAUDE.md / AGENTS.md: no branches in this repo, all work happens on main.
+# Installed automatically via `npm install` (see package.json "prepare" script).
+
+remote="$1"
+url="$2"
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+  case "$remote_ref" in
+    refs/heads/main) ;;
+    refs/heads/*)
+      branch_name="${remote_ref#refs/heads/}"
+      echo "❌ Push blocked: refusing to push branch '$branch_name'."
+      echo "   Branches are not allowed in this repo — only 'main' may be pushed. Merge your work"
+      echo "   into main locally, then push main directly."
+      exit 1
+      ;;
+  esac
+done
+
+exit 0

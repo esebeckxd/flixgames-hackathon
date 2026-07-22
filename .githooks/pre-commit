@@ -1,0 +1,21 @@
+#!/bin/sh
+# Enforced by CLAUDE.md / AGENTS.md: no branches in this repo, all work happens on main.
+# Installed automatically via `npm install` (see package.json "prepare" script).
+
+branch="$(git symbolic-ref --short HEAD 2>/dev/null)"
+
+if [ -z "$branch" ]; then
+  echo "❌ Commit blocked: you're in a detached HEAD state, not on a branch."
+  echo "   This repo requires all work to happen directly on 'main'. Check out main and try again."
+  exit 1
+fi
+
+if [ "$branch" != "main" ]; then
+  echo "❌ Commit blocked: you're on branch '$branch', not 'main'."
+  echo "   Branches are not allowed in this repo — everyone commits directly to 'main' and pushes"
+  echo "   immediately. Switch to main (git checkout main) — merge/rebase your changes there first"
+  echo "   if you already made them elsewhere — then commit again."
+  exit 1
+fi
+
+exit 0

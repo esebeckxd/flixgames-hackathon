@@ -114,6 +114,10 @@ build track additionally tracks engineering tasks and required assets in
 ## Working together during the hackathon
 
 - Everyone pulls/pushes from this one shared repo — no personal forks, one history.
+- **No branches — work directly on `main`, commit and push immediately after every change.** No
+  feature/topic branches, no PRs, no unpushed work sitting around. See "No branches" in
+  [`CLAUDE.md`](CLAUDE.md) — this is enforced by a git hook (`npm install` sets it up automatically), not
+  just a suggestion.
 - Prefer separate routes/components so two people can work without merge conflicts.
 - Pairing with Claude Code? Point it at [`CLAUDE.md`](CLAUDE.md) first — Sonnet is genuinely sufficient
   for this project (agentic/orchestration work included) and much cheaper than Opus; no need to default
