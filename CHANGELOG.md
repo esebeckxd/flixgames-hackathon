@@ -6,6 +6,22 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ## [Unreleased]
 
+### Added
+
+- **Pipeline Control dashboard — a second standalone animation** at `/ops-dashboard`
+  (`components/ops-dashboard/`). Same spirit as `/money-boy`: not an app, a pure looping visual meant to
+  run in its own browser window/tab alongside the pitch. Shows **8 example-customer projects
+  simultaneously**, each running its own independent 5-stage pipeline (`Thema gewählt → Angebot
+  konfiguriert → Bezahlt → Briefing erhalten → In Produktion`) on its own randomized timer
+  (`ProjectCard.tsx`, a self-contained async loop per card — no shared clock, so cards never march in
+  lockstep). On finishing, a card flips green ("✅ Fertig! Video live."), holds briefly, then flies out
+  and is replaced by a freshly-started project flying in from the same side (new fly-in/out keyframes in
+  `app/globals.css`). Each completion reports its deal value up to a live **Gesamtumsatz** counter that
+  eases toward its new target every frame rather than snapping (`LiveNumber`, `OpsDashboard.tsx`) — reads
+  as continuously climbing, never resets, runs forever. A small `Confetti` burst (reused from
+  `components/scene/plakativ.tsx`) fires on every completion. 20-customer/10-format example pool in
+  `data.ts` (same sponsor roster as Money Boy for continuity).
+
 ### Notes
 
 - **Git identity fixed on this machine** per the root-cause note below: `git config --global user.email`

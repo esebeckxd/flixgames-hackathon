@@ -196,6 +196,23 @@
   20% { opacity: 1; }
   100% { transform: translateY(-70px); opacity: 0; }
 }
+/* Ops-dashboard project-card replacement: fly in / fly out, direction varies per card. */
+@keyframes fg-fly-in-left {
+  0% { opacity: 0; transform: translateX(-70px) rotate(-6deg) scale(0.92); }
+  100% { opacity: 1; transform: translateX(0) rotate(0deg) scale(1); }
+}
+@keyframes fg-fly-in-right {
+  0% { opacity: 0; transform: translateX(70px) rotate(6deg) scale(0.92); }
+  100% { opacity: 1; transform: translateX(0) rotate(0deg) scale(1); }
+}
+@keyframes fg-fly-out-left {
+  0% { opacity: 1; transform: translateX(0) rotate(0deg) scale(1); }
+  100% { opacity: 0; transform: translateX(-90px) rotate(-10deg) scale(0.85); }
+}
+@keyframes fg-fly-out-right {
+  0% { opacity: 1; transform: translateX(0) rotate(0deg) scale(1); }
+  100% { opacity: 0; transform: translateX(90px) rotate(10deg) scale(0.85); }
+}
 
 @layer utilities {
   .fg-pop { animation: fg-pop-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
@@ -211,6 +228,10 @@
   .fg-stagger > *:nth-child(3) { animation-delay: 0.18s; }
   .fg-stagger > *:nth-child(4) { animation-delay: 0.26s; }
   .fg-stagger > *:nth-child(5) { animation-delay: 0.34s; }
+  .fg-fly-in-left { animation: fg-fly-in-left 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .fg-fly-in-right { animation: fg-fly-in-right 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .fg-fly-out-left { animation: fg-fly-out-left 0.45s cubic-bezier(0.55, 0, 1, 0.45) both; }
+  .fg-fly-out-right { animation: fg-fly-out-right 0.45s cubic-bezier(0.55, 0, 1, 0.45) both; }
 }
 
 /* ---- Scene transition: curtain wipe on persona switch ---- */
