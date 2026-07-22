@@ -8,6 +8,15 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ### Added
 
+- **Real referent photos + a 4th "Daniel" slot in Checkout's "Pick Your Fighter"** (`Checkout.tsx`,
+  new `public/referents/{sehouli,prelog,cramer}.jpg`, sourced/cropped by Franz). The picker now shows
+  actual headshots for Sehouli, Prelog, and Paula Cramer instead of initial-letter circles, plus a 4th
+  candidate, **Daniel**, rendered as a dashed-border "photo pending" placeholder until his photo exists
+  — per the 2026-07-22 call, the referent roster needs 4 slots, not 3.
+- **Leo's iPhone gets the real WhatsApp background** (`public/whatsapp-leo-hans.jpg`, sourced by Franz)
+  — replaces the solid-colour placeholder in `leosIphone.module.css`'s `.chatArea`, faded under a light
+  overlay so bubble text stays legible over the photo (same trick real WhatsApp wallpapers use).
+
 - **"Leo's iPhone" rebuilt as a real chat-app UI replica**
   (`components/scene/scenes/LeosIphone.tsx`, `leosIphone.module.css` — deliberately unbranded, no
   logo/wordmark anywhere, same rule as the fake payment buttons). Full header (back chevron, avatar,
@@ -60,6 +69,20 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ### Changed
 
+- **Ending reframed more positively: "unemployed and rich," not just the founders.** Per the
+  2026-07-22 follow-up call, the team is unemployed *but rich too* (stock options/buyout), not just
+  the founders cashing in while the team gets nothing. Reverted the title back to **"How We Became
+  Unemployed and Rich"** (`ColdOpen.tsx`, `lib/scenes.ts`'s Act 4 curtain title, `app/layout.tsx`
+  metadata — undoes the "…and Our Founders Rich" wording from earlier the same day). `Stinger.tsx`'s
+  closing video updated to match: no more "branded T-shirts their only possession left" — now "the
+  team, poolside, still wearing the branded T-shirts out of loyalty, not necessity," with the
+  description explicitly crediting stock options for the payout.
+- **Leo's iPhone: "yo u there" replaced with a lonelier "u up?" sent at 2am, and Leo doesn't reply
+  until the next day.** (`LeosIphone.tsx`'s `HISTORY`/`REVEAL` arrays.) Added a "2 days ago" divider
+  for Hans's 2am text, a "Yesterday" divider for Leo's belated ("bro it's literally 2pm") reply, and a
+  "Today" divider before the final "so uhh / do we need them anymore?" reveal — so the gap between the
+  question being sent and finally being seen actually reads on-screen. Header subtitle default text
+  simplified to "online" (was a hardcoded timestamp that no longer matched the new message times).
 - **Shop's beat order swapped: "Read My Mind" now comes before manually picking a topic** — the default
   Next-Next sequence used to be overview → manual-pick zoom → Read My Mind (last, so its click could
   exit the scene); it now goes overview → Read My Mind zoom → manual-pick zoom, matching the story order

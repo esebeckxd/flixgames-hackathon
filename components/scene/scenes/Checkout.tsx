@@ -20,9 +20,15 @@ const PAY_METHODS = [
   { id: "firstborn", label: "👶 Pay with your Firstborn" },
 ] as const;
 
-// Same roster as VideoGen's avatar picker — here it's Pharma choosing who
-// gets booked; picking a name is the live cue for that person to walk on stage.
-const REFERENTS = ["Sehouli", "Prelog", "Paula Cramer"];
+// Pharma choosing who gets booked; picking a name is the live cue for that
+// person to walk on stage. Daniel has no photo yet — shows as a placeholder
+// until one exists.
+const REFERENTS = [
+  { name: "Sehouli", photo: "/referents/sehouli.jpg" },
+  { name: "Prelog", photo: "/referents/prelog.jpg" },
+  { name: "Paula Cramer", photo: "/referents/cramer.jpg" },
+  { name: "Daniel", photo: null },
+];
 
 export function Checkout() {
   const { topic } = useDemoState();
@@ -83,29 +89,50 @@ export function Checkout() {
             <span className={styles.zoomKicker}>Pick your fighter</span>
             <h1 className={styles.zoomTitle}>Which Referent presents this one?</h1>
             <div className={styles.zoomPkgs}>
-              {REFERENTS.map((name) => (
+              {REFERENTS.map(({ name, photo }) => (
                 <button
                   key={name}
                   onClick={() => setReferent(name)}
                   className={`${styles.zoomPkg} ${referent === name ? styles.zoomPkgSelected : ""}`}
                   style={{ textAlign: "center" }}
                 >
-                  <span
-                    className={styles.zoomPkgTier}
-                    style={{
-                      display: "flex",
-                      height: 64,
-                      width: 64,
-                      alignItems: "center",
-                      justifyContent: "center",
-                      margin: "0 auto 12px",
-                      borderRadius: "50%",
-                      background: "#1A2133",
-                      color: "#fff",
-                    }}
-                  >
-                    {name[0]}
-                  </span>
+                  {photo ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={photo}
+                      alt={name}
+                      style={{
+                        height: 72,
+                        width: 72,
+                        margin: "0 auto 12px",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                        display: "block",
+                      }}
+                    />
+                  ) : (
+                    <span
+                      style={{
+                        display: "flex",
+                        height: 72,
+                        width: 72,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        margin: "0 auto 12px",
+                        borderRadius: "50%",
+                        border: "2px dashed #b5c0d7",
+                        color: "#6d7d9c",
+                        fontSize: 11,
+                        fontWeight: 700,
+                        textAlign: "center",
+                        lineHeight: 1.2,
+                      }}
+                    >
+                      photo
+                      <br />
+                      pending
+                    </span>
+                  )}
                   <div className={styles.zoomPkgTier}>{name}</div>
                 </button>
               ))}

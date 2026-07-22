@@ -52,14 +52,19 @@ const HISTORY: Msg[] = [
   { kind: "text", from: "leo", text: "ur pj?? get ur own 😭", time: "12:05" },
   { kind: "text", from: "hans", text: "cheapskate", time: "12:05" },
   { kind: "call", from: "leo", duration: "8 sec", time: "12:22" },
+  { kind: "date", label: "2 days ago" },
+  { kind: "text", from: "hans", text: "u up?", time: "02:14" },
   { kind: "date", label: "Yesterday" },
-  { kind: "text", from: "hans", text: "yo u there", time: "17:48" },
-  { kind: "text", from: "leo", text: "yeah whats up", time: "17:49" },
+  { kind: "text", from: "leo", text: "bro it's literally 2pm", time: "14:02" },
+  { kind: "text", from: "leo", text: "whats good", time: "14:03" },
 ];
 
+// Shown today, right after Leo's belated reply — Hans drops the real
+// question the same day he finally gets a response. The "Today" divider
+// itself is rendered statically (see chatArea below), not timer-controlled.
 const REVEAL: Msg[] = [
-  { kind: "text", from: "hans", text: "so uhh", time: "17:50" },
-  { kind: "text", from: "hans", text: "do we need them anymore?", time: "17:50" },
+  { kind: "text", from: "hans", text: "so uhh", time: "18:20" },
+  { kind: "text", from: "hans", text: "do we need them anymore?", time: "18:20" },
 ];
 
 function Bubble({ msg }: { msg: Msg }) {
@@ -147,7 +152,7 @@ export function LeosIphone() {
           <div className={styles.notch} />
           <div className={styles.screen}>
             <div className={styles.statusBar}>
-              <span>17:50</span>
+              <span>18:20</span>
               <span className={styles.statusIcons}>
                 <Signal className="size-3.5" />
                 <Wifi className="size-3.5" />
@@ -161,7 +166,7 @@ export function LeosIphone() {
               <div className={styles.headerText}>
                 <div className={styles.headerName}>{CONTACT_NAME}</div>
                 <div className={`${styles.headerSub} ${typing ? styles.typing : ""}`}>
-                  {typing ? "typing…" : "last seen today at 17:49"}
+                  {typing ? "typing…" : "online"}
                 </div>
               </div>
               <div className={styles.headerIcons}>
@@ -174,6 +179,7 @@ export function LeosIphone() {
               {HISTORY.map((msg, i) => (
                 <Bubble key={i} msg={msg} />
               ))}
+              <div className={styles.dateDivider}>Today</div>
               {revealed >= 1 &&
                 REVEAL.slice(0, revealed).map((msg, i) => (
                   <div key={i} className={styles.bubbleIn}>

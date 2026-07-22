@@ -141,10 +141,13 @@
   gap: 3px;
   overflow-y: auto;
   padding: 14px 12px 10px;
-  /* Placeholder wallpaper colour — swap for the real WhatsApp-style
-     background image once it's supplied, e.g.:
-     background-image: url("/whatsapp-bg.png"); background-size: cover; */
   background-color: #e5ddd5;
+  /* Faded so bubble text stays legible over a busy photo, same trick real
+     WhatsApp wallpaper uses. */
+  background-image: linear-gradient(rgba(240, 236, 228, 0.6), rgba(240, 236, 228, 0.6)),
+    url("/whatsapp-leo-hans.jpg");
+  background-size: cover;
+  background-position: center;
 }
 
 .dateDivider {
