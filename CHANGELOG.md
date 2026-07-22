@@ -6,6 +6,14 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ## [Unreleased]
 
+### Added
+
+- **Real "generated video" clip for the preview/submit beat.** Hosted Daniel's supplied clip as
+  `public/videos/generated/doctor-presentation.mp4` (10s, 720p, ~2.4 MB, plain static asset). `VideoGen.tsx`
+  beat 2 (preview) now autoplays this dedicated clip instead of replaying the picked style's raw pose-clip
+  from beat 0 — reads as an actual produced keynote/avatar video. "Submit Video" still fake-submits
+  straight through to the "Honorarium payout successful — €1,800" beat. Verified end-to-end in-browser.
+
 ### Changed
 
 - **Implemented Daniel's Pharma-flow and Speaker-flow reorders** (documented earlier the same day as

@@ -145,9 +145,13 @@ Cramer), which is unaffected.
 - ✅ Beat 1 (was beat 0): `VideoGen.tsx`'s 3 processed slides (left, labeled "Speaker: Daniel") + generated
   script (right, driven by whichever topic Pharma picked in Shop — no more locked video topic) + the big
   green blinking **"Generate Video Now"** button (`.fg-blink`); now also shows the picked style's label.
-- ✅ Beat 2 (was beat 1) — preview: **the selected style's own clip plays back** (with controls) as the
-  "generated video," replacing the generic `VideoPlaceholder` that was here — + **"Submit Video"** button.
-  Verified working in-browser (Business Punk clip correctly played after picking it and clicking through).
+- ✅ Beat 2 (was beat 1) — preview: **a dedicated "generated video" clip plays back** (autoplay, with
+  controls) — Daniel's supplied `nun_nimm_den_arzt_charakter_un.mp4` (10s, 720p, ~2.4 MB), hosted at
+  `public/videos/generated/doctor-presentation.mp4`, referenced via `GENERATED_VIDEO_SRC` in
+  `VideoGen.tsx`. This replaced re-showing the picked style's own raw pose-clip here — that clip is only
+  for the beat-0 style picker now; this beat shows what looks like an actual produced keynote/avatar
+  video, regardless of which style was picked (only one such clip exists so far). + **"Submit Video"**
+  button, which fake-submits straight to the payout beat. Verified working in-browser end-to-end.
 - ✅ Beat 3 (was beat 2): **"Honorarium payout successful — €1,800"** feedback, then advances to `Publish.tsx`.
 - `lib/scenes.ts`'s `video-gen` beat count bumped 3 → 4 to fit the reinstated beat.
 
