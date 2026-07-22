@@ -15,28 +15,87 @@ pre-hackathon prototype, so versions are lightweight and dated.
   `"prepare"` script that runs `git config core.hooksPath .githooks` automatically on `npm install`, so
   every clone picks up the enforcement without a manual setup step.
 
-_Work planned for / during the hackathon (Wednesday onward), per the
-[Notion storyboard](https://app.notion.com/p/doctorflix/FlixGames-Hackathon-Pitch-Storyboard-EN-3a525482863c818c9dc3d49cf9d062a5)'s
-10-scene script — build as a deterministic scene sequence (see Build format), not a free-roam app:_
+_Still open after the 0.5.0 MVP below — see [`docs/TECH-ROADMAP.md`](docs/TECH-ROADMAP.md) for the full
+per-scene breakdown:_
 
-- Scene 1 (optional cold open): dismissive Pharma Boss hand-off.
-- Scene 2: topic shop → configure offer → checkout with a checkout budget/company-card gag, **Referent
-  booking staged live** (three candidate Referents, Pharma picks one) — checkout fully faked,
-  joke-branded, never the real Stripe/PayPal marks.
-- Scene 3: Pre-Kick-Off briefing — 2–3 real fields + grey placeholders (oversimplified per demo philosophy).
-- Scene 4: simple slide builder (ours, minimal — not Moritz's kasuistik tool); the ugly-archived-deck →
-  AI-cleans-it-up Murphy's Law mechanism.
-- Scene 5: video generation — "pick your fighter" avatar select (AI Avatar over Live Recording),
-  credited to Moritz's avatar pipeline.
-- Scenes 6–7: submit → publish → Pharma notified.
-- Scene 8 (optional, cut first after the stinger): one-month-later payoff, Pharma Boss claims credit.
-- Scene 9 (do not cut): DX-employee highlight-reel montage as the closing ~60 seconds (gong, Slack
-  money-spam, beer cutscenes), driven by the configurator's + handover's real Slack triggers where possible.
-- Scene 10 (optional stinger, cut first if tight): six-months-later founders-realize-they're-redundant ending.
-- "Absurd extra win" bonus buttons + playful completion animations, per screen, per the humor & motion
-  direction rule.
+- Real assets: `logo.svg`/`bg-hero.svg`/`orb1–4.svg` for the shop (currently CSS-gradient substitutes —
+  see [`PREBUILT-ASSETS.md`](docs/PREBUILT-ASSETS.md)), fighter portraits for Scene 5 (**blocked on
+  likeness approval from Sehouli, Prelog, and Paula Cramer** — text-only names ship until then), a pizza
+  image/illustration for Scene 4's establishing beat, joke company-card art, fake payment-method icons.
+- Scene 1 (cold open) and Scene 10 (stinger) are still narrator/text-card placeholders — no live-acted
+  staging, no real footage.
+- Scene 9's DX-employee highlight reel is a labeled video placeholder — the actual edit (Slack montage,
+  gong, beer, money-spam) is a pitch/story-track production task, not app engineering.
+- Scene 5's avatar-speaking preview is a labeled placeholder — depends on how far Moritz's pipeline
+  integration gets by Wednesday.
+- Reusable "bonus button" component (primary + over-the-top sibling) — currently hand-rolled per screen,
+  works fine for the MVP but duplicated.
+- Referent line-up beat (Scene 2) is intentionally **not** built in-app — per `TECH-ROADMAP.md` it's
+  staged live by actors during the scene transition; checkout just shows a clean completion state.
 - Optional stretch: voice input on the briefing screen.
-- Story-track open items: character names, full line-by-line dialogue script, costumes.
+- Story-track open items: full line-by-line dialogue script, costumes.
+
+## [0.5.0] — 2026-07-22
+
+**First clickable MVP**, deployed and live. Ten scenes, one deterministic click-through, three of them
+high-fidelity replicas of the real pre-built tools.
+
+### Added
+
+- **Scene-controller shell** (`components/scene/SceneController.tsx`, `lib/scenes.ts`,
+  `components/scene/registry.tsx`): one `currentScene` state machine driving a fixed 10-scene sequence,
+  advanced by a persistent bottom-right "Next" control + arrow keys (arrow keys ignored while a text
+  field has focus). Never auto-advances — fully moderator-driven, per `CLAUDE.md`'s interaction model.
+- **Persona-switch transition** (`components/scene/PersonaTransition.tsx`): a curtain-wipe overlay plays
+  only when the scene's persona changes (Pharma → Referent → DX → Narrator), not on every scene change.
+- **Shared demo state** (`lib/demo-state.tsx`): one topic, picked in the Shop scene, flows through
+  Checkout and Briefing so the whole click-through tells one consistent story. Default/demo topic:
+  "Epilepsie – Grundlagen bis aktuelle Therapiekonzepte."
+- **High-fidelity replicas**, built from the real source (not guessed from screenshots) — CSS Modules
+  per scene mirroring the actual `dx-agents` stylesheets, real Doctorflix logo copied into `public/brand/`:
+  - `Shop.tsx` — replica of `docs/prebuilt-references/pharma-landing-page.html`: nav, dotted-pattern
+    hero, filter chips, TA-colored topic cards with orb-on-hover (CSS-gradient orbs, no `orb*.svg` yet).
+  - `Checkout.tsx` — replica of `dx-agents/apps/cost-configurator`: sticky topbar with live total, dark
+    hero, package cards (Basic/Plus/Premium), an add-on with a working quantity stepper, sticky summary
+    card with a real running total. Checkout gags added per `TECH-ROADMAP.md`: joke payment-method
+    buttons ("Pay with your Kidneys" / "Pay with your Firstborn"), doubled confirm button (`Projekt
+    starten` + `…und One-Way-Ticket an den Strand buchen`). No in-app Referent picker — that beat is
+    live-acted, per the roadmap.
+  - `Briefing.tsx` — replica of `dx-agents/apps/handover/survey.html`: hero, deal card, disclaimer, 2
+    real fields (focus chips + notes) + 3 greyed-out placeholder sections, matching thank-you state.
+    Added the fake "KI liest Ihre Gedanken… 87 %" processing animation and the doubled submit button
+    (`…und Autoantwort aktivieren bis Q4`).
+- **Symbolic scenes** (on-brand shadcn, not high-fidelity replicas since there's no real tool to match):
+  Cold Open, Slide Builder (upload → AI-cleanup reveal, cursed filename
+  `Vortrag_FINAL_FINAL_v3_wirklich_final.ppt`), Video Gen ("pick your fighter" VS-style select — Sehouli
+  / Prelog / Paula Cramer by name only, no photos pending likeness approval; locked video topic "Effect
+  of Pizza on the Human Body"; `Take My Job Away` buttons), Publish (slot-machine view-counter animation),
+  Payoff (10,000,000-view stat, blinking `Shift Whole Business Unit to Doctorflix and Retire Me` banner
+  button next to a shy `Vielleicht nur Urlaub`), DX Reel (animated Slack money-spam feed + labeled video
+  placeholder for the real highlight-reel edit), Stinger.
+- **Reusable `VideoPlaceholder`** (`components/scene/VideoPlaceholder.tsx`): a clearly labeled `[ Video:
+  … ]` block for beats that need real footage later (Scene 5's avatar preview, Scene 9's highlight reel).
+- **Deployed to Vercel**: https://flixgames-hackathon.vercel.app (production).
+
+### Fixed
+
+- `SceneController`'s scroll container wasn't remounted between scenes, so it kept its previous
+  `scrollTop` — the next scene could open already scrolled past its own hero. Now resets to top on every
+  scene change.
+- `Briefing`'s fixed bottom submit bar overlapped the SceneController's fixed bottom-right Next
+  control/counter pill — added clearance padding so both stay independently legible and clickable.
+
+### Notes
+
+- **Nothing here is a real backend call** — checkout, briefing submission, video generation, and
+  publishing are all local component state with setTimeout-based fake latency. No real payment, no real
+  file upload/parsing, no real AI avatar generation.
+- The three "high-fidelity" scenes are visual/interaction replicas built from the real HTML/CSS in
+  `docs/prebuilt-references/` and the `dx-agents` repo — they do not call those apps' actual APIs
+  (Slack webhooks, Notion sync, Upstash rate-limiting) and never will for this demo.
+- Real referent names (Sehouli, Prelog, Paula Cramer) are used as **text labels only** in Scene 5 — no
+  photos or AI-generated likenesses were created, pending the approval `docs/TECH-ROADMAP.md` flags as
+  still needed.
 
 ### Added (docs)
 
@@ -209,7 +268,8 @@ Pre-hackathon foundation: project context + a themed Next.js/shadcn shell to bui
 
 - Initial commit (empty repository with placeholder README).
 
-[Unreleased]: https://github.com/esebeckxd/flixgames-hackathon/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/esebeckxd/flixgames-hackathon/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/esebeckxd/flixgames-hackathon/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/esebeckxd/flixgames-hackathon/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/esebeckxd/flixgames-hackathon/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/esebeckxd/flixgames-hackathon/compare/v0.1.0...v0.2.0
