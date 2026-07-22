@@ -8,6 +8,15 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ### Added
 
+- **Pharma-flow reorder specified, documented, not built yet** — new "Planned reorder" section at the
+  top of `docs/TECH-ROADMAP.md`: topic shop with "Read My Mind" → a new suggested-topic confirmation
+  beat (doesn't exist yet; today "Read My Mind" skips straight to Checkout) → "Pick Your Fighter"
+  referent select moved to happen *before* Checkout (today it's Checkout's third internal beat, after
+  package config) → Briefing questionnaire self-fills via a single "KI befüllen" button rather than the
+  pharma typing into the 2 real fields it has today → scene ends on the existing Act-boundary curtain,
+  handing the stage to the Referent. Flagged one open question (where Checkout/payment now sits in the
+  new order) to resolve before implementation starts.
+
 - **"Leo's iPhone" rebuilt as a real chat-app UI replica**
   (`components/scene/scenes/LeosIphone.tsx`, `leosIphone.module.css` — deliberately unbranded, no
   logo/wordmark anywhere, same rule as the fake payment buttons). Full header (back chevron, avatar,

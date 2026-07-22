@@ -23,6 +23,38 @@ plakativ billboard opener. A shared plakativ kit lives in `components/scene/plak
 type, confetti/money/slot animations) to match the Akt-1 opener. The three high-fidelity replicas
 (`Shop`/`Checkout`/`Briefing`) stay realistic on purpose — that's the "best of both" contrast.
 
+## ❌ Planned reorder — Pharma flow (Captain's call, 2026-07-22 — not yet built)
+
+Daniel specified a new required order for the Pharma-persona part of the flow. **Documented here only,
+not implemented yet** — build this once picked up:
+
+1. **Topic selection screen** — the Shop grid of different topics, with a big **"Read My Mind"** button.
+2. **Suggested-topic confirmation** — a new beat: after "Read My Mind," show the one AI-suggested topic
+   and require an explicit **confirm** step. **This changes current behavior**: today
+   (`Shop.tsx`, `beat === 1`) "Read My Mind" picks a joke topic and skips *straight* to Checkout — no
+   confirmation screen exists yet. Needs to be added.
+3. **"Pick Your Fighter" referent select** (three referents) — comes **right after** the topic
+   confirmation. **This is a reorder**: today the referent picker lives *inside* `Checkout.tsx` as its
+   third beat (`beat === 2`), *after* the package-configuration beat. Under the new order it needs to
+   happen before checkout/package-configuration, not after.
+   - ⚠️ **Open question, needs a decision before building**: Daniel's description doesn't mention
+     checkout/payment (package pick, pricing, "pay with kidneys," the beach-ticket confirm button) at
+     all between the referent pick and the questionnaire step below. Confirm where Checkout now sits —
+     cut from this sequence entirely, folded in earlier (e.g. before topic confirmation), or still
+     between referent-pick and the questionnaire but just not mentioned. Don't guess this at build time.
+4. **Briefing questionnaire self-fills** — an animation of the project questionnaire filling itself in
+   automatically (alternatively: a pre-recorded video of the same). **Correction from Daniel mid-
+   instruction**: this is *not* the pharma typing anything — it fills via a single **"KI befüllen" (AI-
+   fill) button**, clicked once, then the form visibly fills itself. This changes current `Briefing.tsx`,
+   which still has 2 real typed/clicked fields (focus chips + a notes field) before the fake "KI liest
+   Ihre Gedanken…" progress bar — those manual fields go away in favor of one button triggering the
+   whole auto-fill.
+5. **End of scene** — a transition graphic to the next scene, i.e. **handing the stage over to the
+   Referent**. Likely already covered for free by the existing Act-boundary persona-transition curtain
+   in `SceneController.tsx` (Pharma → Referent is already an act change, Act 2 → Act 3, which already
+   triggers the big curtain) — confirm this reads right once the above reorder is actually built, rather
+   than assuming it needs new work.
+
 ## Scene 2 — Shop → configure → checkout → book Referent
 
 **Build:**
