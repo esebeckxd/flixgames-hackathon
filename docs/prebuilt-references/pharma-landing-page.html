@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doctorflix Pharma &ndash; Verf&uuml;gbare Sponsoring-Themen</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --teal: #159F95;
+  --teal-dark: #0B7D75;
+  --teal-deep: #0B5A54;
+  --navy: #1A2133;
+  --slate: #42506B;
+  --grey: #6D7D9C;
+  --bg: #F3F6FB;
+  --bg-alt: #E1E9F8;
+  --card: #FFFFFF;
+  --border: #E1E9F8;
+
+  /* Pastel palette per TA */
+  --pastel-neuro: #FFCAD8;
+  --pastel-kardio: #BAF8D7;
+  --pastel-nephro: #B9E2FE;
+  --pastel-dermato: #FFE1DF;
+  --pastel-rheuma: #DBD6FE;
+  --pastel-gastro: #BCEAE1;
+  --pastel-diabeto: #FFEED4;
+  --pastel-innere: #B9E2FE;
+  --pastel-onko: #FFD6E8;
+  --pastel-pneumo: #C5E8FF;
+  --pastel-uro: #D4E8C2;
+  --pastel-gynaeko: #FFD1F0;
+  --pastel-paedia: #FFF0C2;
+  --pastel-hno: #E8D6FF;
+  --pastel-ortho: #D0EAD8;
+  --pastel-psych: #E2D8F4;
+  --pastel-allgemein: #DDE8F8;
+  --pastel-haemato: #FFD4D4;
+  --pastel-endokrino: #FFE6CC;
+  --pastel-intensiv: #C8DDF0;
+}
+
+body {
+  font-family: 'Be Vietnam Pro', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--navy);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+nav {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 0 40px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo img { height: 30px; width: auto; }
+.nav-tag {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--teal);
+  background: rgba(21,159,149,0.08); padding: 4px 10px; border-radius: 14px;
+}
+.nav-cta {
+  background: var(--teal); color: white; border: none;
+  padding: 9px 20px; border-radius: 10px; font-family: inherit;
+  font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none;
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: var(--teal-dark); }
+
+/* ── HERO ── */
+.hero {
+  background: var(--card);
+  padding: 64px 40px 56px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+.hero-bg-full {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; opacity: 0.5; pointer-events: none;
+}
+.hero-content { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(21,159,149,0.08); color: var(--teal);
+  font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 20px;
+}
+.hero h1 {
+  font-size: clamp(28px, 4vw, 42px); font-weight: 800;
+  color: var(--navy); line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 16px;
+}
+.hero h1 em { font-style: normal; color: var(--teal); }
+.hero p { font-size: 16px; color: var(--slate); max-width: 520px; margin: 0 auto 32px; }
+.hero-stats { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; margin-top: 32px; }
+.hero-stat { text-align: center; }
+.hero-stat-val { font-size: 24px; font-weight: 800; color: var(--teal); letter-spacing: -0.3px; }
+.hero-stat-label { font-size: 12px; color: var(--grey); font-weight: 500; margin-top: 2px; }
+
+/* ── SECTION ── */
+.section { max-width: 1120px; margin: 0 auto; padding: 56px 40px; }
+.section-title { font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 8px; letter-spacing: -0.2px; }
+.section-subtitle { font-size: 14px; color: var(--grey); margin-bottom: 32px; }
+
+/* ── FILTERS ── */
+.filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+.filter-btn {
+  padding: 8px 18px; border-radius: 22px; border: 1.5px solid var(--border);
+  background: var(--card); color: var(--slate); font-family: inherit;
+  font-size: 13px; font-weight: 500; cursor: pointer;
+  transition: all 0.15s; box-shadow: 0 1px 3px rgba(26,33,51,0.06);
+}
+.filter-btn:hover { color: var(--teal); border-color: var(--teal); }
+.filter-btn.active { background: var(--teal); color: white; border-color: var(--teal); }
+.filter-btn.empty { opacity: 0.45; cursor: default; }
+.filter-btn.empty:hover { color: var(--slate); border-color: var(--border); }
+
+/* ── TOPIC CARDS ── */
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.topic-card {
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 200px;
+  border: 1.5px solid rgba(26,33,51,0.08);
+  box-shadow: 0 2px 8px rgba(26,33,51,0.05);
+  cursor: pointer;
+  /* Hover animation */
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.28s ease-out,
+              border-color 0.28s ease-out;
+}
+
+.topic-card:hover {
+  transform: scale(1.04) translateY(-4px);
+  box-shadow: 0 16px 48px rgba(26,33,51,0.14);
+  border-color: rgba(21,159,149,0.2);
+}
+
+.topic-card.hidden { display: none; }
+
+/* Orb background — hidden by default, revealed on hover */
+.topic-card .card-orb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease-out;
+  z-index: 0;
+}
+
+.topic-card:hover .card-orb {
+  opacity: 0.35;
+}
+
+.topic-field-tag {
+  display: inline-block;
+  background: rgba(255,255,255,0.7);
+  font-size: 11px; font-weight: 600; letter-spacing: 0.05em;
+  text-transform: uppercase; padding: 4px 10px; border-radius: 10px;
+  color: var(--navy); width: fit-content;
+  backdrop-filter: blur(4px);
+  position: relative; z-index: 1;
+}
+.topic-title {
+  font-size: 17px; font-weight: 700; color: var(--navy);
+  line-height: 1.3; position: relative; z-index: 1;
+}
+.topic-speaker {
+  font-size: 13px; color: var(--slate);
+  display: flex; align-items: center; gap: 6px;
+  position: relative; z-index: 1;
+}
+.topic-speaker svg { width: 14px; height: 14px; opacity: 0.5; flex-shrink: 0; }
+.topic-format {
+  font-size: 12px; color: var(--grey);
+  display: flex; align-items: center; gap: 6px;
+  position: relative; z-index: 1;
+}
+.topic-format svg { width: 14px; height: 14px; opacity: 0.4; flex-shrink: 0; }
+
+.card-bottom {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative; z-index: 1;
+}
+.status-dot {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 600; color: var(--teal-deep);
+}
+.status-dot::before {
+  content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--teal);
+}
+
+/* "Anfragen" CTA with small orb glow */
+.card-cta {
+  font-size: 13px; font-weight: 600; color: var(--navy);
+  text-decoration: none; display: inline-flex;
+  align-items: center; gap: 4px;
+  position: relative;
+  transition: color 0.2s;
+}
+.card-cta::before {
+  content: '';
+  position: absolute;
+  width: 70px; height: 70px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(21,159,149,0.2) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.3s ease-out, opacity 0.3s;
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+.topic-card:hover .card-cta::before {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+.topic-card:hover .card-cta {
+  color: var(--teal-dark);
+}
+.card-cta svg { width: 14px; height: 14px; }
+
+/* ── TA COLORS ── */
+.ta-Neurologie { background-color: var(--pastel-neuro); }
+.ta-Kardiologie { background-color: var(--pastel-kardio); }
+.ta-Nephrologie { background-color: var(--pastel-nephro); }
+.ta-Dermatologie { background-color: var(--pastel-dermato); }
+.ta-Rheumatologie { background-color: var(--pastel-rheuma); }
+.ta-Gastroenterologie { background-color: var(--pastel-gastro); }
+.ta-Diabetologie { background-color: var(--pastel-diabeto); }
+.ta-Innere { background-color: var(--pastel-innere); }
+.ta-Onkologie { background-color: var(--pastel-onko); }
+.ta-Pneumologie { background-color: var(--pastel-pneumo); }
+.ta-Urologie { background-color: var(--pastel-uro); }
+.ta-Gynaekologie { background-color: var(--pastel-gynaeko); }
+.ta-Paediatrie { background-color: var(--pastel-paedia); }
+.ta-HNO { background-color: var(--pastel-hno); }
+.ta-Orthopaedie { background-color: var(--pastel-ortho); }
+.ta-Psychiatrie { background-color: var(--pastel-psych); }
+.ta-Allgemeinmedizin { background-color: var(--pastel-allgemein); }
+.ta-Haematologie { background-color: var(--pastel-haemato); }
+.ta-Endokrinologie { background-color: var(--pastel-endokrino); }
+.ta-Intensivmedizin { background-color: var(--pastel-intensiv); }
+
+/* ── EMPTY STATE ── */
+.no-results { display: none; text-align: center; padding: 48px 20px; color: var(--grey); font-size: 15px; }
+.no-results.visible { display: block; }
+
+/* ── CTA FOOTER ── */
+.cta-bar {
+  background: var(--card); border-top: 1px solid var(--border);
+  padding: 48px 40px; text-align: center;
+}
+.cta-bar h2 { font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+.cta-bar p { font-size: 14px; color: var(--grey); margin-bottom: 24px; max-width: 440px; margin-left: auto; margin-right: auto; }
+.cta-email { display: inline-block; margin-top: 12px; font-size: 13px; color: var(--grey); }
+
+footer { background: var(--bg); padding: 16px 40px; text-align: center; font-size: 12px; color: var(--grey); }
+
+@media (max-width: 640px) {
+  nav, .hero, .section, .cta-bar { padding-left: 20px; padding-right: 20px; }
+  .hero-stats { gap: 24px; }
+  .topics-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#"><img src="logo.svg" alt="Doctorflix"></a>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <span class="nav-tag">Pharma</span>
+    <a class="nav-cta" href="mailto:info@doctorflix.de?subject=Sponsoring-Anfrage">Kontakt</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-bg-full" src="bg-hero.svg" alt="">
+  <div class="hero-content">
+    <div class="hero-badge">Sponsoring-M&ouml;glichkeiten</div>
+    <h1>Erreichen Sie <em>Fach&auml;rzte</em> dort, wo sie lernen</h1>
+    <p>Doctorflix ist die CME-Plattform im deutschsprachigen Raum. Positionieren Sie sich glaubw&uuml;rdig mit gesponserten Fortbildungen neben f&uuml;hrenden KOLs.</p>
+    <a class="nav-cta" href="#topics">Verf&uuml;gbare Themen ansehen</a>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-val">48.000+</div><div class="hero-stat-label">Registrierte &Auml;rzte</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">400+</div><div class="hero-stat-label">CME-Kurse</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">17+</div><div class="hero-stat-label">Fachbereiche</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TOPICS -->
+<section class="section" id="topics">
+  <h2 class="section-title">Verf&uuml;gbare Themen</h2>
+  <p class="section-subtitle">W&auml;hlen Sie einen Fachbereich oder sehen Sie alle verf&uuml;gbaren Themen</p>
+
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all">Alle</button>
+    <button class="filter-btn" data-filter="Neurologie">Neurologie</button>
+    <button class="filter-btn" data-filter="Kardiologie">Kardiologie</button>
+    <button class="filter-btn" data-filter="Diabetologie">Diabetologie</button>
+    <button class="filter-btn" data-filter="Rheumatologie">Rheumatologie</button>
+    <button class="filter-btn" data-filter="Nephrologie">Nephrologie</button>
+    <button class="filter-btn" data-filter="Dermatologie">Dermatologie</button>
+    <button class="filter-btn" data-filter="Innere Medizin">Innere Medizin</button>
+    <button class="filter-btn" data-filter="Onkologie">Onkologie</button>
+    <button class="filter-btn" data-filter="Pneumologie">Pneumologie</button>
+    <button class="filter-btn" data-filter="Gastroenterologie">Gastroenterologie</button>
+    <button class="filter-btn" data-filter="Urologie">Urologie</button>
+    <button class="filter-btn" data-filter="Gynaekologie">Gyn&auml;kologie</button>
+    <button class="filter-btn" data-filter="Paediatrie">P&auml;diatrie</button>
+    <button class="filter-btn" data-filter="HNO">HNO</button>
+    <button class="filter-btn" data-filter="Orthopaedie">Orthop&auml;die</button>
+    <button class="filter-btn" data-filter="Psychiatrie">Psychiatrie</button>
+    <button class="filter-btn" data-filter="Allgemeinmedizin">Allgemeinmedizin</button>
+  </div>
+
+  <div class="topics-grid">
+
+    <!-- Card 1 -->
+    <div class="topic-card ta-Neurologie" data-field="Neurologie">
+      <img class="card-orb" src="orb1.svg" alt="">
+      <span class="topic-field-tag">Neurologie</span>
+      <div class="topic-title">Epilepsie &ndash; Grundlagen bis aktuelle Therapiekonzepte</div>
+      <div class="topic-speaker">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Universit&auml;tsprofessor Neurologie
+      </div>
+      <div class="topic-format">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        CME-Kurs &middot; flexibel nach Fokus
+      </div>
+      <div class="card-bottom">
+        <span class="status-dot">Verf&uuml;gbar</span>
+        <a class="card-cta" href="mailto:info@doctorflix.de?subject=Anfrage: Epilepsie">Anfragen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="topic-card ta-Neurologie" data-field="Neurologie">
+      <img class="card-orb" src="orb2.svg" alt="">
+      <span class="topic-field-tag">Neurologie</span>
+      <div class="topic-title">Demenzen und Alzheimer &ndash; State of the Art</div>
+      <div class="topic-speaker">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Facharzt Neurologie / Gerontologie
+      </div>
+      <div class="topic-format">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        CME-Kurs &middot; State of the Art
+      </div>
+      <div class="card-bottom">
+        <span class="status-dot">Verf&uuml;gbar</span>
+        <a class="card-cta" href="mailto:info@doctorflix.de?subject=Anfrage: Demenzen und Alzheimer">Anfragen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="topic-card ta-Diabetologie" data-field="Diabetologie">
+      <img class="card-orb" src="orb3.svg" alt="">
+      <span class="topic-field-tag">Diabetologie</span>
+      <div class="topic-title">Neues zur Insulintherapie &ndash; W&ouml;chentliches Update</div>
+      <div class="topic-speaker">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Diabetologe DDG
+      </div>
+      <div class="topic-format">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Serie &middot; w&ouml;chentlich
+      </div>
+      <div class="card-bottom">
+        <span class="status-dot">Verf&uuml;gbar</span>
+        <a class="card-cta" href="mailto:info@doctorflix.de?subject=Anfrage: Insulintherapie">Anfragen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="topic-card ta-Diabetologie" data-field="Diabetologie">
+      <img class="card-orb" src="orb4.svg" alt="">
+      <span class="topic-field-tag">Diabetologie</span>
+      <div class="topic-title">Diabetes im Alter &amp; Polypharmazie</div>
+      <div class="topic-speaker">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Geriater / Diabetologe
+      </div>
+      <div class="topic-format">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        CME-Kurs &middot; Praxisfokus
+      </div>
+      <div class="card-bottom">
+        <span class="status-dot">Verf&uuml;gbar</span>
+        <a class="card-cta" href="mailto:info@doctorflix.de?subject=Anfrage: Diabetes im Alter">Anfragen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="topic-card ta-Diabetologie" data-field="Diabetologie">
+      <img class="card-orb" src="orb1.svg" alt="">
+      <span class="topic-field-tag">Diabetologie</span>
+      <div class="topic-title">AID und Closed Loop Systeme</div>
+      <div class="topic-speaker">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Diabetologe, Schwerpunkt Technologie
+      </div>
+      <div class="topic-format">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        CME-Kurs &middot; Technologiefokus
+      </div>
+      <div class="card-bottom">
+        <span class="status-dot">Verf&uuml;gbar</span>
+        <a class="card-cta" href="mailto:info@doctorflix.de?subject=Anfrage: AID und Closed Loop">Anfragen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="topic-card ta-Kardiologie" data-field="Kardiologie">
+      <img class="card-orb" src="orb2.svg" alt="">
+      <span class="topic-field-tag">Kardiologie</span>
+      <div class="topic-title">Antikoagulation &ndash; niedermolekulares Heparin</div>
+      <div class="topic-speaker">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Prof. Dr. med. Florian Langer
+      </div>
+      <div class="topic-format">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        CME-Kurs &middot; Hausarzt-Schwerpunkt
+      </div>
+      <div class="card-bottom">
+        <span class="status-dot">Verf&uuml;gbar</span>
+        <a class="card-cta" href="mailto:info@doctorflix.de?subject=Anfrage: Antikoagulation">Anfragen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Card 7 -->
+    <div class="topic-card ta-Kardiologie" data-field="Kardiologie">
+      <img class="card-orb" src="orb3.svg" alt="">
+      <span class="topic-field-tag">Kardiologie</span>
+      <div class="topic-title">Digitalisierung und KI in der Kardiologie</div>
+      <div class="topic-speaker">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Kardiologe mit KI-Schwerpunkt
+      </div>
+      <div class="topic-format">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        CME-Kurs &middot; Zukunftsthema
+      </div>
+      <div class="card-bottom">
+        <span class="status-dot">Verf&uuml;gbar</span>
+        <a class="card-cta" href="mailto:info@doctorflix.de?subject=Anfrage: KI in der Kardiologie">Anfragen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Card 8 -->
+    <div class="topic-card ta-Rheumatologie" data-field="Rheumatologie">
+      <img class="card-orb" src="orb4.svg" alt="">
+      <span class="topic-field-tag">Rheumatologie</span>
+      <div class="topic-title">Basistherapie der rheumatoiden Arthritis (RA)</div>
+      <div class="topic-speaker">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Prof. Dr. med. Michael Hammer
+      </div>
+      <div class="topic-format">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        CME-Kurs &middot; Leitlinienbasiert
+      </div>
+      <div class="card-bottom">
+        <span class="status-dot">Verf&uuml;gbar</span>
+        <a class="card-cta" href="mailto:info@doctorflix.de?subject=Anfrage: Rheumatoide Arthritis">Anfragen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Card 9 -->
+    <div class="topic-card ta-Rheumatologie" data-field="Rheumatologie">
+      <img class="card-orb" src="orb1.svg" alt="">
+      <span class="topic-field-tag">Rheumatologie</span>
+      <div class="topic-title">EULAR 2025 &ndash; Update Psoriasis-Arthritis</div>
+      <div class="topic-speaker">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Kongressbericht-Experte
+      </div>
+      <div class="topic-format">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Kongressbericht &middot; aktuell
+      </div>
+      <div class="card-bottom">
+        <span class="status-dot">Verf&uuml;gbar</span>
+        <a class="card-cta" href="mailto:info@doctorflix.de?subject=Anfrage: EULAR Psoriasis-Arthritis">Anfragen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Card 10 -->
+    <div class="topic-card ta-Nephrologie" data-field="Nephrologie">
+      <img class="card-orb" src="orb2.svg" alt="">
+      <span class="topic-field-tag">Nephrologie</span>
+      <div class="topic-title">SGLT2-Hemmer in der Nephrologie</div>
+      <div class="topic-speaker">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Dr. med. Marie-Luise Herrmann
+      </div>
+      <div class="topic-format">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        CME-Kurs &middot; evidenzbasiert
+      </div>
+      <div class="card-bottom">
+        <span class="status-dot">Verf&uuml;gbar</span>
+        <a class="card-cta" href="mailto:info@doctorflix.de?subject=Anfrage: SGLT2-Hemmer Nephrologie">Anfragen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Card 11 -->
+    <div class="topic-card ta-Innere" data-field="Innere Medizin">
+      <img class="card-orb" src="orb3.svg" alt="">
+      <span class="topic-field-tag">Innere Medizin</span>
+      <div class="topic-title">Mangelern&auml;hrung &ndash; Diagnostik und Therapie</div>
+      <div class="topic-speaker">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Dr. med. Kristin H&uuml;nninghaus
+      </div>
+      <div class="topic-format">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        CME-Kurs &middot; interdisziplin&auml;r
+      </div>
+      <div class="card-bottom">
+        <span class="status-dot">Verf&uuml;gbar</span>
+        <a class="card-cta" href="mailto:info@doctorflix.de?subject=Anfrage: Mangelern&auml;hrung">Anfragen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Card 12 -->
+    <div class="topic-card ta-Dermatologie" data-field="Dermatologie">
+      <img class="card-orb" src="orb4.svg" alt="">
+      <span class="topic-field-tag">Dermatologie</span>
+      <div class="topic-title">Mykosen in der t&auml;glichen Praxis &ndash; faszinierend und heilbar</div>
+      <div class="topic-speaker">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Facharzt Dermatologie / Infektiologie
+      </div>
+      <div class="topic-format">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        CME-Kurs &middot; Praxisfokus
+      </div>
+      <div class="card-bottom">
+        <span class="status-dot">Verf&uuml;gbar</span>
+        <a class="card-cta" href="mailto:info@doctorflix.de?subject=Anfrage: Mykosen">Anfragen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="no-results" id="noResults">
+    F&uuml;r diesen Fachbereich sind aktuell keine Themen gelistet.<br>
+    <a href="mailto:info@doctorflix.de?subject=Themenvorschlag">Schlagen Sie ein Thema vor &rarr;</a>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-bar">
+  <h2>Thema nicht dabei?</h2>
+  <p>Wir entwickeln auch ma&szlig;geschneiderte Inhalte nach Ihren therapeutischen Schwerpunkten.</p>
+  <a class="nav-cta" href="mailto:info@doctorflix.de?subject=Sponsoring-Anfrage Doctorflix">Jetzt anfragen</a>
+  <div class="cta-email">info@doctorflix.de</div>
+</section>
+
+<footer>&copy; 2026 Doctorflix GmbH &middot; doctorflix.de</footer>
+
+<script>
+const filters = document.querySelectorAll('.filter-btn');
+const cards = document.querySelectorAll('.topic-card');
+const noResults = document.getElementById('noResults');
+
+filters.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filters.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    let visibleCount = 0;
+    cards.forEach(card => {
+      const match = f === 'all' || card.dataset.field === f;
+      card.classList.toggle('hidden', !match);
+      if (match) visibleCount++;
+    });
+    noResults.classList.toggle('visible', visibleCount === 0 && f !== 'all');
+  });
+});
+</script>
+</body>
+</html>

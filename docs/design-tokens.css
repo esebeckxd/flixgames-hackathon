@@ -1,0 +1,61 @@
+/* =============================================================================
+   DOCTORFLIX DESIGN TOKENS  —  drop-in :root for any FlixGames prototype page
+   Source of truth: Doctorflix Brand Guide v1.0 (Figma) + /doctorflix-stylebook.
+   Keep in sync with the real apps: cost-configurator/css/styles.css and the
+   pharma landing page (docs/prebuilt-references/pharma-landing-page.html).
+
+   HOW TO USE: link or paste this into a new page's <head>, then build with the
+   variables only — do NOT invent new hex values. See docs/BRANDING.md for rules.
+   ============================================================================= */
+
+:root {
+  /* ---- Primary (MedTeal) — always present. Bright on light bg, dark on dark bg ---- */
+  --df-primary-bright:  #159F95;   /* MedTeal — the Doctorflix signature */
+  --df-primary-dark:    #0EC1B7;   /* use on dark backgrounds */
+  --df-primary-highest: #82F0E8;
+  --df-primary-high:    #47E1D6;
+  --df-primary-low:     #0B7D75;
+  --df-primary-lowest:  #0B5A54;
+
+  /* ---- Text — ONLY these are allowed as text color (+ MedTeal for accent words) ---- */
+  --df-text-primary: #1A2133;   /* Black — default text */
+  --df-text-nav:     #42506B;   /* navigation / secondary text */
+  --df-text-muted:   #6D7D9C;   /* muted / captions */
+
+  /* ---- Surfaces ---- */
+  --df-surface-lowest: #FFFFFF;  /* cards */
+  --df-surface-low:    #F3F6FB;  /* page background (NEVER pure white) */
+  --df-surface-medium: #E1E9F8;  /* borders */
+  --df-surface-high:   #B5C0D7;  /* placeholders */
+  --df-dark-bg:        #1A2133;  /* dark sections / title slides */
+
+  /* ---- Orb / Accent palette (Secondary + Tertiary) ----
+     Background / Surface / Accent ONLY. NEVER use as a text color. */
+  --df-orb-vanilla:    #FFD9A8;  --df-orb-sour:  #BAF8D7;  --df-orb-cloud: #B9E2FE;
+  --df-orb-clementine: #FFA553;  --df-orb-lime:  #4EE195;  --df-orb-berry: #0A9BED;
+  --df-accent-blush:      #FFCAD8;  --df-accent-comfy: #DBD6FE;  --df-accent-creme: #FFC8C4;
+  --df-accent-strawberry: #FF4E83;  --df-accent-plum:  #7E54F4;  --df-accent-apple: #FF3C2F;
+
+  /* ---- Type ---- */
+  --df-font: 'Be Vietnam Pro', Verdana, sans-serif;  /* the only house typeface */
+
+  /* ---- Elevation & radius (from cost-configurator, the live reference) ---- */
+  --shadow-sm: 0 1px 2px rgba(26,33,51,.06), 0 1px 3px rgba(26,33,51,.04);
+  --shadow-md: 0 4px 16px rgba(26,33,51,.07), 0 2px 6px rgba(26,33,51,.05);
+  --shadow-lg: 0 12px 40px rgba(26,33,51,.12), 0 4px 12px rgba(26,33,51,.06);
+  --r:    14px;
+  --r-lg: 20px;
+  --r-pill: 100px;   /* buttons & chips are ALWAYS pill-shaped */
+}
+
+/* Web font — add to <head>:
+   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;700&display=swap" rel="stylesheet"> */
+
+/* Baseline you almost always want */
+/*
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--df-font); background: var(--df-surface-low);
+         color: var(--df-text-primary); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .btn-primary { background: var(--df-text-primary); color:#fff; border-radius: var(--r-pill); }
+  .btn-accent  { background: var(--df-primary-bright); color:#fff; border-radius: var(--r-pill); }
+*/
