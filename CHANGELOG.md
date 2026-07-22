@@ -6,6 +6,13 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ## [Unreleased]
 
+### Changed
+
+- **Money Boy renamed to "Money Boy (BOT)"** everywhere in `/money-boy` (message sender, sidebar DM
+  list, member-count chip), and given a real avatar: `components/money-boy/MoneyBoyAvatar.tsx`, an
+  original inline-SVG "bling rapper" icon (silhouette, sunglasses, flat-brim cap, gold chain + pendant)
+  replacing the 🤑 emoji — no photo/likeness of a real person, no third-party logos/trademarks.
+
 ### Added
 
 - **Pipeline Control dashboard — a second standalone animation** at `/ops-dashboard`

@@ -3,6 +3,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Confetti, MoneyRain } from "@/components/scene/plakativ";
+import { MoneyBoyAvatar } from "./MoneyBoyAvatar";
 import { TEMPLATES, escalationMultiplier, formatK } from "./messages";
 
 type Msg = {
@@ -24,7 +25,7 @@ const MAX_RENDERED = 200;
 
 const CHANNELS = ["general", "vertrieb-alerts", "kaffeeküche", "zufall", "random"];
 const DMS = [
-  { name: "Money Boy", online: true },
+  { name: "Money Boy (BOT)", online: true },
   { name: "Kalle Feierabend", online: true },
   { name: "Bernd Bonus", online: false },
   { name: "Prof. Dr. Ego von Kittel", online: true },
@@ -145,18 +146,16 @@ export function MoneyBoyFeed() {
             <span className="size-1.5 animate-pulse rounded-full bg-red-500" />
             LIVE
           </span>
-          <span className="ml-auto text-sm text-white/40">👥 1 Mitglied (Money Boy)</span>
+          <span className="ml-auto text-sm text-white/40">👥 1 Mitglied (Money Boy (BOT))</span>
         </header>
 
         <div ref={listRef} className="flex-1 overflow-y-auto px-6 py-4">
           {messages.map((m) => (
             <div key={m.id} className="fg-pop mb-5 flex gap-3">
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-gradient-to-br from-[#0EC1B7] to-[#159F95] text-xl">
-                🤑
-              </span>
+              <MoneyBoyAvatar className="size-10 shrink-0 rounded-md" />
               <div className="min-w-0">
                 <div className="flex items-baseline gap-2">
-                  <span className="font-bold text-white">Money Boy</span>
+                  <span className="font-bold text-white">Money Boy (BOT)</span>
                   <span className="rounded bg-white/10 px-1.5 py-0.5 text-[10px] font-bold uppercase text-white/50">
                     App
                   </span>
