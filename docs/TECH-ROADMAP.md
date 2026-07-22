@@ -23,6 +23,65 @@ plakativ billboard opener. A shared plakativ kit lives in `components/scene/plak
 type, confetti/money/slot animations) to match the Akt-1 opener. The three high-fidelity replicas
 (`Shop`/`Checkout`/`Briefing`) stay realistic on purpose — that's the "best of both" contrast.
 
+## ❌ Planned reorder — Pharma flow (Captain's call, 2026-07-22 — not yet built)
+
+Daniel specified a new required order for the Pharma-persona part of the flow. **Documented here only,
+not implemented yet** — build this once picked up:
+
+1. **Topic selection screen** — the Shop grid of different topics, with a big **"Read My Mind"** button.
+2. **Suggested-topic confirmation** — a new beat: after "Read My Mind," show the one AI-suggested topic
+   and require an explicit **confirm** step. **This changes current behavior**: today
+   (`Shop.tsx`, `beat === 1`) "Read My Mind" picks a joke topic and skips *straight* to Checkout — no
+   confirmation screen exists yet. Needs to be added.
+3. **"Pick Your Fighter" referent select** (three referents) — comes **right after** the topic
+   confirmation. **This is a reorder**: today the referent picker lives *inside* `Checkout.tsx` as its
+   third beat (`beat === 2`), *after* the package-configuration beat. Under the new order it needs to
+   happen before checkout/package-configuration, not after.
+   - ⚠️ **Open question, needs a decision before building**: Daniel's description doesn't mention
+     checkout/payment (package pick, pricing, "pay with kidneys," the beach-ticket confirm button) at
+     all between the referent pick and the questionnaire step below. Confirm where Checkout now sits —
+     cut from this sequence entirely, folded in earlier (e.g. before topic confirmation), or still
+     between referent-pick and the questionnaire but just not mentioned. Don't guess this at build time.
+4. **Briefing questionnaire self-fills** — an animation of the project questionnaire filling itself in
+   automatically (alternatively: a pre-recorded video of the same). **Correction from Daniel mid-
+   instruction**: this is *not* the pharma typing anything — it fills via a single **"KI befüllen" (AI-
+   fill) button**, clicked once, then the form visibly fills itself. This changes current `Briefing.tsx`,
+   which still has 2 real typed/clicked fields (focus chips + a notes field) before the fake "KI liest
+   Ihre Gedanken…" progress bar — those manual fields go away in favor of one button triggering the
+   whole auto-fill.
+5. **End of scene** — a transition graphic to the next scene, i.e. **handing the stage over to the
+   Referent**. Likely already covered for free by the existing Act-boundary persona-transition curtain
+   in `SceneController.tsx` (Pharma → Referent is already an act change, Act 2 → Act 3, which already
+   triggers the big curtain) — confirm this reads right once the above reorder is actually built, rather
+   than assuming it needs new work.
+
+## ❌ Planned reorder — Speaker/Referent flow (Captain's call, 2026-07-22 — not yet built)
+
+Daniel specified a new required structure for the Referent-persona part of the flow. **Documented here
+only, not implemented yet:**
+
+1. **Combined overview + upload screen** — one single first view with the short project overview
+   (topic, honorarium, etc. — "as already present") *and* the actual (faked) old-presentation upload
+   inline together, cursed filename joke included (`Presentation_FINAL_FINAL_v3_actually_final.ppt`,
+   already built). **This replaces the current two-beat pattern**: today `ReferentUpload.tsx` has beat 0
+   (the "Referent Dashboard" overview, with only a *decorative*, non-functional upload dropzone teaser)
+   and beat 1 (a separate, zoomed screen with the *actual* interactive upload flow) — i.e. two
+   consecutive views that both depict a PowerPoint upload. Collapse these into one screen.
+2. **Slides + script screen** — left column: the **three processed slides shown as nice still-frame
+   thumbnails**; right column: the **script text for each**, next to a big **green, glowing/blinking
+   "Generate video now"** button. **Relationship to today's `VideoGen.tsx` needs deciding**: that scene
+   is currently built around a "Pick your fighter" *avatar* selector (same 3-name roster as Checkout's
+   referent picker) plus a "Take My Job Away" script-gen button — quite different from a slides+script
+   layout. ⚠️ Open question: does avatar/fighter selection still happen somewhere in the new flow (and
+   if so, where), or does this slides+script screen replace that step entirely? Don't guess at build time.
+3. **Preview screen** — a short preview video, with a big **"Submit video"** button.
+4. **Payout feedback animation** — immediate, direct: **"Honorarium payout successful — €1,800."** This
+   is a **new** beat, distinct from the existing Pharma-side `Publish.tsx` ("video is live," view-counter
+   reveal) and `Payoff.tsx` ("one month later" reporting stats) — those are a different persona's payoff
+   moment and presumably still happen afterward from Pharma's side. Confirm that relationship (does this
+   new Referent payout beat sit *before* `Publish`/`Payoff` in the sequence, and do those two remain
+   unchanged?) before building.
+
 ## Scene 2 — Shop → configure → checkout → book Referent
 
 **Build:**
@@ -107,6 +166,18 @@ type, confetti/money/slot animations) to match the Akt-1 opener. The three high-
 - 🟡 Published-video "platform page" is a simple confirmation view, not a dashboard-style listing page —
   covers the beat, could be built out further.
 - ✅ **View-counter slot-machine animation**: `setInterval`-driven ease-out digit tick-up, no library.
+
+**❌ Planned redesign (Captain's call, 2026-07-22 — not yet built):** after clicking Submit/Publish
+Video, the stats should **never stop climbing** — a genuinely endless live counter, not today's
+`ViewCounter`, which eases up once from 0 to a fixed `FINAL_VIEWS = 48213` over 40 frames and then
+simply stops. Visual bar: **reuse the `/ops-dashboard` look** (`components/ops-dashboard/OpsDashboard.tsx`'s
+`LiveNumber` — eases toward an ever-rising target every frame instead of snapping, plus that dashboard's
+card/stat-tile visual language and "LIVE" badge) as the base, rather than inventing a new visual style
+here. On top of that: **a slot-machine-style graphic** — a bit cooler/more complex than the current plain
+digit tick-up (individual reel-like digit columns, not just one easing number), while staying **very
+clean/tidy**, not busy. Concretely: likely several stat tiles (views, CME certificates, engagement — see
+`Payoff.tsx`'s `STATS` for the existing numbers this could absorb/supersede) each driven by their own
+never-ending `LiveNumber`-style counter, laid out like `OpsDashboard.tsx`'s header stats row.
 
 **Assets needed:**
 - None beyond a numeric tick-up animation; optional short "cha-ching"/mechanical tick sound effect if

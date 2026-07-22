@@ -16,6 +16,32 @@ pre-hackathon prototype, so versions are lightweight and dated.
 - **Leo's iPhone gets the real WhatsApp background** (`public/whatsapp-leo-hans.jpg`, sourced by Franz)
   — replaces the solid-colour placeholder in `leosIphone.module.css`'s `.chatArea`, faded under a light
   overlay so bubble text stays legible over the photo (same trick real WhatsApp wallpapers use).
+- **Publish-scene view-counter redesign specified, documented, not built yet** — new note in
+  `docs/TECH-ROADMAP.md` under "Scenes 6–7": after Submit/Publish Video, the stats should climb
+  **forever** (today's `ViewCounter` in `Publish.tsx` eases up once to a fixed `48213` and stops), styled
+  as a cooler/more complex slot-machine graphic while staying clean, reusing `/ops-dashboard`'s
+  `LiveNumber` (ever-rising, eases every frame) and dashboard card/stat-tile look as the visual base
+  rather than a new one-off style.
+
+- **Speaker/Referent-flow reorder specified, documented, not built yet** — new "Planned reorder" section
+  in `docs/TECH-ROADMAP.md`: collapse `ReferentUpload.tsx`'s current two-beat overview+upload pattern
+  into one combined screen → a new slides+script layout (3 slide stills left, script right, big blinking
+  green "Generate video now" button) → a preview screen with a "Submit video" button → a new immediate
+  "Honorarium payout successful — €1,800" feedback beat. Flagged two open questions (whether/where
+  avatar-fighter selection still happens vs. today's `VideoGen.tsx`, and how the new payout beat relates
+  to the existing Pharma-side `Publish`/`Payoff` scenes) to resolve before implementation starts.
+
+- **Pharma-flow reorder specified, documented, not built yet** — new "Planned reorder" section at the
+  top of `docs/TECH-ROADMAP.md`: topic shop with "Read My Mind" → a new suggested-topic confirmation
+  beat (doesn't exist yet; today "Read My Mind" skips straight to Checkout) → "Pick Your Fighter"
+  referent select moved to happen *before* Checkout (today it's Checkout's third internal beat, after
+  package config) → Briefing questionnaire self-fills via a single "KI befüllen" button rather than the
+  pharma typing into the 2 real fields it has today → scene ends on the existing Act-boundary curtain,
+  handing the stage to the Referent. Flagged one open question (where Checkout/payment now sits in the
+  new order) to resolve before implementation starts. **⚠️ Directly conflicts with the "Checkout gets a
+  Pick Your Fighter beat" entry above** — that was built as Checkout's own beat 2 (after package config);
+  this spec asks for referent-select to move before checkout entirely. Not reconciled — flagging for a
+  human decision before either is touched further.
 
 - **"Leo's iPhone" rebuilt as a real chat-app UI replica**
   (`components/scene/scenes/LeosIphone.tsx`, `leosIphone.module.css` — deliberately unbranded, no
