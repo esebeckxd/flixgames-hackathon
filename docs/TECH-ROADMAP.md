@@ -9,6 +9,30 @@ the Notion storyboard changes; it is not itself the source of truth for narrativ
 
 Status legend: ❌ not started · 🟡 in progress · ✅ done.
 
+> **Storyboard restructured (2026-07-22):** the Notion SSOT is now a tight **4-act play**
+> („Wie wir arbeitslos und reich wurden"), not the old 10-scene list. The per-scene sections below are
+> still useful as an **asset/task reference**, but map them onto the 4 acts (Akt 1 setup, Akt 2 shop+
+> checkout, Akt 3 fighter+generate, Akt 4 live+finale+reel).
+
+## ✅ Built — click-dummy v1 (deterministic deck)
+
+The click-through app that backs the play is live in the repo (`npm run dev`, builds clean):
+
+- ✅ **Deck shell** (`components/deck/Deck.tsx`): single `currentScene` state, persistent bottom
+  "Weiter →" control + "Zurück", keyboard (→/Space/←), progress dots, theatrical curtain wipe on every
+  transition. Deterministic, linear, never auto-advances.
+- ✅ **Motion kit** (`app/globals.css` + `components/deck/primitives.tsx`): `GagButton` (huge, funny line
+  on the button, hover-wobble; variants primary/teal/banner/pay/shy), one-shot `Confetti`, persistent
+  `MoneyRain`, `SlotCounter` (slot-machine count-up), `FakeProgress` (e.g. „KI liest deine Gedanken… %").
+- ✅ **9 scenes** (`components/deck/scenes.tsx`) covering all 4 acts: Titel, Autopilot-Schalter, Themen-
+  shop, Checkout (Niere/Erstgeborenes + Strand-Ticket-Confirm), Pick-your-fighter, „Take My Job Away"-
+  Generierung, Slot-Machine-Views, Finale (Renten-Banner + „vielleicht nur Urlaub" + Geldregen),
+  Highlight-Reel-Abspann.
+
+**Still open on the build side:** swap the two `[Video: …]` placeholder blocks (Akt 3 avatar video, Akt 4
+highlight reel) for real clips; likeness sign-off for the fighter avatars; optional sound effects; final
+copy polish. Asset needs per beat are listed below.
+
 ## Scene 2 — Shop → configure → checkout → book Referent
 
 **Build:**

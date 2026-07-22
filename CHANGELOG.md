@@ -8,6 +8,26 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ### Added
 
+- **Click-dummy v1 — the deterministic pitch deck is built and runs.** `app/page.tsx` now renders a
+  `components/deck/` module: a `Deck` shell with a single `currentScene` state, persistent "Weiter →"/
+  "Zurück" controls, keyboard nav (→/Space/←), progress dots, and a theatrical curtain wipe on every
+  transition (never auto-advances). Plakativ motion kit in `components/deck/primitives.tsx` +
+  `app/globals.css` (huge `GagButton`s with the joke on the button, `Confetti`, `MoneyRain`,
+  `SlotCounter`, `FakeProgress`). Nine scenes in `components/deck/scenes.tsx` cover all four acts,
+  including the Niere/Erstgeborenes pay buttons, the „Projekt starten & One-Way-Ticket an den Strand
+  buchen" confirm, the Sehouli/Prelog/Paula Cramer „pick your fighter", „Take My Job Away", the
+  slot-machine view counter, and the „…in Rente gehen" finale with money rain. The two `[Video: …]`
+  blocks are labeled placeholders. Builds clean (`npm run build`), verified visually.
+
+### Changed
+
+- **Storyboard rebuilt as a tight 4-act play in Notion (SSOT).** Replaced the 10-scene structure with
+  **„Wie wir arbeitslos und reich wurden"** — a short, easy-to-play stage play (Kalle Feierabend, Pia
+  Pharma, Prof. Dr. Ego von Kittel, Bernd Bonus, KAI) whose one-line spine ("the human keeps winning by
+  doing less") is foregrounded, with explicit actor-leads-screen-reacts staging. Fewer scenes, clearer
+  arc. `app/layout.tsx` metadata + `docs/TECH-ROADMAP.md` updated to match (new build-status section;
+  per-scene asset lists retained as reference and re-mapped onto the 4 acts).
+
 - **"No branches" policy, technically enforced.** Documented in `CLAUDE.md`, `AGENTS.md`, and
   `README.md`: all work (human and AI) happens directly on `main`, committed and pushed immediately —
   no feature/topic branches, no PRs. Backed by new `.githooks/pre-commit` (blocks commits on any branch
@@ -15,9 +35,9 @@ pre-hackathon prototype, so versions are lightweight and dated.
   `"prepare"` script that runs `git config core.hooksPath .githooks` automatically on `npm install`, so
   every clone picks up the enforcement without a manual setup step.
 
-_Work planned for / during the hackathon (Wednesday onward), per the
+_Remaining work for / during the hackathon (Wednesday onward), per the
 [Notion storyboard](https://app.notion.com/p/doctorflix/FlixGames-Hackathon-Pitch-Storyboard-EN-3a525482863c818c9dc3d49cf9d062a5)'s
-10-scene script — build as a deterministic scene sequence (see Build format), not a free-roam app:_
+4-act play — the deterministic deck (above) is the foundation; what's left is real content + polish:_
 
 - Scene 1 (optional cold open): dismissive Pharma Boss hand-off.
 - Scene 2: topic shop → configure offer → checkout with a checkout budget/company-card gag, **Referent

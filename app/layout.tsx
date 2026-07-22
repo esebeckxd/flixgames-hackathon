@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FlixGames — Doctorflix",
+  title: "Wie wir arbeitslos und reich wurden — FlixGames",
   description:
-    "End-to-end automated pharma sales pipeline — Doctorflix hackathon prototype.",
+    "Doctorflix FlixGames — ein Theaterstück in 4 Akten. Klick-Dummy für den Pitch.",
 };
 
 export default function RootLayout({
