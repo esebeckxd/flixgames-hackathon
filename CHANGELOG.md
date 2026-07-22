@@ -6,6 +6,22 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ## [Unreleased]
 
+### Notes
+
+- **Vercel deploy blocking, root cause found.** Every deployment built from Daniel's commits was
+  `BLOCKED` (confirmed via the Vercel API: `readyStateReason: "The Deployment was blocked because
+  GitHub could not associate the committer with a GitHub user"`, `seatBlock.blockCode:
+  COMMIT_AUTHOR_REQUIRED`). Cause: his local git `user.email` is set to the machine-default
+  `danielglauert@Mac.fritz.box` (never configured), which GitHub can't match to any account. This
+  blocks the deploy regardless of who triggers it or whether the repo is public/private — the check
+  is on the commit's own author metadata. **Fix for Daniel:** run
+  `git config --global user.email "<your real GitHub-linked email, or the noreply one from
+  GitHub Settings → Emails>"` and `git config --global user.name "Daniel Glauert"`, then push a new
+  commit — the block only affects deployments whose *latest* commit has unverifiable authorship, so
+  one correctly-attributed commit clears it going forward. Also made the GitHub repo public (was
+  private) since that's a related-but-separate restriction on Hobby-plan teams; didn't by itself fix
+  this specific block.
+
 ### Added
 
 - **4-act play framing fused onto the 0.5.0 MVP ("verschmelzen").** The deployed 10-scene click-through
