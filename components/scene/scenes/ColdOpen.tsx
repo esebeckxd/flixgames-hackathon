@@ -14,17 +14,9 @@ export function ColdOpen() {
       <Kicker>Act 1 · The Last Work Day</Kicker>
 
       <h1 className="text-balance text-5xl font-bold leading-[0.95] tracking-tight sm:text-6xl md:text-7xl">
-        How We Became <span className="text-[#0EC1B7]">Unemployed</span> and{" "}
-        <span className="text-[#0EC1B7]">Rich</span>
+        How We Became <span className="text-[#0EC1B7]">Unemployed</span> and Our{" "}
+        <span className="text-[#0EC1B7]">Founders</span> Rich
       </h1>
-
-      <p className="max-w-3xl text-xl font-medium sm:text-2xl md:text-3xl">
-        Boss <b>Bernd Bonus</b>:{" "}
-        <i>&ldquo;Just make a pharma video. In six months. And don&rsquo;t bother me.&rdquo;</i>
-      </p>
-      <p className="max-w-2xl text-lg text-white/60 sm:text-xl">
-        Normally: months of work, panic, overtime. Or&hellip; we let the machine do it.
-      </p>
 
       <GagButton
         size="hero"

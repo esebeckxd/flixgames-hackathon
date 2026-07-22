@@ -8,6 +8,15 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ### Changed
 
+- **Cold-open punchline retitled: "How We Became Unemployed and Our Founders Rich"** — the joke now
+  correctly lands on the team going unemployed while the founders get rich (was previously just
+  "...Unemployed and Rich", which read like the team got both). Updated in `ColdOpen.tsx`'s headline,
+  `lib/scenes.ts`'s Act 4 curtain title, and `app/layout.tsx`'s page title.
+- **`ColdOpen.tsx` simplified — Boss Bernd Bonus's dialogue line removed**, along with the "Normally:
+  months of work..." line beneath it. The slide is now just the title card + Autopilot button; the
+  moderator narrates the boss's hand-off and the "normally this takes months" beat live instead of
+  reading it off-screen.
+
 - **`/money-boy` main pane switched from dark to light** — the message list, header, and composer now
   use a white background with dark (`#1D1C1D`) text, matching real Slack's default light theme. The
   aubergine `#3F0E40` sidebar is kept exactly as-is, per instruction ("die lila Farbe in Slack aber

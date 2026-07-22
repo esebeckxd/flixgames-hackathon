@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "How We Became Unemployed and Rich — FlixGames",
+  title: "How We Became Unemployed and Our Founders Rich — FlixGames",
   description: "Doctorflix FlixGames — a play in 4 acts. Click-dummy for the pitch.",
 };
 

@@ -48,5 +48,5 @@ export const ACT_TITLE: Record<1 | 2 | 3 | 4, string> = {
   1: "The Last Work Day",
   2: "Pia Buys In Three Clicks",
   3: "Pizza Becomes Gold",
-  4: "Unemployed and Rich",
+  4: "Unemployed, Founders Rich",
 };
