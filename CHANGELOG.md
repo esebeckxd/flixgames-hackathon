@@ -29,6 +29,13 @@ pre-hackathon prototype, so versions are lightweight and dated.
   every screen only needs the clicks/animation/reactivity that sells its specific pitch-story beat, not
   real logic, validation, or state handling. Depth of implementation is explicitly a non-goal anywhere
   in this app.
+- **New "Interaction model" section in `CLAUDE.md`** defines the app's actual shape: **one deterministic,
+  linear click-through module** (no real routing/state) containing persona-grouped mockup screens
+  (Sponsor/Pharma, Referent, DX employee). Persona switches must play a **full-screen transition
+  animation** (curtain close/reopen, or a GTA-style character-switch swoop) rather than a plain cut.
+  The flow must **not auto-advance on a timer** — build explicit moderator "advance" placeholders since a
+  live human narrates in front of the screen during the pitch. Storyboard beats needing a video that
+  doesn't exist yet get a clearly labeled placeholder block, not real playback logic.
 
 ### Notes
 

@@ -66,6 +66,30 @@ buttons, inputs, cards, dialogs. Run `npm run dev` (port 3000) / `npm run build`
   shell that stitches the storyboard together. Per screen, decide Wednesday: embed/iframe the existing
   app, or rebuild the screen as a shadcn page.
 
+## Interaction model — one deterministic click-through module
+
+This is **not** a real app with branching state — it's **one linear, deterministic click-through web
+module**: every screen has exactly one scripted "next" path, built purely to walk an audience through the
+pitch storyboard in order. No real routing logic, no back-end state, no edge cases to handle (ties
+directly into "nothing needs to be deeply functional" below).
+
+- **Persona-grouped mockup screens.** The module contains the mockup UI for each storyboard beat, grouped
+  by whose screen it is: **Sponsor/Pharma**, **Referent**, **DX employee**. Structure routes/components
+  so each persona's screens are a clear, contiguous block.
+- **Persona switch = a full-screen transition animation, not a cut.** Whenever the storyboard moves from
+  one persona's screen to another's, play a themed transition first — think **curtain closing and
+  reopening**, or a **GTA-style character-switch swoop/zoom** — before the next persona's UI appears.
+  This is a deliberate storytelling beat, not a loading spinner; build it as an actual animated
+  component, not a plain route change.
+- **Moderator placeholders.** A live human stands in front of the screen and narrates during the pitch —
+  the module must **not** auto-advance on a timer. Build explicit "hold here until the moderator clicks
+  next" points into the flow (a visible advance control, not silent waiting), so pacing stays in the
+  presenter's hands.
+- **Video placeholders.** Several storyboard beats will eventually show a real video that doesn't exist
+  yet. Render these as clearly labeled placeholder blocks (e.g. a bordered box with `[Video: <what it'll
+  show>]`) that are trivially easy to swap for a real `<video>`/embed later — don't build real video
+  playback logic now, don't leave them unlabeled either.
+
 ## Don't rebuild what exists → [`docs/PREBUILT-ASSETS.md`](docs/PREBUILT-ASSETS.md)
 
 - **Pharma landing page / shop** — already built, on-brand. Reference:
