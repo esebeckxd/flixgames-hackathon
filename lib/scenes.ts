@@ -1,4 +1,4 @@
-export type Persona = "pharma" | "referent" | "dx" | "narrator";
+export type Persona = "pharma" | "speaker" | "dx" | "narrator";
 
 export type SceneDef = {
   id: string;
@@ -16,21 +16,27 @@ export type SceneDef = {
 };
 
 // The play "How we became unemployed and rich" runs in 4 acts (Notion SSOT).
-// The 10 clickable screens below are grouped into those acts — the audience
-// feels 4 beats, not 10 scenes, because a big plakativ act-title curtain drops
-// at every act boundary. Shop/Checkout/Briefing stay as three advanceable
-// full-screen UIs within Act 2.
+// The clickable screens below are grouped into those acts — the audience
+// feels 4 beats, not N scenes, because a big plakativ act-title curtain drops
+// at every act boundary.
+//
+// 2026-07-22 (Daniel's flow-reorder call, see docs/TECH-ROADMAP.md "Planned
+// reorder" sections): Pharma flow is now Shop → SpeakerSelect → Checkout →
+// Briefing (speaker-pick moved out of Checkout, ahead of it); Speaker flow is
+// now ReferentUpload (combined single screen) → VideoGen (slides+script →
+// preview → payout, 3 beats).
 export const SCENES: SceneDef[] = [
   { id: "cold-open", persona: "narrator", title: "The Assignment", act: 1 },
-  // beats: 0 overview, 1 "Read My Mind" zoom (the default next beat), 2
-  // manual-browsing zoom (see Shop.tsx — reordered 2026-07-22, Read My Mind
-  // now comes before manual picking, not after)
-  { id: "shop", persona: "pharma", title: "Topic Shop", act: 2, beats: 3 },
-  // beats: 0 overview, 1 package-pick zoom, 2 "Pick Your Fighter" referent select
-  { id: "checkout", persona: "pharma", title: "Cost Configurator & Checkout", act: 2, beats: 3 },
-  { id: "briefing", persona: "pharma", title: "Pre-Kick-Off Briefing", act: 2 },
-  { id: "slide-builder", persona: "referent", title: "Slide Upload", act: 3, beats: 2 },
-  { id: "video-gen", persona: "referent", title: "Video Generation", act: 3 },
+  // beats: 0 overview w/ prominent inline "Read My Mind" button + topic grid,
+  // 1 suggested-topic confirmation (see Shop.tsx)
+  { id: "shop", persona: "pharma", title: "Topic Shop", act: 2, beats: 2 },
+  { id: "speaker-select", persona: "pharma", title: "Pick Your Speaker", act: 2 },
+  // beats: 0 overview + form, 1 package-pick zoom
+  { id: "checkout", persona: "pharma", title: "Cost Configurator & Checkout", act: 2, beats: 2 },
+  { id: "briefing", persona: "pharma", title: "Projects Dashboard", act: 2 },
+  { id: "slide-builder", persona: "speaker", title: "Slide Upload", act: 3 },
+  // beats: 0 pick your style, 1 slides+script+generate, 2 preview+submit, 3 payout success
+  { id: "video-gen", persona: "speaker", title: "Video Generation", act: 3, beats: 4 },
   { id: "publish", persona: "pharma", title: "Submit & Publish", act: 4 },
   { id: "payoff", persona: "pharma", title: "One Month Later", act: 4 },
   { id: "dx-reel", persona: "dx", title: "DX Highlight Reel", act: 4 },
@@ -40,7 +46,7 @@ export const SCENES: SceneDef[] = [
 
 export const PERSONA_LABEL: Record<Persona, string> = {
   pharma: "Pharma",
-  referent: "Referent",
+  speaker: "Speaker",
   dx: "DX Employee",
   narrator: "Narrator",
 };
@@ -51,5 +57,5 @@ export const ACT_TITLE: Record<1 | 2 | 3 | 4, string> = {
   1: "The Last Work Day",
   2: "Pia Buys In Three Clicks",
   3: "Pizza Becomes Gold",
-  4: "Unemployed, Founders Rich",
+  4: "Unemployed and Rich",
 };

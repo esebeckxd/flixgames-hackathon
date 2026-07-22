@@ -27,7 +27,7 @@ const FILTERS = ["All", "Neurology", "Diabetology", "Cardiology", "Rheumatology"
 
 export function Shop() {
   const { topic, setTopic } = useDemoState();
-  const { next, beat, goToBeat, skipToNextScene } = useSceneNav();
+  const { next, beat } = useSceneNav();
   const [filter, setFilter] = useState("All");
 
   const cards = [...TOPICS, ...MORE_TOPICS].filter(
@@ -35,38 +35,13 @@ export function Shop() {
   );
 
   if (beat === 1) {
-    // "Read My Mind" now comes first — the default next beat after the
-    // overview, ahead of manually browsing. Clicking it picks a joke topic
-    // and skips straight to checkout, bypassing the manual-pick zoom below.
+    // Suggested-topic confirmation — a required explicit step now, whether
+    // the topic came from Read My Mind or a manual pick (Daniel's reorder).
     return (
       <DashboardShell active="shop">
         <div className={styles.page}>
           <div className={styles.zoomWrap}>
-            <span className={styles.zoomKicker}>AI at work</span>
-            <h1 className={styles.zoomTitle}>Let AI read your mind…</h1>
-            <button
-              onClick={() => {
-                setTopic(JOKE_TOPIC);
-                skipToNextScene();
-              }}
-              className="flex items-center gap-4 rounded-full bg-[#1A2133] px-14 py-8 text-3xl font-extrabold text-white shadow-[0_30px_80px_-20px_rgba(26,33,51,0.5)] transition hover:-translate-y-1"
-            >
-              <Brain className="size-9 text-[#0EC1B7]" /> Read My Mind.
-            </button>
-          </div>
-        </div>
-      </DashboardShell>
-    );
-  }
-
-  if (beat === 2) {
-    // Zoomed beat: drop all chrome, one huge focal card — the manual-pick
-    // path, shown after Read My Mind if the moderator keeps pressing Next.
-    return (
-      <DashboardShell active="shop">
-        <div className={styles.page}>
-          <div className={styles.zoomWrap}>
-            <span className={styles.zoomKicker}>Pick a topic</span>
+            <span className={styles.zoomKicker}>Confirm your topic</span>
             <h1 className={styles.zoomTitle}>One click, and the campaign is scoped.</h1>
             <button
               className={styles.zoomCard}
@@ -76,7 +51,7 @@ export function Shop() {
               <span className={styles.fieldTag}>{topic.field}</span>
               <div className={styles.zoomCardTitle}>{topic.title}</div>
               <div className={styles.cardSpeaker}>{topic.speaker}</div>
-              <span className={styles.zoomCta}>Select this topic →</span>
+              <span className={styles.zoomCta}>Confirm this topic →</span>
             </button>
           </div>
         </div>
@@ -95,22 +70,23 @@ export function Shop() {
           <p>
             Pick a topic from the shop and configure your offer — in just a few clicks.
           </p>
+          <button
+            onClick={() => {
+              setTopic(JOKE_TOPIC);
+              next();
+            }}
+            className="fg-power fg-hover-wobble mt-5 inline-flex items-center gap-3 rounded-full bg-[#1A2133] px-8 py-4 text-lg font-extrabold text-white shadow-[0_20px_60px_-15px_rgba(26,33,51,0.6)] transition hover:-translate-y-0.5"
+          >
+            <Brain className="size-6 text-[#0EC1B7]" /> Read My Mind.
+          </button>
         </section>
 
         <section className={styles.section}>
-          <div className="mb-6 flex items-center justify-between">
-            <div>
-              <h2 className={styles.sectionTitle}>Available Topics</h2>
-              <p className={styles.sectionSubtitle} style={{ marginBottom: 0 }}>
-                Selected: <strong>{topic.title}</strong>
-              </p>
-            </div>
-            <button
-              onClick={() => goToBeat(1)}
-              className="flex items-center gap-2 rounded-full border-2 border-[#1A2133] px-5 py-2.5 text-sm font-bold text-[#1A2133] transition hover:bg-[#1A2133] hover:text-white"
-            >
-              <Brain className="size-4" /> Read My Mind.
-            </button>
+          <div className="mb-6">
+            <h2 className={styles.sectionTitle}>Available Topics</h2>
+            <p className={styles.sectionSubtitle} style={{ marginBottom: 0 }}>
+              Selected: <strong>{topic.title}</strong>
+            </p>
           </div>
 
           <div className={styles.filters}>

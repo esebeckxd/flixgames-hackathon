@@ -91,13 +91,6 @@ export function SceneController() {
     [index],
   );
 
-  // For a branch beat that isn't the scene's last one (e.g. Shop's "Read My
-  // Mind" now sits before the manual-pick zoom) — skips any remaining beats
-  // and exits straight to the next scene, same as pressing Next on the last beat.
-  const skipToNextScene = useCallback(() => {
-    goToScene(index + 1, 0);
-  }, [index, goToScene]);
-
   useEffect(
     () => () => {
       if (pendingTimeout.current) clearTimeout(pendingTimeout.current);
@@ -131,7 +124,7 @@ export function SceneController() {
   }, [displayIndex, displayBeat]);
 
   return (
-    <SceneNavContext.Provider value={{ next, prev, goToBeat, skipToNextScene, beat: displayBeat }}>
+    <SceneNavContext.Provider value={{ next, prev, goToBeat, beat: displayBeat }}>
       <div className="relative h-screen w-full overflow-hidden">
         <div ref={scrollRef} className="h-full w-full overflow-y-auto">
           <CurrentScene />

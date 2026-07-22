@@ -6,23 +6,68 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ## [Unreleased]
 
-### Added
-
-- **Real "pick your style" preview clips, hosted as static assets.** Added `public/videos/pick-your-
-  style/{business-punk,lederhosen,arzt}.mp4` (Daniel's 3 supplied clips, ~3.4 MB total) — plain
-  `public/` static hosting, no CDN/Blob needed at this size. `VideoGen.tsx`'s style-select cards now
-  autoplay these on loop instead of showing initial-circle placeholders, and the post-generation "done"
-  reveal plays the selected clip back (with controls) instead of a generic `VideoPlaceholder` box.
-
 ### Changed
 
-- **"Pick your fighter" renamed to "Pick your style" — real-referent-name roster replaced.** `VideoGen.tsx`
-  no longer asks the Referent to pick which of Sehouli/Prelog/Paula Cramer to render as (that roster was
-  blocked on likeness sign-off); it now asks them to pick their **own** on-screen style — Business Punk /
-  Lederhosen / The Doctor — which needs no such approval since it's a costume, not a named person.
-  Checkout's separate referent-*booking* picker (still the three real names, a different beat — Pharma
-  hiring someone) is untouched. `docs/TECH-ROADMAP.md` Scene 5 updated to match, marked resolved.
+- **Implemented Daniel's Pharma-flow and Speaker-flow reorders** (documented earlier the same day as
+  planning-only commits in `docs/TECH-ROADMAP.md` — see "Reorder built" sections there for full detail):
+  - **Pharma flow**: Shop → *new* suggested-topic confirmation beat → *new* standalone `SpeakerSelect`
+    scene (moved out of Checkout) → Checkout → Briefing (now a single "Projects" dashboard card).
+  - **Speaker flow**: `ReferentUpload` collapsed to one combined overview+upload screen (was two beats)
+    → `VideoGen` rebuilt as slides+script+generate → preview+submit → payout success (was an avatar/
+    fighter picker + single generate button).
+  - Two open questions Daniel flagged himself were resolved as part of building this: Checkout stays in
+    the sequence right after speaker-select (he just hadn't mentioned it); the old avatar/fighter picker
+    is dropped entirely in favor of the new slides+script screen (not part of his new spec).
+- **Shop: "Read My Mind" is no longer a separate zoomed beat** — it's now a large, glowing button inline
+  in the hero on the overview itself ("more present" per Franz's follow-up instruction). Shop is back
+  down to 2 beats: overview (topic grid + inline Read My Mind) → suggested-topic confirmation. The old
+  manual-pick zoom beat was removed — confirming *is* the manual-pick step now, regardless of how the
+  topic was chosen.
+- **"Referent" renamed to "Speaker" everywhere in on-screen copy** — persona type in `lib/scenes.ts`,
+  `DashboardShell`'s nav/variant/account-badge, headings and labels across `ReferentUpload.tsx`,
+  `VideoGen.tsx`, `Publish.tsx`, `Checkout.tsx`. Component/file names (e.g. `ReferentUpload.tsx`) were
+  deliberately left as-is — internal, not user-visible, not worth the churn.
+- **Briefing rebuilt as a single "Projects" dashboard slide** (`Briefing.tsx`, `briefing.module.css`
+  deleted) — `DashboardShell active="projects"`, one card showing the booked project, the speaker's
+  name (threaded from the new `SpeakerSelect` scene via `lib/demo-state.tsx`'s new `speaker` field),
+  and a quote from them ("Say less — I'll turn this into gold by Friday."), plus one **"Fill Briefing
+  with AI"** button.
+- **`lib/demo-state.tsx` gains a `speaker`/`setSpeaker` field** — lets the picked speaker's name flow
+  from the new `SpeakerSelect` scene into Checkout's completion message and Briefing's Projects card.
+- **Removed `skipToNextScene` from the scene-nav context** (`nav.ts`, `SceneController.tsx`) — it existed
+  only for Shop's old 3-beat Read-My-Mind branch, which no longer exists after the beat simplification
+  above; dead code cleaned up.
 
+### Added
+
+- **"Pick your style" reinstated as `VideoGen.tsx`'s new beat 0, with real preview clips.** Franz's
+  same-day rebuild of `VideoGen.tsx` (slides+script → preview+submit → payout) had dropped the old
+  avatar/fighter picker entirely as "not part of Daniel's new spec" — but Daniel then supplied 3 real
+  clips (Business Punk / Lederhosen / The Doctor, ~3.4 MB total) explicitly for a style-pick step
+  "before video creation," so it's back as its own beat, ahead of slides+script. Clips hosted as plain
+  `public/videos/pick-your-style/{business-punk,lederhosen,arzt}.mp4` static assets (no CDN/Blob needed
+  at this size). Style cards autoplay on loop; the chosen style also labels the slides+script beat and
+  plays back as the actual preview clip (with controls) in the preview+submit beat, replacing the
+  generic `VideoPlaceholder` there. `lib/scenes.ts`'s `video-gen` beat count bumped 3 → 4 to fit.
+  Crucially this is **not** a return to naming real people: the picker is costume/style-based (no
+  likeness sign-off needed), distinct from `SpeakerSelect.tsx`'s separate real-name booking picker.
+
+- **WhatsApp final message added**: after "do we need them anymore?", Hans answers his own question —
+  "lets make them rich and buy them all out 🤑🤑" (`LeosIphone.tsx`) — the actual resolution tying into
+  the "unemployed but rich" reframe from earlier the same day. Reveals with its own delay after the
+  existing typing/reveal sequence, with a `playConfirm()` chime instead of another notification sound.
+- **Ali's hostile comment on the DX reel** (`YouTubePage.tsx` gains an optional `comment` prop, wired
+  into `DxReel.tsx`): "Ali: you guys will never win flixgames!!!" shown despite the "Comments are off"
+  joke — the off-message now lampshades the exception ("except this one, somehow").
+- **Real speaker photos + a 4th "Daniel" slot in the "Pick Your Speaker" picker** (now `SpeakerSelect.tsx`
+  — moved there from `Checkout.tsx` later the same day, see Changed; `public/referents/
+  {sehouli,prelog,cramer}.jpg`, sourced/cropped by Franz). The picker shows actual headshots for
+  Sehouli, Prelog, and Paula Cramer instead of initial-letter circles, plus a 4th candidate, **Daniel**,
+  rendered as a dashed-border "photo pending" placeholder until his photo exists — per the 2026-07-22
+  call, the roster needs 4 slots, not 3.
+- **Leo's iPhone gets the real WhatsApp background** (`public/whatsapp-leo-hans.jpg`, sourced by Franz)
+  — replaces the solid-colour placeholder in `leosIphone.module.css`'s `.chatArea`, faded under a light
+  overlay so bubble text stays legible over the photo (same trick real WhatsApp wallpapers use).
 - **Publish-scene view-counter redesign specified, documented, not built yet** — new note in
   `docs/TECH-ROADMAP.md` under "Scenes 6–7": after Submit/Publish Video, the stats should climb
   **forever** (today's `ViewCounter` in `Publish.tsx` eases up once to a fixed `48213` and stops), styled
@@ -30,22 +75,13 @@ pre-hackathon prototype, so versions are lightweight and dated.
   `LiveNumber` (ever-rising, eases every frame) and dashboard card/stat-tile look as the visual base
   rather than a new one-off style.
 
-- **Speaker/Referent-flow reorder specified, documented, not built yet** — new "Planned reorder" section
-  in `docs/TECH-ROADMAP.md`: collapse `ReferentUpload.tsx`'s current two-beat overview+upload pattern
-  into one combined screen → a new slides+script layout (3 slide stills left, script right, big blinking
-  green "Generate video now" button) → a preview screen with a "Submit video" button → a new immediate
-  "Honorarium payout successful — €1,800" feedback beat. Flagged two open questions (whether/where
-  avatar-fighter selection still happens vs. today's `VideoGen.tsx`, and how the new payout beat relates
-  to the existing Pharma-side `Publish`/`Payoff` scenes) to resolve before implementation starts.
+- ~~Speaker/Referent-flow reorder specified, documented, not built yet~~ — **built later the same day**,
+  see the "Implemented Daniel's Pharma-flow and Speaker-flow reorders" entry at the top of Changed above.
 
-- **Pharma-flow reorder specified, documented, not built yet** — new "Planned reorder" section at the
-  top of `docs/TECH-ROADMAP.md`: topic shop with "Read My Mind" → a new suggested-topic confirmation
-  beat (doesn't exist yet; today "Read My Mind" skips straight to Checkout) → "Pick Your Fighter"
-  referent select moved to happen *before* Checkout (today it's Checkout's third internal beat, after
-  package config) → Briefing questionnaire self-fills via a single "KI befüllen" button rather than the
-  pharma typing into the 2 real fields it has today → scene ends on the existing Act-boundary curtain,
-  handing the stage to the Referent. Flagged one open question (where Checkout/payment now sits in the
-  new order) to resolve before implementation starts.
+- ~~Pharma-flow reorder specified, documented, not built yet~~ — **built later the same day**, see the
+  "Implemented Daniel's Pharma-flow and Speaker-flow reorders" entry at the top of Changed above. The
+  conflict flagged here (Checkout's own beat vs. moving speaker-select before checkout) is resolved:
+  speaker-select is now its own scene, immediately before Checkout.
 
 - **"Leo's iPhone" rebuilt as a real chat-app UI replica**
   (`components/scene/scenes/LeosIphone.tsx`, `leosIphone.module.css` — deliberately unbranded, no
@@ -77,13 +113,11 @@ pre-hackathon prototype, so versions are lightweight and dated.
   scene, bypassing any remaining beats. Needed once Shop's "Read My Mind" branch moved earlier in the
   beat order (see Changed).
 
-- **Checkout gets a "Pick Your Fighter" referent-selection beat** (`Checkout.tsx`, new `beat === 2`;
-  `lib/scenes.ts` checkout `beats: 2 → 3`). Reverses the earlier "Referent line-up intentionally not
-  built in-app" call from the 0.5.0 roadmap — per the 2026-07-22 follow-up call (Franz/David/Emma/
-  Daniel), Pharma now gets an actual on-screen picker (same Sehouli/Prelog/Paula Cramer roster as
-  `VideoGen.tsx`) after the package-pick zoom beat; picking a name is the live cue for that person to
-  walk on stage, it doesn't replace the live staging. Logged in Notion's storyboard and
-  `docs/TECH-ROADMAP.md`.
+- ~~Checkout gets a "Pick Your Fighter" referent-selection beat~~ — **moved out of Checkout later the
+  same day** into its own `SpeakerSelect` scene, per Daniel's flow-reorder (see Changed at the top).
+  Reversed the earlier "Referent line-up intentionally not built in-app" call from the 0.5.0 roadmap;
+  Pharma gets an actual on-screen picker with real photos — picking a name is the live cue for that
+  person to walk on stage, it doesn't replace the live staging.
 
 ### Notes
 
@@ -99,6 +133,20 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ### Changed
 
+- **Ending reframed more positively: "unemployed and rich," not just the founders.** Per the
+  2026-07-22 follow-up call, the team is unemployed *but rich too* (stock options/buyout), not just
+  the founders cashing in while the team gets nothing. Reverted the title back to **"How We Became
+  Unemployed and Rich"** (`ColdOpen.tsx`, `lib/scenes.ts`'s Act 4 curtain title, `app/layout.tsx`
+  metadata — undoes the "…and Our Founders Rich" wording from earlier the same day). `Stinger.tsx`'s
+  closing video updated to match: no more "branded T-shirts their only possession left" — now "the
+  team, poolside, still wearing the branded T-shirts out of loyalty, not necessity," with the
+  description explicitly crediting stock options for the payout.
+- **Leo's iPhone: "yo u there" replaced with a lonelier "u up?" sent at 2am, and Leo doesn't reply
+  until the next day.** (`LeosIphone.tsx`'s `HISTORY`/`REVEAL` arrays.) Added a "2 days ago" divider
+  for Hans's 2am text, a "Yesterday" divider for Leo's belated ("bro it's literally 2pm") reply, and a
+  "Today" divider before the final "so uhh / do we need them anymore?" reveal — so the gap between the
+  question being sent and finally being seen actually reads on-screen. Header subtitle default text
+  simplified to "online" (was a hardcoded timestamp that no longer matched the new message times).
 - **Shop's beat order swapped: "Read My Mind" now comes before manually picking a topic** — the default
   Next-Next sequence used to be overview → manual-pick zoom → Read My Mind (last, so its click could
   exit the scene); it now goes overview → Read My Mind zoom → manual-pick zoom, matching the story order

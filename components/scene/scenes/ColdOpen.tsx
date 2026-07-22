@@ -14,8 +14,8 @@ export function ColdOpen() {
       <Kicker>Act 1 · The Last Work Day</Kicker>
 
       <h1 className="text-balance text-5xl font-bold leading-[0.95] tracking-tight sm:text-6xl md:text-7xl">
-        How We Became <span className="text-[#0EC1B7]">Unemployed</span> and Our{" "}
-        <span className="text-[#0EC1B7]">Founders</span> Rich
+        How We Became <span className="text-[#0EC1B7]">Unemployed</span> and{" "}
+        <span className="text-[#0EC1B7]">Rich</span>
       </h1>
 
       <GagButton

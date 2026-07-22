@@ -23,64 +23,53 @@ plakativ billboard opener. A shared plakativ kit lives in `components/scene/plak
 type, confetti/money/slot animations) to match the Akt-1 opener. The three high-fidelity replicas
 (`Shop`/`Checkout`/`Briefing`) stay realistic on purpose — that's the "best of both" contrast.
 
-## ❌ Planned reorder — Pharma flow (Captain's call, 2026-07-22 — not yet built)
+## ✅ Reorder built — Pharma flow (Captain's call, 2026-07-22)
 
-Daniel specified a new required order for the Pharma-persona part of the flow. **Documented here only,
-not implemented yet** — build this once picked up:
+Daniel's required order for the Pharma-persona part of the flow, now built:
 
-1. **Topic selection screen** — the Shop grid of different topics, with a big **"Read My Mind"** button.
-2. **Suggested-topic confirmation** — a new beat: after "Read My Mind," show the one AI-suggested topic
-   and require an explicit **confirm** step. **This changes current behavior**: today
-   (`Shop.tsx`, `beat === 1`) "Read My Mind" picks a joke topic and skips *straight* to Checkout — no
-   confirmation screen exists yet. Needs to be added.
-3. **"Pick Your Fighter" referent select** (three referents) — comes **right after** the topic
-   confirmation. **This is a reorder**: today the referent picker lives *inside* `Checkout.tsx` as its
-   third beat (`beat === 2`), *after* the package-configuration beat. Under the new order it needs to
-   happen before checkout/package-configuration, not after.
-   - ⚠️ **Open question, needs a decision before building**: Daniel's description doesn't mention
-     checkout/payment (package pick, pricing, "pay with kidneys," the beach-ticket confirm button) at
-     all between the referent pick and the questionnaire step below. Confirm where Checkout now sits —
-     cut from this sequence entirely, folded in earlier (e.g. before topic confirmation), or still
-     between referent-pick and the questionnaire but just not mentioned. Don't guess this at build time.
-4. **Briefing questionnaire self-fills** — an animation of the project questionnaire filling itself in
-   automatically (alternatively: a pre-recorded video of the same). **Correction from Daniel mid-
-   instruction**: this is *not* the pharma typing anything — it fills via a single **"KI befüllen" (AI-
-   fill) button**, clicked once, then the form visibly fills itself. This changes current `Briefing.tsx`,
-   which still has 2 real typed/clicked fields (focus chips + a notes field) before the fake "KI liest
-   Ihre Gedanken…" progress bar — those manual fields go away in favor of one button triggering the
-   whole auto-fill.
-5. **End of scene** — a transition graphic to the next scene, i.e. **handing the stage over to the
-   Referent**. Likely already covered for free by the existing Act-boundary persona-transition curtain
-   in `SceneController.tsx` (Pharma → Referent is already an act change, Act 2 → Act 3, which already
-   triggers the big curtain) — confirm this reads right once the above reorder is actually built, rather
-   than assuming it needs new work.
+1. **Topic selection screen** — `Shop.tsx` beat 0: topic grid, plus a big, prominent, glowing inline
+   **"Read My Mind"** button in the hero (no longer a separate zoomed beat — "more present" per Franz's
+   follow-up instruction).
+2. **Suggested-topic confirmation** — `Shop.tsx` beat 1 (new): shows whichever topic is selected (Read
+   My Mind's joke topic, or a manual pick) with an explicit **"Confirm this topic"** button. Replaces
+   the old direct skip-to-Checkout behavior.
+3. **"Pick Your Speaker" select** — new standalone scene `SpeakerSelect.tsx`, registered as
+   `speaker-select` between `shop` and `checkout` in `lib/scenes.ts`. Reversed out of `Checkout.tsx`
+   (was its third beat, after package config). **Open question resolved**: Checkout stays in the
+   sequence, immediately after speaker-select — Daniel's spec just didn't mention it, per his own
+   flagged uncertainty. The picked name is threaded via a new `speaker` field on `useDemoState()` so
+   Checkout's completion message and the Briefing/Projects card can reference it by name.
+4. **Briefing self-fills via one button** — `Briefing.tsx` fully rebuilt (see "Projects dashboard"
+   note below) — no more manual focus-chip/notes fields, just one **"Fill Briefing with AI"** button.
+5. **End of scene** — unchanged, the existing Act 2→3 curtain in `SceneController.tsx` already handles
+   the Pharma→Speaker handoff.
 
-## ❌ Planned reorder — Speaker/Referent flow (Captain's call, 2026-07-22 — not yet built)
+**Also folded in (Franz, same day):** Briefing collapsed to a single "Projects" dashboard slide —
+`DashboardShell active="projects"`, one card showing the booked project, the speaker's name, and a
+quote from them ("Say less — I'll turn this into gold by Friday."), plus the one AI-fill button.
 
-Daniel specified a new required structure for the Referent-persona part of the flow. **Documented here
-only, not implemented yet:**
+## ✅ Reorder built — Speaker/Referent flow (Captain's call, 2026-07-22)
 
-1. **Combined overview + upload screen** — one single first view with the short project overview
-   (topic, honorarium, etc. — "as already present") *and* the actual (faked) old-presentation upload
-   inline together, cursed filename joke included (`Presentation_FINAL_FINAL_v3_actually_final.ppt`,
-   already built). **This replaces the current two-beat pattern**: today `ReferentUpload.tsx` has beat 0
-   (the "Referent Dashboard" overview, with only a *decorative*, non-functional upload dropzone teaser)
-   and beat 1 (a separate, zoomed screen with the *actual* interactive upload flow) — i.e. two
-   consecutive views that both depict a PowerPoint upload. Collapse these into one screen.
-2. **Slides + script screen** — left column: the **three processed slides shown as nice still-frame
-   thumbnails**; right column: the **script text for each**, next to a big **green, glowing/blinking
-   "Generate video now"** button. **Relationship to today's `VideoGen.tsx` needs deciding**: that scene
-   is currently built around a "Pick your fighter" *avatar* selector (same 3-name roster as Checkout's
-   referent picker) plus a "Take My Job Away" script-gen button — quite different from a slides+script
-   layout. ⚠️ Open question: does avatar/fighter selection still happen somewhere in the new flow (and
-   if so, where), or does this slides+script screen replace that step entirely? Don't guess at build time.
-3. **Preview screen** — a short preview video, with a big **"Submit video"** button.
-4. **Payout feedback animation** — immediate, direct: **"Honorarium payout successful — €1,800."** This
-   is a **new** beat, distinct from the existing Pharma-side `Publish.tsx` ("video is live," view-counter
-   reveal) and `Payoff.tsx` ("one month later" reporting stats) — those are a different persona's payoff
-   moment and presumably still happen afterward from Pharma's side. Confirm that relationship (does this
-   new Referent payout beat sit *before* `Publish`/`Payoff` in the sequence, and do those two remain
-   unchanged?) before building.
+Daniel's required structure for the Speaker-persona part of the flow, now built:
+
+1. **Combined overview + upload screen** — `ReferentUpload.tsx` collapsed to a single beat: the
+   dashboard overview (notification banner, 3 stat cards) and the real interactive upload flow
+   (idle → uploaded → cleaned) now live in the same screen, no separate zoomed beat.
+2. **Slides + script screen** — `VideoGen.tsx` beat 0: left column shows the 3 processed slides
+   (labeled "Speaker: Daniel"), right column shows a short generated script, bottom has a big
+   green **blinking "Generate Video Now"** button (`.fg-blink` utility). **Open question resolved**:
+   the old "Pick your fighter" avatar/outfit selector is dropped — Daniel's spec has no avatar-picker
+   step, replaced entirely by this slides+script screen. (The avatar **outfit** picker from the
+   2026-07-22 follow-up call notes is still a separate open item, not part of this reorder — see
+   "Open items from the 2026-07-22 follow-up call" below.)
+3. **Preview screen** — `VideoGen.tsx` beat 1: `VideoPlaceholder` + a **"Submit Video"** button.
+4. **Payout feedback** — `VideoGen.tsx` beat 2 (new, final beat): **"Honorarium payout successful —
+   €1,800."** **Open question resolved**: sits *before* `Publish.tsx`/`Payoff.tsx` in the sequence,
+   which remain unchanged as the Pharma-side payoff moment.
+
+**Renamed throughout the app**: "Referent" → "**Speaker**" (persona type, `DashboardShell` variant,
+nav labels, badges, headings) per Franz's 2026-07-22 instruction. Component/file names
+(`ReferentUpload.tsx`) were left as-is — internal, not user-visible — to limit unnecessary churn.
 
 ## Scene 2 — Shop → configure → checkout → book Referent
 
@@ -95,10 +84,10 @@ only, not implemented yet:**
     (decorative — clicking either just proceeds, no real branching).
   - ✅ Doubled confirm button: `Projekt starten` + bonus sibling `Projekt starten und One-Way-Ticket an
     den Strand buchen`. No confetti/animation on click yet (see cross-cutting confetti utility below).
-- ✅ **Reversed from the earlier "not built in-app" call** (2026-07-22 follow-up call, see Notion's new
-  "Additional story details" section): Checkout now has a third beat, a "Pick Your Fighter" referent
-  picker (`Checkout.tsx` `beat === 2`, same 3-name roster as `VideoGen.tsx`). Clicking a name is the
-  live cue for that person to walk on stage — this doesn't replace the live staging, it triggers it.
+- ✅ **Speaker select moved out of Checkout into its own scene** (`SpeakerSelect.tsx`, between `shop`
+  and `checkout` in `lib/scenes.ts`) per Daniel's 2026-07-22 flow-reorder call — see "Reorder built —
+  Pharma flow" above. Clicking a name is the live cue for that person to walk on stage; doesn't replace
+  the live staging, it triggers it.
 
 **Assets needed:**
 - Fake payment "logos"/icons for the two joke payment buttons (simple icon or emoji-based is fine —
@@ -107,66 +96,67 @@ only, not implemented yet:**
 - Any missing landing-page assets per [`PREBUILT-ASSETS.md`](PREBUILT-ASSETS.md#1-pharma-landing-page--the-shop--topic-browser)
   (`logo.svg`, `bg-hero.svg`, `orb1–4.svg`).
 
-## Scene 3 — Pre-Kick-Off briefing → automatic requirements definition
+## Scene 3 — Projects dashboard → automatic requirements definition
 
-**Build:**
-- ✅ Briefing form (`Briefing.tsx`, replica of `dx-agents/apps/handover/survey.html`): 2 real fields
-  (focus chips + notes) + 3 greyed-out/symbolic sections, per demo philosophy.
-- ✅ Doubled submit button: `An Doctorflix übermitteln` + bonus sibling `Briefing absenden und
-  Autoantwort aktivieren bis Q4`.
-- ✅ Post-submit processing animation: a progress bar labeled **"KI liest Ihre Gedanken… 87 %"** (fake
-  progress, `setInterval`-driven, no real backend call).
+**Build (rebuilt 2026-07-22, see "Reorder built — Pharma flow" above):**
+- ✅ `Briefing.tsx` collapsed to a single `DashboardShell active="projects"` slide: one card (topic,
+  speaker name, a quote from the speaker) + one **"Fill Briefing with AI"** button → processing
+  animation → "Briefing sent!" done state. No more manual focus-chip/notes fields.
+- ✅ Real photos exist for Sehouli/Prelog/Paula Cramer now (see Scene 2 assets) — the old
+  `briefing.module.css` high-fidelity-replica version of this screen was removed (file deleted) since
+  the screen it replicated no longer matches what's on screen.
 
 **Assets needed:**
-- None beyond existing shadcn components; progress bar can be a themed `Progress`/custom bar.
+- None.
 
-## Scene 4 — Referent notified, uploads old deck
+## Scene 4 — Speaker notified, uploads old deck
 
-**Build:**
-- ✅ Notification banner component (visible on-screen, not just narrated) triggering the Referent scene
-  (`SlideBuilder.tsx`) — a static inline banner rather than a floating toast, close enough for the beat.
-- 🟡 "Referent eating pizza" establishing visual — currently just a 🍕 emoji in the notification text, no
+**Build (rebuilt 2026-07-22 — combined into one screen, see "Reorder built — Speaker/Referent flow"):**
+- ✅ `ReferentUpload.tsx` is now a single screen: notification banner + 3 stat cards + the real
+  interactive upload flow (idle → uploaded → cleaned) all together, no separate zoomed beat.
+- 🟡 "Speaker eating pizza" establishing visual — still just a 🍕 emoji in the notification text, no
   real image/illustration yet.
-- ✅ Simple slide builder shell: upload control echoes back the fixed filename
-  **`Vortrag_FINAL_FINAL_v3_wirklich_final.ppt`** regardless of what's selected.
-- ✅ "AI cleans up the deck" transformation beat: before/after visual (upload placeholder → 3 clean
-  slide tiles + 3 greyed-out ones), click-triggered, no animation library.
+- ✅ Upload control still echoes back the fixed filename
+  **`Presentation_FINAL_FINAL_v3_actually_final.ppt`** regardless of what's selected.
 
 **Assets needed:**
-- A **pizza image/illustration** (Referent mid-bite) for the notification beat.
+- A **pizza image/illustration** (Speaker mid-bite) for the notification beat.
 - A deliberately ugly placeholder "old deck" thumbnail/mockup (few slides, dated look) for the
   before/after transformation.
-- ~8 slide template layouts per [`docs/PREBUILT-ASSETS.md`](PREBUILT-ASSETS.md) template-strategy note
-  (can be simplified/mocked for the demo, don't need all 8 real).
 
-## Scene 5 — Avatar select ("pick your style") → script → video generation
+## Scene 5 — Pick your style → slides + script → video generation
 
-**✅ Resolved (2026-07-22): real preview clips delivered, roster changed from named people to styles.**
-Daniel supplied 3 real short clips (`Business–Punk.mp4`, `Lederhosn.mp4`, `Arzt.mp4`, ~0.7–1.9 MB each,
-720p). This **replaced the real-referent-name roster entirely** — the scene is no longer "pick which of
-Sehouli/Prelog/Paula Cramer to render as" (which was blocked on likeness sign-off), it's now **"pick your
-style"**: the Referent picks their *own* on-screen look (Business Punk / Lederhosen / The Doctor), which
-needs no likeness approval since it's a costume/style, not a named person. The Checkout referent-*booking*
-picker (`Checkout.tsx`, still `Sehouli`/`Prelog`/`Paula Cramer`) is unaffected — that's a different beat
-(Pharma hiring a specific person), not this one.
+**✅ Reconciled same-day merge:** Franz's `VideoGen.tsx` rebuild (slides+script → preview+submit → payout)
+had dropped the old avatar/fighter picker entirely, treating it as "not part of Daniel's new spec" — it
+also matches the separate outfit/style-picker open item from the 2026-07-22 follow-up call (framed there
+as "which car do you want to drive today?"). Daniel then supplied 3 real clips explicitly for that
+style-pick step, so **it's reinstated as its own new beat 0**, ahead of slides+script — this resolves
+that follow-up-call open item at the same time. Style is **costume-based, not a named person**
+(Business Punk / Lederhosen / The Doctor), so unlike the old fighter-picker it needs no likeness
+sign-off — distinct from `SpeakerSelect.tsx`'s separate real-name *booking* picker (Sehouli/Prelog/Paula
+Cramer), which is unaffected.
 
 **Build:**
-- ✅ **Hosting decided & done**: clips copied into `public/videos/pick-your-style/` (`business-punk.mp4`,
-  `lederhosen.mp4`, `arzt.mp4`) and served as plain static assets — no CDN/Blob needed, ~3.4 MB total is
-  trivial for git/Vercel. Referenced by path from `VideoGen.tsx`.
-- ✅ Style-select grid (`VideoGen.tsx`, `StyleCard`): each of the 3 cards autoplays its clip on loop
-  (muted, `playsInline`), 9:16 crop, VS dividers kept from the old fighter-select layout, hover replays.
-- ✅ Two stacked buttons `Take My Job Away` / `Take My Job Away (but keep the paycheck)` — unchanged.
-- ✅ "Create Video" loading state + **the selected style's own clip plays back** as the "generated video"
-  reveal (with controls) — replaces the old generic `VideoPlaceholder` box for this scene; verified
-  working in-browser (Business Punk clip correctly played after picking it and clicking through).
-- ✅ Video topic locked as **"Effect of Pizza on the Human Body"** — shown as on-screen text in the scene.
+- ✅ Beat 0 (new) — **pick your style**: Daniel's 3 supplied clips (`Business–Punk.mp4`, `Lederhosn.mp4`,
+  `Arzt.mp4`, ~0.7–1.9 MB each, 720p) hosted as plain static assets in `public/videos/pick-your-style/`
+  (`business-punk.mp4`, `lederhosen.mp4`, `arzt.mp4`) — no CDN/Blob needed, ~3.4 MB total is trivial for
+  git/Vercel. `StyleCard` autoplays each clip on loop (muted, `playsInline`), 9:16 crop; a "Continue as
+  {style}" button advances. Chosen style is kept in local component state across the scene's beats.
+- ✅ Beat 1 (was beat 0): `VideoGen.tsx`'s 3 processed slides (left, labeled "Speaker: Daniel") + generated
+  script (right, driven by whichever topic Pharma picked in Shop — no more locked video topic) + the big
+  green blinking **"Generate Video Now"** button (`.fg-blink`); now also shows the picked style's label.
+- ✅ Beat 2 (was beat 1) — preview: **the selected style's own clip plays back** (with controls) as the
+  "generated video," replacing the generic `VideoPlaceholder` that was here — + **"Submit Video"** button.
+  Verified working in-browser (Business Punk clip correctly played after picking it and clicking through).
+- ✅ Beat 3 (was beat 2): **"Honorarium payout successful — €1,800"** feedback, then advances to `Publish.tsx`.
+- `lib/scenes.ts`'s `video-gen` beat count bumped 3 → 4 to fit the reinstated beat.
 
 **Open/nice-to-have:**
-- No select-confirm sound cue yet on hover/click.
-- No separate auto-filled script preview text before the two buttons yet.
+- No select-confirm sound cue yet on hover/click for the style cards.
 - These 3 clips are stand-ins, not final production assets — swap the files in
   `public/videos/pick-your-style/` if/when real ones are ready; filenames/paths can stay the same.
+- The Street-Fighter character-select *portraits* for Sehouli/Prelog/Paula Cramer are obsolete for this
+  scene (that roster lives on only as real photos in `SpeakerSelect.tsx`, a different beat).
 
 ## Scenes 6–7 — Submit → publish → Pharma notified
 

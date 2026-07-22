@@ -71,14 +71,17 @@ export const JOKE_TOPIC: Topic = {
 type DemoState = {
   topic: Topic;
   setTopic: (topic: Topic) => void;
+  speaker: string | null;
+  setSpeaker: (speaker: string) => void;
 };
 
 const DemoStateContext = createContext<DemoState | null>(null);
 
 export function DemoStateProvider({ children }: { children: ReactNode }) {
   const [topic, setTopic] = useState<Topic>(DEFAULT_TOPIC);
+  const [speaker, setSpeaker] = useState<string | null>(null);
   return (
-    <DemoStateContext.Provider value={{ topic, setTopic }}>
+    <DemoStateContext.Provider value={{ topic, setTopic, speaker, setSpeaker }}>
       {children}
     </DemoStateContext.Provider>
   );
