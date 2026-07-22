@@ -167,6 +167,18 @@ only, not implemented yet:**
   covers the beat, could be built out further.
 - ✅ **View-counter slot-machine animation**: `setInterval`-driven ease-out digit tick-up, no library.
 
+**❌ Planned redesign (Captain's call, 2026-07-22 — not yet built):** after clicking Submit/Publish
+Video, the stats should **never stop climbing** — a genuinely endless live counter, not today's
+`ViewCounter`, which eases up once from 0 to a fixed `FINAL_VIEWS = 48213` over 40 frames and then
+simply stops. Visual bar: **reuse the `/ops-dashboard` look** (`components/ops-dashboard/OpsDashboard.tsx`'s
+`LiveNumber` — eases toward an ever-rising target every frame instead of snapping, plus that dashboard's
+card/stat-tile visual language and "LIVE" badge) as the base, rather than inventing a new visual style
+here. On top of that: **a slot-machine-style graphic** — a bit cooler/more complex than the current plain
+digit tick-up (individual reel-like digit columns, not just one easing number), while staying **very
+clean/tidy**, not busy. Concretely: likely several stat tiles (views, CME certificates, engagement — see
+`Payoff.tsx`'s `STATS` for the existing numbers this could absorb/supersede) each driven by their own
+never-ending `LiveNumber`-style counter, laid out like `OpsDashboard.tsx`'s header stats row.
+
 **Assets needed:**
 - None beyond a numeric tick-up animation; optional short "cha-ching"/mechanical tick sound effect if
   audio is in scope.

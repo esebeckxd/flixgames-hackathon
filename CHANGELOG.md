@@ -8,6 +8,13 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ### Added
 
+- **Publish-scene view-counter redesign specified, documented, not built yet** — new note in
+  `docs/TECH-ROADMAP.md` under "Scenes 6–7": after Submit/Publish Video, the stats should climb
+  **forever** (today's `ViewCounter` in `Publish.tsx` eases up once to a fixed `48213` and stops), styled
+  as a cooler/more complex slot-machine graphic while staying clean, reusing `/ops-dashboard`'s
+  `LiveNumber` (ever-rising, eases every frame) and dashboard card/stat-tile look as the visual base
+  rather than a new one-off style.
+
 - **Speaker/Referent-flow reorder specified, documented, not built yet** — new "Planned reorder" section
   in `docs/TECH-ROADMAP.md`: collapse `ReferentUpload.tsx`'s current two-beat overview+upload pattern
   into one combined screen → a new slides+script layout (3 slide stills left, script right, big blinking
