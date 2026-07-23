@@ -6,6 +6,12 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ## [Unreleased]
 
+### Added (same-session follow-up 4)
+
+- **Real video for the Stinger (second YouTube scene, "6 months later")** — `public/videos/stinger/poolside.mp4`
+  wired into `Stinger.tsx`'s `videoSrc`; already landscape-oriented, no rotation fix needed. Shows the
+  whole team at the beach with beers, matching the "bought out, doing nothing forever" payoff line.
+
 ### Added (same-session follow-up 3)
 
 - **Closing curtain scene** (`components/scene/scenes/ClosingCurtain.tsx`, new shared
