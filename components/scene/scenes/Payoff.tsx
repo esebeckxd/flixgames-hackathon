@@ -6,40 +6,52 @@ import { DashboardShell } from "@/components/scene/DashboardShell";
 import { useDemoState } from "@/lib/demo-state";
 
 const STATS = [
-  { label: "Views", target: 10_000_000 },
-  { label: "CME Certificates", target: 1930 },
-  { label: "Engagement", target: 64, prefix: "+", suffix: "%" },
+  { label: "Views", target: 10_000_000, creepAmount: 137, creepMs: 900 },
+  { label: "CME Certificates", target: 1930, creepAmount: 1, creepMs: 2200 },
+  { label: "Engagement", target: 64, prefix: "+", suffix: "%", creepAmount: 1, creepMs: 6000 },
 ];
 
-// Counts up from 0 to target on mount — the numbers arriving is the payoff
-// moment, so every stat animates (not just Views, which used to be the only
-// one that moved before this slide had its own life separate from Publish).
+// Counts up from 0 to target on mount (the numbers arriving is the payoff
+// moment), then keeps creeping upward forever, slower — the moderator could
+// leave this on screen for a full minute and it should never look "done".
 function CountUp({
   target,
   prefix = "",
   suffix = "",
   duration = 1600,
+  creepAmount = 1,
+  creepMs = 2000,
 }: {
   target: number;
   prefix?: string;
   suffix?: string;
   duration?: number;
+  creepAmount?: number;
+  creepMs?: number;
 }) {
   const [value, setValue] = useState(0);
   const startRef = useRef<number | null>(null);
 
   useEffect(() => {
-    let raf: number;
+    let raf = 0;
+    let creepInterval: ReturnType<typeof setInterval> | null = null;
     function tick(t: number) {
       if (startRef.current === null) startRef.current = t;
       const progress = Math.min(1, (t - startRef.current) / duration);
       const eased = 1 - Math.pow(1 - progress, 3);
       setValue(Math.round(target * eased));
-      if (progress < 1) raf = requestAnimationFrame(tick);
+      if (progress < 1) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        creepInterval = setInterval(() => setValue((v) => v + creepAmount), creepMs);
+      }
     }
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [target, duration]);
+    return () => {
+      cancelAnimationFrame(raf);
+      if (creepInterval) clearInterval(creepInterval);
+    };
+  }, [target, duration, creepAmount, creepMs]);
 
   return (
     <>
@@ -69,7 +81,13 @@ export function Payoff() {
             {STATS.map((s) => (
               <div key={s.label} className="rounded-2xl border border-border bg-muted/30 p-5 text-center">
                 <div className="font-heading text-3xl font-bold text-brand">
-                  <CountUp target={s.target} prefix={s.prefix} suffix={s.suffix} />
+                  <CountUp
+                    target={s.target}
+                    prefix={s.prefix}
+                    suffix={s.suffix}
+                    creepAmount={s.creepAmount}
+                    creepMs={s.creepMs}
+                  />
                 </div>
                 <div className="mt-1 text-xs text-muted-foreground">{s.label}</div>
               </div>

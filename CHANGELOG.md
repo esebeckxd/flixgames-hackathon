@@ -6,6 +6,27 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ## [Unreleased]
 
+### Changed (same-session follow-up)
+
+- **Act structure reordered and renamed**: the cold-open (curtain closed → curtain opens on the title)
+  is now a pure prologue with no act number and no "now on screen" line naming the narrator. The real
+  Act 1 begins right after it. New act names/order: Act 1 "Every Day Life in the Pharma Office"
+  (Now on screen: Pharma) → Act 2 "At Dr. Danny G.'s Home" (Now on screen: Speaker) → Act 3
+  "Back with Pharma" (opens on the Publish dashboard, no "now on screen" line) → Act 4 "Unemployed and
+  Rich" (Now on screen: DX Employee, right before the DX backdrop). `lib/scenes.ts`'s `ACT_TITLE` and
+  the `act-1`–`act-4` scene positions updated to match.
+- **Reporting's stats now climb forever**, not just up to their target: after the initial count-up,
+  each stat keeps creeping upward on its own interval (Views fastest, Engagement slowest) so the slide
+  never looks "finished" even if left on screen for a full minute.
+- **Fixed the DX-reel video's orientation and layout.** The real clip played sideways in Chrome — a
+  known Chromium bug where some iPhone-recorded MP4s report correct (portrait) dimensions via
+  `videoWidth`/`videoHeight` but don't get the rotation matrix applied when rendered. Fixed with a CSS
+  rotation correction (`YouTubePage.tsx`'s `videoNeedsRotationFix` prop); also had to override Tailwind
+  Preflight's `video { max-width: 100% }` reset, which was silently clamping the rotated frame and
+  leaving it letterboxed. `YouTubePage.tsx` also rebuilt around a classic YouTube desktop layout — big
+  video top-left with title/actions/channel/description below it in the same column, comments in a
+  separate right-hand sidebar — replacing the side-by-side portrait-column layout from earlier today.
+
 ### Added
 
 - **Theater-curtain reveal on the title slide** (`ColdOpen.tsx`): beat 0 shows a closed velvet curtain
