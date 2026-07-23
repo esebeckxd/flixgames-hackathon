@@ -55,7 +55,6 @@ export const SCENES: SceneDef[] = [
   { id: "publish", persona: "pharma", title: "Submit & Publish", act: 3 },
   { id: "payoff", persona: "pharma", title: "Reporting", act: 3 },
   { id: "act-4", persona: "dx", title: "Act 4 Title Card", act: 4 },
-  { id: "dx-backdrop", persona: "dx", title: "On Stage · DX", act: 4 },
   { id: "dx-reel", persona: "dx", title: "DX Highlight Reel", act: 4 },
   { id: "leos-iphone", persona: "narrator", title: "Leo's iPhone", act: 4 },
   { id: "stinger", persona: "narrator", title: "Six Months Later", act: 4 },

@@ -14,7 +14,6 @@ import { VideoGen } from "@/components/scene/scenes/VideoGen";
 import { Act4Card } from "@/components/scene/scenes/Act4Card";
 import { Publish } from "@/components/scene/scenes/Publish";
 import { Payoff } from "@/components/scene/scenes/Payoff";
-import { DxBackdrop } from "@/components/scene/scenes/DxBackdrop";
 import { DxReel } from "@/components/scene/scenes/DxReel";
 import { LeosIphone } from "@/components/scene/scenes/LeosIphone";
 import { Stinger } from "@/components/scene/scenes/Stinger";
@@ -35,7 +34,6 @@ export const SCENE_COMPONENTS: Record<string, ComponentType> = {
   "act-4": Act4Card,
   publish: Publish,
   payoff: Payoff,
-  "dx-backdrop": DxBackdrop,
   "dx-reel": DxReel,
   "leos-iphone": LeosIphone,
   stinger: Stinger,
