@@ -188,13 +188,13 @@
 .submitBar {
   position: fixed;
   bottom: 0;
-  left: 0;
+  left: 240px; /* clears the fixed DashboardShell sidebar (w-60) */
   right: 0;
-  z-index: 20;
+  z-index: 15;
   background: #fff;
   border-top: 1px solid var(--border);
   box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
-  padding: 14px 340px 14px 24px;
+  padding: 14px 100px 14px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;

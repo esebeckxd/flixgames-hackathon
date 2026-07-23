@@ -6,6 +6,39 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ## [Unreleased]
 
+### Added
+
+- **Theater-curtain reveal on the title slide** (`ColdOpen.tsx`): beat 0 shows a closed velvet curtain
+  with no text at all; clicking Next parts the curtain to reveal the title underneath. `cold-open` now
+  has 2 beats (`lib/scenes.ts`).
+- **ACT title cards** (`components/scene/ActCard.tsx` + `Act1Card`–`Act4Card` scene wrappers, new
+  `act-1`/`act-2`/`act-3`/`act-4` scenes in `lib/scenes.ts`) — "ACT N" + the act's name really big
+  (reusing the existing `ACT_TITLE` names), plus "Now on screen: X" for acts that open on a pure
+  acting beat (Act 1: Narrator/Pharma Boss, Act 2: Pharma, Act 3: Speaker; Act 4 opens on the Publish
+  dashboard, not an acting beat, so it has no "now on screen" line).
+- **Real DX-reel video** (`public/videos/dx-reel/daily-life.mp4`) wired into `DxReel.tsx` as the first
+  YouTube-style video. `YouTubePage.tsx` rebuilt around it: the player column is now sized to a portrait
+  9:16 frame (the real footage is a phone-shot vertical clip) instead of a full-width 16:9 bar, and sits
+  side by side with the title/description/comments panel on wider screens (stacks on narrow ones) — the
+  old layout wasted most of the screen as black bars. Same "Play with sound 🔊" pattern as VideoGen's
+  preview (no autoplay).
+- **Briefing gained two more real AI-filled fields**: Target Audience & Reach and Format Details (were
+  grey disabled placeholders) — "Fill in with AI" now scrolls the page to each field in turn
+  (Content Focus → Notes → Target Audience → Format Details) and types into it, so the moderator doesn't
+  have to scroll manually to follow along. Billing Notes stays as the one remaining disabled placeholder.
+
+### Changed
+
+- **DashboardShell's sidebar is now fixed** (`position: fixed`) instead of a flex sibling — it no longer
+  scrolls with the page content on any dashboard screen (Shop, Checkout, Briefing, Publish, Payoff,
+  Speaker upload). Content shifted right with `pl-60` to clear it. Fixed `briefing.module.css`'s
+  `.submitBar` to start after the sidebar instead of underneath it.
+- **Checkout's marketing add-on renamed** from "Marketing Plus M" to "Azerta Cooperation".
+- **Publish and Reporting no longer double up the same beat**: Publish now only shows the video
+  thumbnail + Publish/View Reporting buttons; the live view counter and "Shift Whole Business Unit" gag
+  button live only on the Reporting slide. Reporting's three stats (Views, CME Certificates, Engagement)
+  now all count up on mount instead of only Views moving.
+
 ### Fixed
 
 - **Reverted the Cloudflare auto-build test change** (`ColdOpen.tsx`): title text back to white/teal

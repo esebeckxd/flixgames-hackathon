@@ -49,8 +49,11 @@ export function DashboardShell({
   const badgeLetter = variant === "speaker" ? "S" : "P";
 
   return (
-    <div className="flex min-h-full w-full bg-[#F3F6FB]">
-      <aside className="flex w-60 flex-none flex-col border-r border-[#E1E9F8] bg-white px-4 py-6">
+    <div className="min-h-full w-full bg-[#F3F6FB]">
+      {/* Fixed regardless of scroll position — the scene's own scroll
+          container lives further up the tree (SceneController), so pinning
+          this via position:fixed is the only way to keep it stationary. */}
+      <aside className="fixed inset-y-0 left-0 z-20 flex w-60 flex-none flex-col border-r border-[#E1E9F8] bg-white px-4 py-6">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/brand/doctorflix-logo.svg" alt="Doctorflix" className="mb-8 h-6 px-2" />
         <nav className="flex flex-1 flex-col gap-1">
@@ -79,7 +82,7 @@ export function DashboardShell({
           {accountLabel}
         </div>
       </aside>
-      <div className="min-w-0 flex-1">{children}</div>
+      <div className="min-h-full min-w-0 pl-60">{children}</div>
     </div>
   );
 }

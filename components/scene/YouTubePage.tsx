@@ -1,25 +1,26 @@
 "use client";
 
+import { useRef, useState } from "react";
 import {
   BadgeCheck,
   Bell,
   Bookmark,
-  Captions,
   MessageCircleOff,
-  Maximize,
   MoreHorizontal,
-  PictureInPicture,
   Play,
-  Settings,
   Share2,
   ThumbsDown,
   ThumbsUp,
-  Volume2,
 } from "lucide-react";
 
 // Generic video-platform watch page — deliberately unbranded (no logo/
 // wordmark anywhere, same rule as the fake Stripe/PayPal checkout buttons),
 // just the recognizable player + info-panel layout.
+//
+// Player column is sized for portrait (9:16) clips — the real footage we use
+// here is a phone-shot vertical video, so a full-width 16:9 black bar just
+// wasted space on both sides. Video + info panel now sit side by side so the
+// whole screen stays used regardless of aspect ratio.
 export function YouTubePage({
   title,
   channel,
@@ -27,6 +28,7 @@ export function YouTubePage({
   uploadedWhen,
   description,
   videoLabel,
+  videoSrc,
   likes = "48.1K",
   dislikeNote,
   comment,
@@ -37,52 +39,62 @@ export function YouTubePage({
   uploadedWhen: string;
   description: string;
   videoLabel: string;
+  videoSrc?: string;
   likes?: string;
   dislikeNote?: string;
   comment?: { author: string; text: string };
 }) {
-  return (
-    <div className="flex h-full min-h-full w-full flex-col overflow-y-auto bg-[#0f0f0f]">
-      {/* Fixed viewport-relative height (not aspect-video) so the title/
-          channel/description panel below is always visible without
-          scrolling on a standard presentation display. */}
-      <div className="relative h-[56vh] w-full flex-none bg-black">
-        <div className="flex h-full w-full flex-col items-center justify-center gap-3 text-white/50">
-          <span className="flex size-16 items-center justify-center rounded-full bg-white/10">
-            <Play className="size-7 fill-white text-white" />
-          </span>
-          <span className="text-sm">[ Video: {videoLabel} ]</span>
-        </div>
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [started, setStarted] = useState(false);
 
-        {/* Decorative player chrome — not a real seekable video. */}
-        <div className="absolute inset-x-0 bottom-0 flex flex-col gap-1.5 bg-gradient-to-t from-black/70 to-transparent px-3 pb-2 pt-6">
-          <div className="h-[3px] w-full rounded-full bg-white/25">
-            <div className="h-full w-[2%] rounded-full bg-red-600" />
+  return (
+    <div className="flex h-full min-h-full w-full flex-col overflow-y-auto bg-[#0f0f0f] lg:flex-row lg:overflow-hidden">
+      {/* Player — sized to a portrait 9:16 frame, capped to the viewport height. */}
+      <div className="relative mx-auto aspect-[9/16] h-[70vh] max-h-[70vh] w-auto flex-none bg-black lg:h-full lg:max-h-none">
+        {videoSrc ? (
+          <video
+            ref={videoRef}
+            src={videoSrc}
+            className="h-full w-full object-cover"
+            playsInline
+            controls={started}
+          />
+        ) : (
+          <div className="flex h-full w-full flex-col items-center justify-center gap-3 px-6 text-center text-white/50">
+            <span className="flex size-16 items-center justify-center rounded-full bg-white/10">
+              <Play className="size-7 fill-white text-white" />
+            </span>
+            <span className="text-sm">[ Video: {videoLabel} ]</span>
           </div>
-          <div className="flex items-center justify-between text-white/90">
-            <div className="flex items-center gap-4">
-              <Play className="size-4 fill-white" />
-              <Volume2 className="size-4" />
-              <span className="text-xs font-medium text-white/80">0:00 / 12:00</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <Captions className="size-4" />
-              <Settings className="size-4" />
-              <PictureInPicture className="size-4" />
-              <Maximize className="size-4" />
-            </div>
-          </div>
-        </div>
+        )}
+
+        {videoSrc && !started && (
+          <button
+            onClick={() => {
+              const v = videoRef.current;
+              if (!v) return;
+              v.muted = false;
+              v.play();
+              setStarted(true);
+            }}
+            className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/40 transition hover:bg-black/30"
+          >
+            <span className="flex size-20 items-center justify-center rounded-full bg-white/90 shadow-lg">
+              <Play className="size-9 translate-x-0.5 fill-[#1A2133] text-[#1A2133]" />
+            </span>
+            <span className="text-sm font-semibold text-white">Play with sound 🔊</span>
+          </button>
+        )}
       </div>
 
-      <div className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-3 px-6 py-5 text-white">
+      <div className="mx-auto flex w-full max-w-xl flex-1 flex-col gap-3 overflow-y-auto px-6 py-5 text-white lg:max-w-md">
         <h1 className="text-lg font-bold leading-snug">{title}</h1>
 
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
           <span className="text-sm text-white/60">
             {views} views · {uploadedWhen}
           </span>
-          <div className="flex items-center gap-2 text-sm text-white/80">
+          <div className="flex flex-wrap items-center gap-2 text-sm text-white/80">
             <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5">
               <ThumbsUp className="size-4" /> {likes}
               <span className="mx-1 h-3.5 w-px bg-white/20" />

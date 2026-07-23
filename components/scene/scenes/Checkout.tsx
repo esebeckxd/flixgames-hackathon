@@ -14,7 +14,7 @@ const PACKAGES = [
 ] as const;
 
 const FORMAT = { name: "Video on demand", price: 11950 };
-const ADDON = { name: "Marketing Plus M", price: 6500 };
+const ADDON = { name: "Azerta Cooperation", price: 6500 };
 
 const PAY_METHODS = [
   { id: "card", label: "💳 Credit Card" },
@@ -141,7 +141,7 @@ export function Checkout() {
                     <div className={styles.optCheck}>{addonOn ? "✓" : ""}</div>
                     <div className={styles.optBody}>
                       <div className={styles.optTitle}>{ADDON.name}</div>
-                      <div className={styles.optDesc}>Marketing package M.</div>
+                      <div className={styles.optDesc}>Co-marketing with Azerta.</div>
                     </div>
                     <div className={styles.optPrice}>{ADDON.price.toLocaleString("en-US")} €</div>
                   </div>

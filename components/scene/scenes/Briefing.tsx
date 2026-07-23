@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Check, Sparkles } from "lucide-react";
 import { useDemoState } from "@/lib/demo-state";
 import { DashboardShell } from "@/components/scene/DashboardShell";
@@ -13,13 +13,18 @@ const FOCUS_CHIPS = ["Diagnostics", "Treatment Options", "Practice Relevance", "
 const AI_FOCUS = "Treatment Options";
 const AI_NOTES =
   "Emphasize the REWE salad bar therapy — early data looks promising. Mention rising Chottoism case numbers and the 2-Tuesday incubation window.";
+const AI_AUDIENCE =
+  "General practitioners & internists nationwide — high self-reported overlap with Chotto regulars.";
+const AI_FORMAT_DETAILS =
+  "On-demand video · mobile-first playback · subtitles in DE/EN · CME certificate issued automatically on completion.";
 
 // Kick-off prep, inside the Pharma "Projects" dashboard tab — same side nav as
 // Shop/Checkout for a coherent shell, plus a process stepper showing where the
 // project sits (Booking → Briefing → Production → Go Live → Reporting). The
-// old detailed form stays — the AI-fill button just types values into it —
-// but submitting no longer shows an "AI is reading your brain" processing
-// screen (Daniel's 2026-07-22 call); it goes straight to the sent confirmation.
+// old detailed form stays — the AI-fill button types into it, scrolling the
+// page down field by field so the moderator can watch it happen without
+// scrolling manually — but submitting no longer shows an "AI is reading your
+// brain" processing screen; it goes straight to the sent confirmation.
 const STEPS = ["Booking", "Briefing", "Production", "Go Live", "Reporting"] as const;
 const CURRENT_STEP = 1; // "Briefing"
 
@@ -61,36 +66,68 @@ function ProcessStepper() {
   );
 }
 
+function wait(ms: number) {
+  return new Promise<void>((resolve) => setTimeout(resolve, ms));
+}
+
 export function Briefing() {
   const { topic, speaker } = useDemoState();
   const [focus, setFocus] = useState(FOCUS_CHIPS[1]);
   const [notes, setNotes] = useState("");
+  const [audience, setAudience] = useState("");
+  const [formatDetails, setFormatDetails] = useState("");
   const [aiFilling, setAiFilling] = useState(false);
   const [done, setDone] = useState(false);
-  const typingInterval = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  useEffect(() => {
-    return () => {
-      if (typingInterval.current) clearInterval(typingInterval.current);
-    };
-  }, []);
+  const focusRef = useRef<HTMLDivElement>(null);
+  const notesRef = useRef<HTMLDivElement>(null);
+  const audienceRef = useRef<HTMLDivElement>(null);
+  const formatRef = useRef<HTMLDivElement>(null);
 
-  function handleAiFill() {
+  // Reveals `text` into `setter` character by character; resolves when done.
+  function typeInto(setter: (s: string) => void, text: string, speed = 16) {
+    return new Promise<void>((resolve) => {
+      let i = 0;
+      const interval = setInterval(() => {
+        i++;
+        setter(text.slice(0, i));
+        if (i >= text.length) {
+          clearInterval(interval);
+          resolve();
+        }
+      }, speed);
+    });
+  }
+
+  function scrollTo(ref: React.RefObject<HTMLDivElement | null>) {
+    ref.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  async function handleAiFill() {
     if (aiFilling) return;
     setAiFilling(true);
     setNotes("");
-    setTimeout(() => {
-      setFocus(AI_FOCUS);
-      let i = 0;
-      typingInterval.current = setInterval(() => {
-        i++;
-        setNotes(AI_NOTES.slice(0, i));
-        if (i >= AI_NOTES.length) {
-          if (typingInterval.current) clearInterval(typingInterval.current);
-          setAiFilling(false);
-        }
-      }, 18);
-    }, 500);
+    setAudience("");
+    setFormatDetails("");
+
+    scrollTo(focusRef);
+    await wait(500);
+    setFocus(AI_FOCUS);
+    await wait(500);
+
+    scrollTo(notesRef);
+    await wait(300);
+    await typeInto(setNotes, AI_NOTES);
+
+    scrollTo(audienceRef);
+    await wait(300);
+    await typeInto(setAudience, AI_AUDIENCE);
+
+    scrollTo(formatRef);
+    await wait(300);
+    await typeInto(setFormatDetails, AI_FORMAT_DETAILS);
+
+    setAiFilling(false);
   }
 
   if (done) {
@@ -163,7 +200,7 @@ export function Briefing() {
             <Sparkles className="size-4" /> {aiFilling ? "Filling in…" : "Fill in with AI"}
           </button>
 
-          <div className={styles.section}>
+          <div ref={focusRef} className={styles.section}>
             <div className={styles.sectionTitle}>Content Focus</div>
             <div className={styles.sectionSubtitle}>What should take center stage?</div>
             <div className={styles.chipRow}>
@@ -179,7 +216,7 @@ export function Briefing() {
             </div>
           </div>
 
-          <div className={styles.section}>
+          <div ref={notesRef} className={styles.section}>
             <div className={styles.sectionTitle}>Notes</div>
             <div className={styles.sectionSubtitle}>
               Optional — we&rsquo;ll cover everything else on the kick-off call.
@@ -192,12 +229,32 @@ export function Briefing() {
             />
           </div>
 
-          {["Target Audience & Reach", "Format Details", "Billing Notes"].map((title) => (
-            <div key={title} className={`${styles.section} ${styles.sectionDisabled}`}>
-              <div className={styles.sectionTitle}>{title}</div>
-              <div className={styles.sectionSubtitle}>Discussed on the kick-off call.</div>
-            </div>
-          ))}
+          <div ref={audienceRef} className={styles.section}>
+            <div className={styles.sectionTitle}>Target Audience &amp; Reach</div>
+            <div className={styles.sectionSubtitle}>Who this campaign is aimed at.</div>
+            <textarea
+              className={styles.fieldTextarea}
+              placeholder="e.g. general practitioners, nationwide…"
+              value={audience}
+              onChange={(e) => setAudience(e.target.value)}
+            />
+          </div>
+
+          <div ref={formatRef} className={styles.section}>
+            <div className={styles.sectionTitle}>Format Details</div>
+            <div className={styles.sectionSubtitle}>Delivery specifics for the Speaker.</div>
+            <textarea
+              className={styles.fieldTextarea}
+              placeholder="e.g. subtitles, certificate handling…"
+              value={formatDetails}
+              onChange={(e) => setFormatDetails(e.target.value)}
+            />
+          </div>
+
+          <div className={`${styles.section} ${styles.sectionDisabled}`}>
+            <div className={styles.sectionTitle}>Billing Notes</div>
+            <div className={styles.sectionSubtitle}>Discussed on the kick-off call.</div>
+          </div>
         </div>
 
         <div className={styles.submitBar}>

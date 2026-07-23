@@ -1,15 +1,59 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import { MessageCircle } from "lucide-react";
 import { DashboardShell } from "@/components/scene/DashboardShell";
 import { useDemoState } from "@/lib/demo-state";
 
 const STATS = [
-  { label: "Views", value: "10,000,000" },
-  { label: "CME Certificates", value: "1,930" },
-  { label: "Engagement", value: "+64%" },
+  { label: "Views", target: 10_000_000 },
+  { label: "CME Certificates", target: 1930 },
+  { label: "Engagement", target: 64, prefix: "+", suffix: "%" },
 ];
 
+// Counts up from 0 to target on mount — the numbers arriving is the payoff
+// moment, so every stat animates (not just Views, which used to be the only
+// one that moved before this slide had its own life separate from Publish).
+function CountUp({
+  target,
+  prefix = "",
+  suffix = "",
+  duration = 1600,
+}: {
+  target: number;
+  prefix?: string;
+  suffix?: string;
+  duration?: number;
+}) {
+  const [value, setValue] = useState(0);
+  const startRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    let raf: number;
+    function tick(t: number) {
+      if (startRef.current === null) startRef.current = t;
+      const progress = Math.min(1, (t - startRef.current) / duration);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(Math.round(target * eased));
+      if (progress < 1) raf = requestAnimationFrame(tick);
+    }
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [target, duration]);
+
+  return (
+    <>
+      {prefix}
+      {value.toLocaleString("en-US")}
+      {suffix}
+    </>
+  );
+}
+
 // The Reporting slide, inside the Pharma dashboard (Reports tab) — reached when
-// Pharma clicks through from the live project. No actor-direction subtext.
+// Pharma clicks through from the live project. Views live here only (Publish
+// no longer shows a counter — showing it in both places doubled up the beat).
+// No actor-direction subtext.
 export function Payoff() {
   const { topic } = useDemoState();
   return (
@@ -24,7 +68,9 @@ export function Payoff() {
           <div className="grid grid-cols-3 gap-4">
             {STATS.map((s) => (
               <div key={s.label} className="rounded-2xl border border-border bg-muted/30 p-5 text-center">
-                <div className="font-heading text-3xl font-bold text-brand">{s.value}</div>
+                <div className="font-heading text-3xl font-bold text-brand">
+                  <CountUp target={s.target} prefix={s.prefix} suffix={s.suffix} />
+                </div>
                 <div className="mt-1 text-xs text-muted-foreground">{s.label}</div>
               </div>
             ))}
