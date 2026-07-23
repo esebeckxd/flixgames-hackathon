@@ -25,8 +25,7 @@ export function SpeakerSelect() {
     <DashboardShell active="shop">
       <div className={styles.page}>
         <div className={styles.zoomWrap}>
-          <span className={styles.zoomKicker}>Pick your speaker</span>
-          <h1 className={styles.zoomTitle}>Who presents this one?</h1>
+          <h1 className={styles.zoomTitle}>Pick your fighter?</h1>
           <div className={styles.zoomPkgs}>
             {SPEAKERS.map(({ name, photo }) => (
               <button

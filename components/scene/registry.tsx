@@ -17,6 +17,7 @@ import { Payoff } from "@/components/scene/scenes/Payoff";
 import { DxReel } from "@/components/scene/scenes/DxReel";
 import { LeosIphone } from "@/components/scene/scenes/LeosIphone";
 import { Stinger } from "@/components/scene/scenes/Stinger";
+import { ClosingCurtain } from "@/components/scene/scenes/ClosingCurtain";
 
 export const SCENE_COMPONENTS: Record<string, ComponentType> = {
   "act-1": Act1Card,
@@ -37,4 +38,5 @@ export const SCENE_COMPONENTS: Record<string, ComponentType> = {
   "dx-reel": DxReel,
   "leos-iphone": LeosIphone,
   stinger: Stinger,
+  "closing-curtain": ClosingCurtain,
 };

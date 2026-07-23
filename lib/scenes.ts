@@ -58,6 +58,8 @@ export const SCENES: SceneDef[] = [
   { id: "dx-reel", persona: "dx", title: "DX Highlight Reel", act: 4 },
   { id: "leos-iphone", persona: "narrator", title: "Leo's iPhone", act: 4 },
   { id: "stinger", persona: "narrator", title: "Six Months Later", act: 4 },
+  // beats: 0 curtain open (title showing, bookending ColdOpen), 1 curtain closes — the end
+  { id: "closing-curtain", persona: "narrator", title: "Closing Curtain", act: 4, beats: 2 },
 ];
 
 export const PERSONA_LABEL: Record<Persona, string> = {

@@ -6,6 +6,23 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ## [Unreleased]
 
+### Added (same-session follow-up 3)
+
+- **Closing curtain scene** (`components/scene/scenes/ClosingCurtain.tsx`, new shared
+  `components/scene/Curtain.tsx` extracted from `ColdOpen.tsx`) — bookends the opening: beat 0 shows the
+  title again with the curtain open, clicking Next closes the curtain over it to end the show. Added as
+  the final scene, after Stinger.
+- **Real videos swapped in**: `public/videos/dx-reel/daily-life.mp4` replaced with Franz's newer,
+  correctly-oriented landscape clip (the `videoNeedsRotationFix` workaround is no longer needed and was
+  removed from `DxReel.tsx`); `public/videos/generated/doctor-presentation.mp4` replaced with the real
+  AI-avatar-generated video (`flixgames-avatar-video.mp4`) for VideoGen's preview beat.
+
+### Changed (same-session follow-up 3)
+
+- **SpeakerSelect's heading simplified** — "Pick your speaker" kicker + "Who presents this one?" heading
+  replaced with a single "Pick your fighter?" line, echoing the same joke framing used for the video-style
+  picker.
+
 ### Added (same-session follow-up 2)
 
 - **Real backdrop photos** (`public/backgrounds/pharma.jpg`, `public/backgrounds/speaker.jpg`, provided
