@@ -7,11 +7,19 @@ import {
   Bookmark,
   MessageCircleOff,
   MoreHorizontal,
+  Pause,
   Play,
   Share2,
   ThumbsDown,
   ThumbsUp,
 } from "lucide-react";
+
+function formatTime(seconds: number) {
+  if (!Number.isFinite(seconds)) return "0:00";
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${m}:${s.toString().padStart(2, "0")}`;
+}
 
 // Classic YouTube desktop watch-page layout: big landscape video top-left,
 // title + actions + channel + description stacked below it in the same main
@@ -38,6 +46,10 @@ function RotatingVideo({
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [box, setBox] = useState({ w: 0, h: 0 });
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -50,14 +62,35 @@ function RotatingVideo({
     return () => ro.disconnect();
   }, [needsRotationFix]);
 
+  function seek(clientX: number) {
+    const bar = document.getElementById("dx-reel-seek-bar");
+    const v = videoRef.current;
+    if (!bar || !v || !duration) return;
+    const rect = bar.getBoundingClientRect();
+    const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+    v.currentTime = ratio * duration;
+  }
+
+  // Native <video controls> would render its control bar rotated along with
+  // the element itself (the rotation-fix transform applies to everything the
+  // browser paints for it, controls included), so when needsRotationFix is
+  // on we render our own bottom control bar instead — positioned on the
+  // (unrotated) container, not the video.
   return (
     <div ref={containerRef} className="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
       <video
         ref={videoRef}
         src={src}
         playsInline
-        controls={started}
+        controls={started && !needsRotationFix}
         className="object-cover"
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
+        onTimeUpdate={(e) => {
+          setCurrentTime(e.currentTarget.currentTime);
+          setProgress(e.currentTarget.duration ? (e.currentTarget.currentTime / e.currentTarget.duration) * 100 : 0);
+        }}
         style={
           needsRotationFix
             ? {
@@ -89,6 +122,32 @@ function RotatingVideo({
           </span>
           <span className="text-sm font-semibold text-white">Play with sound 🔊</span>
         </button>
+      )}
+
+      {started && needsRotationFix && (
+        <div className="absolute inset-x-0 bottom-0 flex items-center gap-3 bg-gradient-to-t from-black/85 to-transparent px-4 pb-3 pt-8">
+          <button
+            onClick={() => {
+              const v = videoRef.current;
+              if (!v) return;
+              if (v.paused) v.play();
+              else v.pause();
+            }}
+            className="flex size-8 flex-none items-center justify-center rounded-full text-white hover:bg-white/10"
+          >
+            {isPlaying ? <Pause className="size-4 fill-white" /> : <Play className="size-4 fill-white" />}
+          </button>
+          <div
+            id="dx-reel-seek-bar"
+            onClick={(e) => seek(e.clientX)}
+            className="h-1.5 flex-1 cursor-pointer rounded-full bg-white/25"
+          >
+            <div className="h-full rounded-full bg-red-600" style={{ width: `${progress}%` }} />
+          </div>
+          <span className="flex-none text-xs tabular-nums text-white/80">
+            {formatTime(currentTime)} / {formatTime(duration)}
+          </span>
+        </div>
       )}
     </div>
   );
@@ -191,8 +250,7 @@ export function YouTubePage({
       <div className="w-full flex-none border-t border-white/10 px-6 py-6 lg:w-80 lg:overflow-y-auto lg:border-l lg:border-t-0">
         <div className="flex items-center gap-2 text-xs text-white/40">
           <MessageCircleOff className="size-3.5" />
-          {comment ? "Comments are off. (except this one, somehow)" : "Comments are off."}{" "}
-          {dislikeNote}
+          Comments are off. {dislikeNote}
         </div>
 
         {comment && (
