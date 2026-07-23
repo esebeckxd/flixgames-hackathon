@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   BadgeCheck,
   Bell,
@@ -13,18 +13,86 @@ import {
   ThumbsUp,
 } from "lucide-react";
 
-// Classic YouTube desktop watch-page layout: big video top-left, title +
-// actions + channel + description stacked below it in the same main column,
-// and a right-hand sidebar for comments (Ali's hostile one included).
+// Classic YouTube desktop watch-page layout: big landscape video top-left,
+// title + actions + channel + description stacked below it in the same main
+// column, and a right-hand sidebar for comments (Ali's hostile one included).
 //
-// The real footage here is a phone-shot portrait (9:16) clip. Chrome doesn't
-// honor this particular file's rotation-matrix metadata (a known Chromium
-// bug for some iPhone-recorded clips — QuickTime/Safari play it upright,
-// Chrome plays the raw sideways sensor frame), so the <video> is rotated back
-// with CSS: the element is pre-sized to the SWAPPED (landscape) box, then
-// rotated -90deg, which lands it exactly filling our portrait target box.
-const VIDEO_BOX_HEIGHT_VH = 62;
-const VIDEO_BOX_WIDTH_VH = (VIDEO_BOX_HEIGHT_VH * 9) / 16;
+// The real footage here is a phone-shot clip that Chrome renders sideways —
+// a known Chromium bug where some iPhone-recorded MP4s report the correct
+// (rotated) size via videoWidth/videoHeight but don't actually get the
+// rotation matrix applied to the rendered frame. The <video> below is
+// measured via ResizeObserver and rotated back with CSS: pre-rotation it's
+// sized to the box's SWAPPED dimensions, then rotated -90deg, landing it
+// exactly filling the landscape container the right way up.
+function RotatingVideo({
+  src,
+  needsRotationFix,
+  started,
+  onPlay,
+}: {
+  src: string;
+  needsRotationFix: boolean;
+  started: boolean;
+  onPlay: () => void;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [box, setBox] = useState({ w: 0, h: 0 });
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || !needsRotationFix) return;
+    const ro = new ResizeObserver((entries) => {
+      const { width, height } = entries[0].contentRect;
+      setBox({ w: width, h: height });
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [needsRotationFix]);
+
+  return (
+    <div ref={containerRef} className="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
+      <video
+        ref={videoRef}
+        src={src}
+        playsInline
+        controls={started}
+        className="object-cover"
+        style={
+          needsRotationFix
+            ? {
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                width: box.h, // swapped: pre-rotation width = container height
+                height: box.w, // swapped: pre-rotation height = container width
+                maxWidth: "none", // override Tailwind preflight's video{max-width:100%}
+                transform: "translate(-50%, -50%) rotate(-90deg)",
+              }
+            : { height: "100%", width: "100%" }
+        }
+      />
+
+      {!started && (
+        <button
+          onClick={() => {
+            const v = videoRef.current;
+            if (!v) return;
+            v.muted = false;
+            v.play();
+            onPlay();
+          }}
+          className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/40 transition hover:bg-black/30"
+        >
+          <span className="flex size-20 items-center justify-center rounded-full bg-white/90 shadow-lg">
+            <Play className="size-9 translate-x-0.5 fill-[#1A2133] text-[#1A2133]" />
+          </span>
+          <span className="text-sm font-semibold text-white">Play with sound 🔊</span>
+        </button>
+      )}
+    </div>
+  );
+}
 
 export function YouTubePage({
   title,
@@ -51,64 +119,28 @@ export function YouTubePage({
   dislikeNote?: string;
   comment?: { author: string; text: string };
 }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
   const [started, setStarted] = useState(false);
 
   return (
     <div className="flex h-full min-h-full w-full flex-col overflow-y-auto bg-[#0f0f0f] lg:flex-row lg:overflow-hidden">
       <div className="flex min-w-0 flex-1 flex-col gap-4 overflow-y-auto px-6 py-6">
-        <div
-          className="relative flex-none self-start overflow-hidden rounded-xl bg-black"
-          style={{ height: `${VIDEO_BOX_HEIGHT_VH}vh`, width: `${VIDEO_BOX_WIDTH_VH}vh` }}
-        >
-          {videoSrc ? (
-            <video
-              ref={videoRef}
-              src={videoSrc}
-              playsInline
-              controls={started}
-              className="object-cover"
-              style={
-                videoNeedsRotationFix
-                  ? {
-                      position: "absolute",
-                      top: "50%",
-                      left: "50%",
-                      height: `${VIDEO_BOX_WIDTH_VH}vh`,
-                      width: `${VIDEO_BOX_HEIGHT_VH}vh`,
-                      maxWidth: "none", // override Tailwind preflight's video{max-width:100%}
-                      transform: "translate(-50%, -50%) rotate(-90deg)",
-                    }
-                  : { height: "100%", width: "100%" }
-              }
-            />
-          ) : (
+        {videoSrc ? (
+          <RotatingVideo
+            src={videoSrc}
+            needsRotationFix={videoNeedsRotationFix}
+            started={started}
+            onPlay={() => setStarted(true)}
+          />
+        ) : (
+          <div className="relative aspect-video w-full flex-none overflow-hidden rounded-xl bg-black">
             <div className="flex h-full w-full flex-col items-center justify-center gap-3 px-6 text-center text-white/50">
               <span className="flex size-16 items-center justify-center rounded-full bg-white/10">
                 <Play className="size-7 fill-white text-white" />
               </span>
               <span className="text-sm">[ Video: {videoLabel} ]</span>
             </div>
-          )}
-
-          {videoSrc && !started && (
-            <button
-              onClick={() => {
-                const v = videoRef.current;
-                if (!v) return;
-                v.muted = false;
-                v.play();
-                setStarted(true);
-              }}
-              className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/40 transition hover:bg-black/30"
-            >
-              <span className="flex size-20 items-center justify-center rounded-full bg-white/90 shadow-lg">
-                <Play className="size-9 translate-x-0.5 fill-[#1A2133] text-[#1A2133]" />
-              </span>
-              <span className="text-sm font-semibold text-white">Play with sound 🔊</span>
-            </button>
-          )}
-        </div>
+          </div>
+        )}
 
         <div className="flex w-full max-w-2xl flex-col gap-3 text-white">
           <h1 className="text-lg font-bold leading-snug">{title}</h1>

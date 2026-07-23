@@ -6,6 +6,21 @@ pre-hackathon prototype, so versions are lightweight and dated.
 
 ## [Unreleased]
 
+### Added (same-session follow-up 2)
+
+- **Real backdrop photos** (`public/backgrounds/pharma.jpg`, `public/backgrounds/speaker.jpg`, provided
+  by Franz) now layer onto the pharma-office and speaker's-home backdrop scenes — previously only the
+  CSS gradient fallback showed since the files didn't exist yet.
+
+### Changed (same-session follow-up 2)
+
+- **Fixed the DX-reel video for real this time.** The previous fix corrected the sideways *content*
+  but displayed it in a portrait (9:16) box; Franz clarified the actual footage is landscape (horizontal
+  longer than vertical). `YouTubePage.tsx`'s video container is now `aspect-video` (landscape, fills the
+  main column), and the rotation-compensation math now measures the container via `ResizeObserver`
+  instead of a hardcoded `vh` guess, so the swapped pre-rotation sizing is always correct regardless of
+  container size. Verified both orientation (people/objects upright) and playback with sound.
+
 ### Changed (same-session follow-up)
 
 - **Act structure reordered and renamed**: the cold-open (curtain closed → curtain opens on the title)
